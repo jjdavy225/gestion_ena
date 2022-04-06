@@ -1,0 +1,62 @@
+.boutons {
+    display: flex;
+    justify-content: center;
+}
+
+.boutons button,
+.boutons a,
+.boutons input {
+    width: 150px;
+    height: 40px;
+    margin: 0.2em;
+    background-color: #212529;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.boutons a {
+    padding-top: 7.2px;
+}
+
+#table_liste_article {
+    display: flex;
+    padding: 0;
+    width: 60%;
+}
+
+#conteneur_form_article {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#type_liv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    /* border: 1px solid; */
+}
+
+#type_liv div {
+    /* border: 1px solid; */
+    margin: 0.3em;
+}
+
+#conteneur_type_liv {
+    margin-top: 20px;
+    /* border: 1px solid; */
+}
+
+.show li ul li {
+    list-style: square;
+}
+
+.show li ul li ul li {
+    list-style: circle;
+}

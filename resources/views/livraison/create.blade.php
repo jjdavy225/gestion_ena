@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             <label class="form-label" for="agent">Agent</label>
                             <select class="form-select" name="agent" id="agent">
                                 <option disabled selected>Choisissez un agent</option>
@@ -115,7 +115,7 @@
                             @error('agent')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group mb-3">
                             <label class="form-label" for="stock">Stock</label>
                             <select class="form-select" name="stock" id="stock">

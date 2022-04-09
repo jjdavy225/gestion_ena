@@ -11,6 +11,7 @@ use App\Models\Fournisseur;
 use App\Models\Marque;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommandeController extends Controller
 {
@@ -33,11 +34,11 @@ class CommandeController extends Controller
     public function create()
     {
         $fournisseurs = Fournisseur::all();
-        $agents = Agent::all();
+        // $agents = Agent::all();
         $articles = Article::all();
         $types = Type::all();
         $marques = Marque::all();
-        return view('commande.create', compact('fournisseurs', 'agents', 'articles','types','marques'));
+        return view('commande.create', compact('fournisseurs', 'articles','types','marques'));
     }
 
     /**
@@ -65,7 +66,7 @@ class CommandeController extends Controller
             'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
             'date_annul' => null,
             'fournisseur_id' => $request->fournisseur,
-            'agent_id' => $request->agent,
+            'agent_id' => Auth::user()->agent->id,
             'frais' => $request->frais,
             'garantie' => $request->garantie,
         ]);

@@ -12,11 +12,25 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <!-- Name -->
+            {{-- <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+            </div> --}}
+
+            <div class="mt-4">
+                <x-label for="agent" :value="__('Agent')"/>
+                <select class="form-select" name="agent_id" id="agent">
+                    <option disabled selected>Choisissez un agent</option>
+                    @foreach (App\Models\Agent::all() as $agent)
+                        <option value="{{ $agent->id }}">{{ $agent->nom }} {{ $agent->prenom }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('agent')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <!-- Email Address -->

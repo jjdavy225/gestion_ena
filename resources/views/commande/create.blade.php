@@ -245,7 +245,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             <label class="form-label">Agent</label>
                             <select class="form-select" name="agent">
                                 <option disabled selected>Choisissez un agent</option>
@@ -257,7 +257,7 @@
                             @error('agent')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group mb-3">
                             <label class="form-label" for="frais">Frais</label>
                             <input class="form-control" type="number" name="frais" id="frais"

@@ -30,7 +30,7 @@ class LivraisonRequest extends FormRequest
             'montant' => ['required','bail','numeric'],
             'delai' => ['required','bail','numeric'],
             'commande' => ['bail','required','numeric'],
-            'agent' => ['bail','required','numeric'],
+            // 'agent' => ['bail','required','numeric'],
             'stock' => ['bail','required','numeric'],
             'num_bon' => ['bail','required','numeric'],
             'date_bon' => ['required', 'bail', 'date'],

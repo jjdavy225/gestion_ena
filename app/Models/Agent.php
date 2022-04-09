@@ -20,6 +20,10 @@ class Agent extends Model
         'login',
     ];
 
+    public function user(){
+        return $this->hasOne(User::class);
+    }
+
     public function roles(){
         return $this->hasMany(Role::class);
     }

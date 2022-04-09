@@ -10,6 +10,7 @@ use App\Models\Commande;
 use App\Models\Livraison;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LivraisonController extends Controller
 {
@@ -33,8 +34,7 @@ class LivraisonController extends Controller
     {
         $commandes = Commande::all();
         $stocks = Stock::all();
-        $agents = Agent::all();
-        return view('livraison.create', compact('commandes', 'stocks', 'agents'));
+        return view('livraison.create', compact('commandes', 'stocks'));
     }
 
     /**
@@ -54,7 +54,7 @@ class LivraisonController extends Controller
             'delai' => $request->delai,
             'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
             'commande_id' => $request->commande,
-            'agent_id' => $request->agent,
+            'agent_id' => Auth::user()->agent->id,
             'stock_id' => $request->stock,
             'num_bon' => $request->num_bon,
             'date_bon' => $request->date_bon,

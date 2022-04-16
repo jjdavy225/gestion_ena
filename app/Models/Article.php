@@ -51,6 +51,6 @@ class Article extends Model
     }
 
     public function inventaires(){
-        return $this->belongsToMany(Inventaire::class);
+        return $this->belongsToMany(Inventaire::class)->withPivot('quantite','nature_stock')->withTimestamps();
     }
 }

@@ -1,5 +1,5 @@
 <?php $__env->startSection('titre'); ?>
-    Enregistrement d'une commande
+    Nouvelle commande
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('css1'); ?>

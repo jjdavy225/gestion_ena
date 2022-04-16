@@ -7,6 +7,7 @@ use App\Http\Requests\LivraisonRequest;
 use App\Models\Agent;
 use App\Models\Article;
 use App\Models\Commande;
+use App\Models\Inventaire;
 use App\Models\Livraison;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -134,6 +135,24 @@ class LivraisonController extends Controller
         }else {
             $commande->statut_liv = 'Partielle';
             $commande->save();
+        }
+
+        $inventaire = Inventaire::create([
+            'code' => Helper::num_generator('Inventaire', date('Y' . '-' . 'm' . '-' . 'j'), Inventaire::select('code')->get()->last(), 'code'),
+            'exercice_code' => date('Y'),
+            'jour' => date('Y' . '-' . 'm' . '-' . 'j'),
+            'nature' => 'Inventaire après la livraison '.$livraison->code,
+        ]);
+
+        foreach (Stock::all() as $stock) {
+            foreach ($stock->articles as $article) {
+                $inventaire->articles()->attach([
+                    $article->id =>[
+                        'quantite' => $article->pivot->quantite_article,
+                        'nature_stock' => $stock->nature,
+                    ]
+                ]);
+            }
         }
 
         return redirect(route('livraison.index'))->with('info', 'Livraison enregistrée');

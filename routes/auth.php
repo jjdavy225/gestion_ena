@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\InventaireController;
 use App\Http\Controllers\LivraisonController;
@@ -71,5 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('livraison', LivraisonController::class);
     Route::resource('stock',StockController::class); 
     Route::resource('inventaire',InventaireController::class);
+    Route::resource('demande',DemandeController::class);
 
 });

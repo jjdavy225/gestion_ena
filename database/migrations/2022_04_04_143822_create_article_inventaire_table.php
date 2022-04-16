@@ -28,9 +28,10 @@ class CreateArticleInventaireTable extends Migration
                 ->on('articles')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->integer('quantite');
+            $table->string('nature_stock');
             $table->timestamps();
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

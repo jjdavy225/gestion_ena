@@ -1,7 +1,7 @@
 @extends('template.primary')
 
 @section('titre')
-    Enregistrement d'une commande
+    Nouvelle commande
 @endsection
 
 @section('css1')

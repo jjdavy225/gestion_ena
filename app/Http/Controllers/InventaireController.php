@@ -16,7 +16,8 @@ class InventaireController extends Controller
      */
     public function index()
     {
-        return view('inventaire.index');
+        $inventaires = Inventaire::all();
+        return view('inventaire.index',compact('inventaires'));
     }
 
     /**
@@ -60,7 +61,8 @@ class InventaireController extends Controller
      */
     public function show($id)
     {
-        //
+        $inventaire = Inventaire::find($id);
+        return view('inventaire.show',compact('inventaire'));
     }
 
     /**

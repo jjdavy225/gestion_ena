@@ -21,7 +21,7 @@ class CreateDemandesTable extends Migration
             $table->string('objet');
             $table->string('fiche')->nullable();
             $table->integer('delai')->nullable();
-            $table->date('date_saisie')->nullable();
+            $table->date('date_saisie');
             $table->date('date_annul')->nullable();
             $table->date('date_val')->nullable();
             $table->unsignedBigInteger('agent_id');

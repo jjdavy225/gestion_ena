@@ -9,7 +9,7 @@ class Commande extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'num',
         'date',
         'objet',

@@ -36,7 +36,7 @@
         </div>
     </header>
     <div class="main">
-        <div class="navbar-nav col-lg-3" id="menu">
+        <div class="navbar-nav col-lg-2" id="menu">
             <a class="nav-link" href="{{ route('commande.index') }}">Commandes</a>
             <a class="nav-link" href="{{ route('article.index') }}">Articles</a>
             <a class="nav-link" href="{{ route('fournisseur.index') }}">Fournisseurs</a>
@@ -45,6 +45,7 @@
             <a class="nav-link" href="{{ route('livraison.index') }}">Livraisons</a>
             <a class="nav-link" href="{{ route('stock.index') }}">Stocks</a>
             <a class="nav-link" href="{{ route('inventaire.index') }}">Inventaire</a>
+            <a class="nav-link" href="{{ route('demande.index') }}">Demande</a>
         </div>
 
         <aside>

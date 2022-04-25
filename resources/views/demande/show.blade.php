@@ -17,6 +17,7 @@
         <li>Fiche : {{ $demande->fiche }}</li>
         <li>Delai : {{ $demande->delai }}</li>
         <li>Code secteur : {{ $demande->code_secteur }}</li>
+        <li>Code propriétaire : {{ $demande->code_proprietaire }}</li>
         <li>Les articles demandés
             <ul>
                 @foreach ($demande->articles as $article)

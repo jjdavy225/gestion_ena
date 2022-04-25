@@ -24,13 +24,14 @@ class DemandeRequest extends FormRequest
     public function rules()
     {
         return [
-            'articles.*' => ['bail','required','numeric'],
-            'qtes.*' => ['bail','required','numeric'],
+            'articles.*' => ['bail','required','integer'],
+            'qtes.*' => ['bail','required','integer'],
             'date' => ['bail','required','date'],
             'objet' => ['bail','required','max:300'],
             'fiche' => ['bail','required','max:300'],
-            'delai' => ['bail','required','numeric'],
+            'delai' => ['bail','required','integer'],
             'code_secteur' => ['bail','required','max:300'],
+            'code_proprietaire' => ['bail','required','max:300'],
         ];
     }
 }

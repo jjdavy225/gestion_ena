@@ -61,6 +61,7 @@ class DemandeController extends Controller
             'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
             'agent_id' => Auth::user()->agent->id,
             'code_secteur' => $request->code_secteur,
+            'code_proprietaire' => $request->code_proprietaire,
         ]);
 
         $nb_article = count($request->articles);

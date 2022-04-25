@@ -43,7 +43,9 @@
                                                     {{ in_array($article->id, old('articles') ?: []) ? 'checked' : '' }}>
                                             </td>
                                             <script type="text/javascript">
-                                                articles['{{ $article->code }}'] = ['{{ $article->designation }} {{ $article->marque->designation }}','{{$article->pivot->quantite_article}}'];
+                                                articles['{{ $article->code }}'] = ['{{ $article->designation }} {{ $article->marque->designation }}',
+                                                    '{{ $article->pivot->quantite_article }}'
+                                                ];
                                             </script>
                                         </tr>
                                     @endforeach
@@ -67,18 +69,19 @@
                                     a = true;
                                     texte.innerHTML +=
                                         '<div class="form-group mb-3 col-lg-6 mx-auto"><label class="form-label">' + articles[
-                                            article][0] +' | En stock : '+ articles[article][1] + 
-                                        '</label><input class="form-control" type="number" name="qtes[]" placeholder="Quantité" required max="'+articles[article][1]+'"></div>'
-                                    
+                                            article][0] + ' | En stock : ' + articles[article][1] +
+                                        '</label><input class="form-control" type="number" name="qtes[]" placeholder="Quantité" required min="0" max="' +
+                                        articles[article][1] + '"></div>'
+
                                 }
                             }
                             if (!a) {
                                 texte.innerHTML =
                                     '<h5 class="text-center" style="color:red;">CHOISSSEZ AU MOINS UN ARTICLE</h5>';
                                 document.getElementById('submit_all_js').innerHTML = '';
-                            }else{
+                            } else {
                                 document.getElementById('submit_all_js').innerHTML =
-                                        '<input class="btn btn-dark col-lg-2 offset-5 shadow-sm" type="submit" value="Valider">'
+                                    '<input class="btn btn-dark col-lg-2 offset-5 shadow-sm" type="submit" value="Valider">'
                             }
                         }))
                     </script>
@@ -118,7 +121,7 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="delai">Delai</label>
-                            <input required class="form-control" type="number" name="delai" id="delai"
+                            <input required class="form-control" type="number" min="0" name="delai" id="delai"
                                 value="{{ old('delai') }}">
                             @error('delai')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -132,10 +135,18 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="code_proprietaire">Code propriétaire</label>
+                            <input required class="form-control" type="text" name="code_proprietaire"
+                                id="code_proprietaire" value="{{ old('code_proprietaire') }}">
+                            @error('code_proprietaire')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
+
                 <div id="submit_all_js"></div>
             </form>
         </div>
-    </div>
-@endsection
+    @endsection

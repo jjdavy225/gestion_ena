@@ -21,6 +21,7 @@ class Demande extends Model
         'agent_id',
         'agt_matr_est_faite',
         'code_secteur',
+        'code_proprietaire',
         'date_auto',
         'num_auto',
         'siga_code',

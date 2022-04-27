@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Agent;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Agent::create([
+            'matricule' => '19esatic',
+            'nom' =>'Amion',
+            'prenom' =>'Davy',
+            'tel' => '0767230749',
+        ]);
     }
 }

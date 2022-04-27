@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LivraisonRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class LivraisonRequest extends FormRequest
     public function rules()
     {
         return [
+            'liv' =>['required',Rule::in(['complete','partielle'])],
             'date' => ['required','bail','date'],
             'remise' => ['required','bail','numeric'],
             'tva' => ['required','bail','numeric'],
@@ -36,6 +38,8 @@ class LivraisonRequest extends FormRequest
             'date_bon' => ['required', 'bail', 'date'],
             'fact_num' => ['bail', 'required', 'numeric'],
             'fact_date' => ['required', 'bail', 'date'],
+            'articles.*' =>['bail','required','numeric'],
+            'qtes.*' =>['bail','required','numeric','min:0'],
         ];
     }
 }

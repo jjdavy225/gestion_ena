@@ -20,7 +20,6 @@ class Sortie extends Model
         'code_structure',
         'code_bureau',
         'code_secteur',
-        'code_secteur',
         'agent_id',
         'agent_matr_est_saisie',
         'supprime',
@@ -28,6 +27,10 @@ class Sortie extends Model
 
     public function demande(){
         return $this->belongsTo(Demande::class);
+    }
+
+    public function articles(){
+        return $this->belongsToMany(Article::class)->withPivot('quantite_sortie','reste')->withTimestamps();
     }
 
     public function agent(){

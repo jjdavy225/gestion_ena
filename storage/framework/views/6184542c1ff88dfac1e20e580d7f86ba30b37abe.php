@@ -15,6 +15,7 @@
         <li>Objet : <?php echo e($demande->objet); ?></li>
         <li>Fiche : <?php echo e($demande->fiche); ?></li>
         <li>Delai : <?php echo e($demande->delai); ?></li>
+        <li>Statut de sortie : <?php echo e($demande->statut); ?></li>
         <li>Code secteur : <?php echo e($demande->code_secteur); ?></li>
         <li>Code propriétaire : <?php echo e($demande->code_proprietaire); ?></li>
         <li>Les articles demandés
@@ -23,7 +24,9 @@
                     <li><?php echo e($article->designation); ?> | <?php echo e($article->marque->designation); ?>
 
                         <ul>
-                            <li>Quantité demandée : <?php echo e($article->pivot->quantite_article); ?></li>
+                            <li>Quantité demandée : <?php echo e($article->pivot->quantite); ?></li>
+                            <li>Quantité sortie : <?php echo e($article->pivot->quantite_sortie); ?></li>
+                            <li>Reste : <?php echo e($article->pivot->reste); ?></li>
                         </ul>
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

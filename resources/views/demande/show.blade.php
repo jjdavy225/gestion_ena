@@ -16,6 +16,7 @@
         <li>Objet : {{ $demande->objet }}</li>
         <li>Fiche : {{ $demande->fiche }}</li>
         <li>Delai : {{ $demande->delai }}</li>
+        <li>Statut de sortie : {{ $demande->statut }}</li>
         <li>Code secteur : {{ $demande->code_secteur }}</li>
         <li>Code propriétaire : {{ $demande->code_proprietaire }}</li>
         <li>Les articles demandés
@@ -23,7 +24,9 @@
                 @foreach ($demande->articles as $article)
                     <li>{{ $article->designation }} | {{$article->marque->designation}}
                         <ul>
-                            <li>Quantité demandée : {{ $article->pivot->quantite_article }}</li>
+                            <li>Quantité demandée : {{ $article->pivot->quantite }}</li>
+                            <li>Quantité sortie : {{ $article->pivot->quantite_sortie }}</li>
+                            <li>Reste : {{ $article->pivot->reste }}</li>
                         </ul>
                     </li>
                 @endforeach

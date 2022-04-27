@@ -46,6 +46,7 @@
             <a class="nav-link" href="<?php echo e(route('stock.index')); ?>">Stocks</a>
             <a class="nav-link" href="<?php echo e(route('inventaire.index')); ?>">Inventaire</a>
             <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demande</a>
+            <a class="nav-link" href="<?php echo e(route('sortie.index')); ?>">Sortie</a>
         </div>
 
         <aside>

@@ -33,6 +33,7 @@ class CreateDemandesTable extends Migration
             $table->string('agt_matr_est_faite')->nullable();
             $table->string('code_secteur')->nullable();
             $table->string('code_proprietaire');
+            $table->string('statut');
             $table->date('date_auto')->nullable();
             $table->string('num_auto')->nullable();
             $table->string('siga_code')->nullable();

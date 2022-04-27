@@ -46,6 +46,7 @@
             <a class="nav-link" href="{{ route('stock.index') }}">Stocks</a>
             <a class="nav-link" href="{{ route('inventaire.index') }}">Inventaire</a>
             <a class="nav-link" href="{{ route('demande.index') }}">Demande</a>
+            <a class="nav-link" href="{{ route('sortie.index') }}">Sortie</a>
         </div>
 
         <aside>

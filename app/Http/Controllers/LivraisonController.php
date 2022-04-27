@@ -62,12 +62,13 @@ class LivraisonController extends Controller
             'fact_num' => $request->fact_num,
             'fact_date' => $request->fact_date,
         ]);
-        $commande = Commande::where('id', '=', $request->commande)->with('articles')->first();
+        $commande = Commande::find($request->commande);
         $articles = $commande->articles()->get();
-
         $stock = Stock::find($request->stock);
+
+        
         if ($request->liv == 'complete') {
-            $articles_r = $commande->articles()->get();
+            $articles_r = $articles;
         }else {
             $articles_r = $request->articles;
         }
@@ -105,7 +106,7 @@ class LivraisonController extends Controller
                     ]
                 ]);
                 $article->quantite_livree += $reste_r;
-                $article->reste = $article->reste - $reste_r;
+                $article->reste -= $reste_r;
                 $article->save();
             }
         }

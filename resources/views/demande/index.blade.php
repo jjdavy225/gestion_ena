@@ -22,6 +22,7 @@
                     <th>#</th>
                     <th>Code</th>
                     <th>Objet</th>
+                    <th>Statut</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -32,6 +33,7 @@
                         <td>{{ $demande->id }}</td>
                         <td>{{ $demande->code }}</td>
                         <td>{{ $demande->objet }}</td>
+                        <td>{{ $demande->statut }}</td>
                         <td><a href="{{ route('demande.show', $demande->id) }}">Voir</a></td>
                         <td><a href="{{ route('demande.edit', $demande->id) }}">Modifier</a></td>
                     </tr>

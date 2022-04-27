@@ -21,6 +21,7 @@
                     <th>#</th>
                     <th>Code</th>
                     <th>Objet</th>
+                    <th>Statut</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -31,6 +32,7 @@
                         <td><?php echo e($demande->id); ?></td>
                         <td><?php echo e($demande->code); ?></td>
                         <td><?php echo e($demande->objet); ?></td>
+                        <td><?php echo e($demande->statut); ?></td>
                         <td><a href="<?php echo e(route('demande.show', $demande->id)); ?>">Voir</a></td>
                         <td><a href="<?php echo e(route('demande.edit', $demande->id)); ?>">Modifier</a></td>
                     </tr>

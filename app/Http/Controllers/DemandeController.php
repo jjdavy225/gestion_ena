@@ -62,13 +62,16 @@ class DemandeController extends Controller
             'agent_id' => Auth::user()->agent->id,
             'code_secteur' => $request->code_secteur,
             'code_proprietaire' => $request->code_proprietaire,
+            'statut' => 'Aucune sortie',
         ]);
 
         $nb_article = count($request->articles);
         for ($i = 0; $i < $nb_article; $i++) {
             $demande->articles()->attach([
                 $request->articles[$i] => [
-                    'quantite_article' => $request->qtes[$i],
+                    'quantite' => $request->qtes[$i],
+                    'quantite_sortie' => 0,
+                    'reste' => $request->qtes[$i],
                 ]
             ]);
         }

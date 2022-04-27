@@ -15,6 +15,7 @@ use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\InventaireController;
 use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\MarqueController;
+use App\Http\Controllers\SortieController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
@@ -73,5 +74,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('stock',StockController::class); 
     Route::resource('inventaire',InventaireController::class);
     Route::resource('demande',DemandeController::class);
-
+    Route::resource('sortie',SortieController::class);
 });

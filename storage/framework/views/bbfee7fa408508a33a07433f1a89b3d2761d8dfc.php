@@ -16,7 +16,7 @@
                     <h3 class="text-center">Renseignez la livraison</h3>
                 </div>
 
-                <div class="container" id="conteneur_type_liv">
+                <div class="container" id="conteneur_type">
                     <h5 class="text-center">Choisissez le type de livraison</h5>
                     <div id="type_liv">
                         <div class="form-check">

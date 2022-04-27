@@ -22,6 +22,7 @@ class Demande extends Model
         'agt_matr_est_faite',
         'code_secteur',
         'code_proprietaire',
+        'statut',
         'date_auto',
         'num_auto',
         'siga_code',
@@ -32,7 +33,7 @@ class Demande extends Model
     }
 
     public function articles(){
-        return $this->belongsToMany(Article::class)->withPivot('quantite_article')->withTimestamps();
+        return $this->belongsToMany(Article::class)->withPivot('quantite','quantite_sortie','reste')->withTimestamps();
     }
 
     public function sorties(){

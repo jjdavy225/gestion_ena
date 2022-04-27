@@ -47,10 +47,14 @@ class Article extends Model
     }
 
     public function demandes(){
-        return $this->belongsToMany(Demande::class)->withPivot('quantite_article')->withTimestamps();
+        return $this->belongsToMany(Demande::class)->withPivot('quantite','quantite_sortie','reste')->withTimestamps();
     }
 
     public function inventaires(){
         return $this->belongsToMany(Inventaire::class)->withPivot('quantite','nature_stock')->withTimestamps();
+    }
+
+    public function sorties(){
+        return $this->belongsToMany(Sortie::class)->withPivot('quantite_sortie','reste')->withTimestamps();
     }
 }

@@ -28,7 +28,9 @@ class CreateArticleDemandeTable extends Migration
                 ->on('articles')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->integer('quantite_article');
+            $table->integer('quantite');
+            $table->integer('quantite_sortie');
+            $table->integer('reste');
             $table->timestamps();
         });
     }

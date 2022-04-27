@@ -17,21 +17,21 @@ class CreateStocksTable extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->string('code',10)->unique();
-            $table->integer('initial')->nullable();
-            $table->integer('entree')->nullable();
+            $table->integer('initial')->nullable()->default(0);
+            $table->integer('entree')->nullable()->default(0);
             $table->integer('assemblage')->nullable();
-            $table->integer('sortie')->nullable();
-            $table->integer('retour')->nullable();
-            $table->integer('stock')->nullable();
+            $table->integer('sortie')->nullable()->default(0);
+            $table->integer('retour')->nullable()->default(0);
+            $table->integer('stock')->nullable()->default(0);
             $table->string('exercice_code')->nullable();
             $table->date('jour')->nullable();
-            $table->string('nature')->nullable();
-            $table->integer('montant_initial')->nullable();
-            $table->integer('entree_montant')->nullable();
-            $table->integer('assemble_montant')->nullable();
-            $table->integer('sortie_montant')->nullable();
-            $table->integer('retour_montant')->nullable();
-            $table->integer('stock_montant')->nullable();
+            $table->string('nature');
+            $table->integer('montant_initial')->nullable()->default(0);
+            $table->integer('entree_montant')->nullable()->default(0);
+            $table->integer('assemble_montant')->nullable()->default(0);
+            $table->integer('sortie_montant')->nullable()->default(0);
+            $table->integer('retour_montant')->nullable()->default(0);
+            $table->integer('stock_montant')->nullable()->default(0);
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class CreateSortiesTable extends Migration
             $table->id();
             $table->string('code',10)->unique();
             $table->date('date');
-            $table->date('heure')->nullable();
+            $table->time('heure')->nullable();
             $table->string('obs')->nullable();
             $table->date('date_saisie')->nullable();
             $table->unsignedBigInteger('demande_id');

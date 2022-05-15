@@ -1,7 +1,7 @@
 @extends('template.primary')
 
 @section('css1')
-    <link rel="stylesheet" href="{{ secure_asset('css/style1.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
 @endsection
 
 @section('titre')

@@ -18,7 +18,7 @@
         <li>Delai : {{ $demande->delai }}</li>
         <li>Statut de sortie : {{ $demande->statut }}</li>
         <li>Code secteur : {{ $demande->code_secteur }}</li>
-        <li>Code propriétaire : {{ $demande->code_proprietaire }}</li>
+        <li>Code propriétaire : {{ $demande->bureau->site->designation}}-{{$demande->bureau->designation}}</li>
         <li>Les articles demandés
             <ul>
                 @foreach ($demande->articles as $article)

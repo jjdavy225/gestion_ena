@@ -48,6 +48,14 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="nature">Nature de la sortie</label>
+                            <input required class="form-control" type="text" name="nature" id="nature"
+                                value="{{ old('nature') }}">
+                            @error('nature')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-3">

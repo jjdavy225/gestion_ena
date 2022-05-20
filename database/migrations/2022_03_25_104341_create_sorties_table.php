@@ -20,23 +20,16 @@ class CreateSortiesTable extends Migration
             $table->date('date');
             $table->time('heure')->nullable();
             $table->string('obs')->nullable();
-            $table->date('date_saisie')->nullable();
-            $table->unsignedBigInteger('demande_id');
-            $table->foreign('demande_id')
-                ->references('id')
-                ->on('demandes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            $table->string('code_sorn')->nullable();
+            $table->date('date_saisie');
+            $table->foreignId('demande_id')->constrained()
+                ->restrictOnDelete()->cascadeOnUpdate();
+            $table->string('nature');
             $table->string('code_structure')->nullable();
-            $table->string('code_bureau')->nullable();
+            $table->foreignId('bureau_id')->constrained()
+                ->restrictOnDelete()->cascadeOnUpdate();
             $table->string('code_secteur')->nullable();
-            $table->unsignedBigInteger('agent_id');
-            $table->foreign('agent_id')
-                ->references('id')
-                ->on('agents')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreignId('agent_id')->constrained()
+                ->cascadeOnUpdate();
             $table->string('agent_matr_est_saisie')->nullable();
             $table->string('supprime')->nullable();
             $table->timestamps();

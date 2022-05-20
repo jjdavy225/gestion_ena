@@ -16,9 +16,9 @@ class Sortie extends Model
         'obs',
         'date_saisie',
         'demande_id',
-        'code_sorn',
+        'nature',
         'code_structure',
-        'code_bureau',
+        'bureau_id',
         'code_secteur',
         'agent_id',
         'agent_matr_est_saisie',
@@ -35,5 +35,9 @@ class Sortie extends Model
 
     public function agent(){
         return $this->belongsTo(Agent::class);
+    }
+
+    public function bureau(){
+        return $this->belongsTo(Bureau::class);
     }
 }

@@ -13,7 +13,6 @@ class CreateDemandesTable extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
             $table->string('code',10)->unique();
@@ -24,15 +23,12 @@ class CreateDemandesTable extends Migration
             $table->date('date_saisie');
             $table->date('date_annul')->nullable();
             $table->date('date_val')->nullable();
-            $table->unsignedBigInteger('agent_id');
-            $table->foreign('agent_id')
-                ->references('id')
-                ->on('agents')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreignId('agent_id')->constrained()
+                ->cascadeOnUpdate();
             $table->string('agt_matr_est_faite')->nullable();
             $table->string('code_secteur')->nullable();
-            $table->string('code_proprietaire');
+            $table->foreignId('bureau_id')->constrained()
+                ->restrictOnDelete()->cascadeOnUpdate();
             $table->string('statut');
             $table->date('date_auto')->nullable();
             $table->string('num_auto')->nullable();

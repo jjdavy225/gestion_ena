@@ -51,7 +51,7 @@ class CommandeController extends Controller
     public function store(CommandeRequest $request)
     {
         $commande = Commande::create([
-            'num' => Helper::num_generator('Commande', date('Y' . '-' . 'm' . '-' . 'j'), Commande::select('num')->get()->last(),'num'),
+            'num' => Helper::num_generator('Commande', date('Y-m-j'), Commande::select('num')->get()->last(),'num'),
             'date' => $request->date,
             'objet' => $request->objet,
             'num_fact' => $request->num_fact,
@@ -63,7 +63,7 @@ class CommandeController extends Controller
             'delai_liv' => $request->delai_liv,
             'date_liv' => $request->date_liv,
             'statut_liv' => 'Non livrée',
-            'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
+            'date_saisie' => date('Y-m-j'),
             'date_annul' => null,
             'fournisseur_id' => $request->fournisseur,
             'agent_id' => Auth::user()->agent->id,

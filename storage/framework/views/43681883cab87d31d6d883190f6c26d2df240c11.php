@@ -34,19 +34,22 @@
                                 </script>
                                 <?php $__currentLoopData = $stocks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stock): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php $__currentLoopData = $stock->articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td><?php echo e($article->designation); ?></td>
-                                            <td><?php echo e($article->marque->designation); ?></td>
-                                            <td><input class="checkbox styled checkbox-primary" id="<?php echo e($article->code); ?>"
-                                                    type="checkbox" name="articles[]" value="<?php echo e($article->id); ?>"
-                                                    <?php echo e(in_array($article->id, old('articles') ?: []) ? 'checked' : ''); ?>>
-                                            </td>
-                                            <script type="text/javascript">
-                                                articles['<?php echo e($article->code); ?>'] = ['<?php echo e($article->designation); ?> <?php echo e($article->marque->designation); ?>',
-                                                    '<?php echo e($article->pivot->quantite_article); ?>'
-                                                ];
-                                            </script>
-                                        </tr>
+                                        <?php if($article->pivot->quantite_article > 0): ?>
+                                            <tr>
+                                                <td><?php echo e($article->designation); ?></td>
+                                                <td><?php echo e($article->marque->designation); ?></td>
+                                                <td><input class="checkbox styled checkbox-primary"
+                                                        id="<?php echo e($article->code); ?>" type="checkbox" name="articles[]"
+                                                        value="<?php echo e($article->id); ?>"
+                                                        <?php echo e(in_array($article->id, old('articles') ?: []) ? 'checked' : ''); ?>>
+                                                </td>
+                                                <script type="text/javascript">
+                                                    articles['<?php echo e($article->code); ?>'] = ['<?php echo e($article->designation); ?> <?php echo e($article->marque->designation); ?>',
+                                                        '<?php echo e($article->pivot->quantite_article); ?>'
+                                                    ];
+                                                </script>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
@@ -170,10 +173,15 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
-                            <label class="form-label" for="code_proprietaire">Code propriétaire</label>
-                            <input required class="form-control" type="text" name="code_proprietaire"
-                                id="code_proprietaire" value="<?php echo e(old('code_proprietaire')); ?>">
-                            <?php $__errorArgs = ['code_proprietaire'];
+                            <label class="form-label" for="bureau">Bureau</label>
+                            <select class="form-select" name="bureau" id="bureau">
+                                <option disabled selected>Choisissez un bureau</option>
+                                <?php $__currentLoopData = $bureaux; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bureau): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($bureau->id); ?>">
+                                        <?php echo e($bureau->site->designation); ?>-<?php echo e($bureau->designation); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <?php $__errorArgs = ['demande'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

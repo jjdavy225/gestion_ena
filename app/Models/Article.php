@@ -57,4 +57,12 @@ class Article extends Model
     public function sorties(){
         return $this->belongsToMany(Sortie::class)->withPivot('quantite_sortie','reste')->withTimestamps();
     }
+
+    public function retours(){
+        return $this->belongsToMany(Retour::class)->withPivot('quantite','prix_unitaire')->withTimestamps();
+    }
+
+    public function patrimoines(){
+        return $this->hasMany(Patrimoine::class);
+    }
 }

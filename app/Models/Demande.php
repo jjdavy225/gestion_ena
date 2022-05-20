@@ -20,7 +20,7 @@ class Demande extends Model
         'date_val',
         'agent_id',
         'agt_matr_est_faite',
-        'code_secteur',
+        'bureau_id',
         'code_proprietaire',
         'statut',
         'date_auto',
@@ -38,5 +38,9 @@ class Demande extends Model
 
     public function sorties(){
         return $this->hasMany(Sortie::class);
+    }
+
+    public function bureau(){
+        return $this->belongsTo(Bureau::class);
     }
 }

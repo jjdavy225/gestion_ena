@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @yield('css1')
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ secure_asset('css/app.css') }}">{{-- Font awesome --}}
+    <link type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">{{-- Font awesome --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -44,9 +44,12 @@
             <a class="nav-link" href="{{ route('marque_article.index') }}">Marques des articles</a>
             <a class="nav-link" href="{{ route('livraison.index') }}">Livraisons</a>
             <a class="nav-link" href="{{ route('stock.index') }}">Stocks</a>
-            <a class="nav-link" href="{{ route('inventaire.index') }}">Inventaire</a>
-            <a class="nav-link" href="{{ route('demande.index') }}">Demande</a>
-            <a class="nav-link" href="{{ route('sortie.index') }}">Sortie</a>
+            <a class="nav-link" href="{{ route('inventaire.index') }}">Inventaires</a>
+            <a class="nav-link" href="{{ route('demande.index') }}">Demandes</a>
+            <a class="nav-link" href="{{ route('sortie.index') }}">Sorties</a>
+            <a class="nav-link" href="{{ route('site.index') }}">Sites</a>
+            <a class="nav-link" href="{{ route('bureau.index') }}">Bureaux</a>
+            <a class="nav-link" href="{{ route('patrimoine.index') }}">Patrimoine</a>
         </div>
 
         <aside>

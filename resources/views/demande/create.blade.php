@@ -35,19 +35,22 @@
                                 </script>
                                 @foreach ($stocks as $stock)
                                     @foreach ($stock->articles as $article)
-                                        <tr>
-                                            <td>{{ $article->designation }}</td>
-                                            <td>{{ $article->marque->designation }}</td>
-                                            <td><input class="checkbox styled checkbox-primary" id="{{ $article->code }}"
-                                                    type="checkbox" name="articles[]" value="{{ $article->id }}"
-                                                    {{ in_array($article->id, old('articles') ?: []) ? 'checked' : '' }}>
-                                            </td>
-                                            <script type="text/javascript">
-                                                articles['{{ $article->code }}'] = ['{{ $article->designation }} {{ $article->marque->designation }}',
-                                                    '{{ $article->pivot->quantite_article }}'
-                                                ];
-                                            </script>
-                                        </tr>
+                                        @if ($article->pivot->quantite_article > 0)
+                                            <tr>
+                                                <td>{{ $article->designation }}</td>
+                                                <td>{{ $article->marque->designation }}</td>
+                                                <td><input class="checkbox styled checkbox-primary"
+                                                        id="{{ $article->code }}" type="checkbox" name="articles[]"
+                                                        value="{{ $article->id }}"
+                                                        {{ in_array($article->id, old('articles') ?: []) ? 'checked' : '' }}>
+                                                </td>
+                                                <script type="text/javascript">
+                                                    articles['{{ $article->code }}'] = ['{{ $article->designation }} {{ $article->marque->designation }}',
+                                                        '{{ $article->pivot->quantite_article }}'
+                                                    ];
+                                                </script>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 @endforeach
                             </tbody>
@@ -136,10 +139,15 @@
                             @enderror
                         </div>
                         <div class="form-group mb-3">
-                            <label class="form-label" for="code_proprietaire">Code propriétaire</label>
-                            <input required class="form-control" type="text" name="code_proprietaire"
-                                id="code_proprietaire" value="{{ old('code_proprietaire') }}">
-                            @error('code_proprietaire')
+                            <label class="form-label" for="bureau">Bureau</label>
+                            <select class="form-select" name="bureau" id="bureau">
+                                <option disabled selected>Choisissez un bureau</option>
+                                @foreach ($bureaux as $bureau)
+                                    <option value="{{ $bureau->id }}">
+                                        {{ $bureau->site->designation }}-{{ $bureau->designation }}</option>
+                                @endforeach
+                            </select>
+                            @error('demande')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

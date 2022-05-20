@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\DemandeRequest;
+use App\Models\Bureau;
 use App\Models\Demande;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class DemandeController extends Controller
     public function create()
     {
         $stocks = Stock::all();
-        return view('demande.create',compact('stocks'));
+        $bureaux = Bureau::all();
+        return view('demande.create',compact('stocks','bureaux'));
     }
 
     /**
@@ -61,7 +63,7 @@ class DemandeController extends Controller
             'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
             'agent_id' => Auth::user()->agent->id,
             'code_secteur' => $request->code_secteur,
-            'code_proprietaire' => $request->code_proprietaire,
+            'bureau_id' => $request->bureau,
             'statut' => 'Aucune sortie',
         ]);
 

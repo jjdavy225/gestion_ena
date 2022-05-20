@@ -51,4 +51,8 @@ class Agent extends Model
     public function sorties(){
         return $this->hasMany(Sortie::class);
     }
+
+    public function retours(){
+        return $this->hasMany(Retour::class);
+    }
 }

@@ -14,6 +14,7 @@
         <li>Numéro de la sortie : {{ $sortie->code }}</li>
         <li>Date de sortie : {{ $sortie->date }}</li>
         <li>Demande concernée : <a href="{{route('demande.show',$sortie->demande->id)}}">{{ $sortie->demande->code }}</a></li>
+        <li>Bureau : {{$sortie->bureau->site->designation}}-{{$sortie->bureau->designation}}</li>
         <li>Les articles sortis
             <ul>
                 @foreach ($sortie->articles as $article)

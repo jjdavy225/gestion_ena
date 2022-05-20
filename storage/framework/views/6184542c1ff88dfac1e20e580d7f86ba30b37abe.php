@@ -17,7 +17,7 @@
         <li>Delai : <?php echo e($demande->delai); ?></li>
         <li>Statut de sortie : <?php echo e($demande->statut); ?></li>
         <li>Code secteur : <?php echo e($demande->code_secteur); ?></li>
-        <li>Code propriétaire : <?php echo e($demande->code_proprietaire); ?></li>
+        <li>Code propriétaire : <?php echo e($demande->bureau->site->designation); ?>-<?php echo e($demande->bureau->designation); ?></li>
         <li>Les articles demandés
             <ul>
                 <?php $__currentLoopData = $demande->articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

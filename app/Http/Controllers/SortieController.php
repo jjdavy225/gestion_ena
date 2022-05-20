@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Requests\SortieRequest;
 use App\Models\Demande;
+use App\Models\Patrimoine;
 use App\Models\Sortie;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -43,12 +44,14 @@ class SortieController extends Controller
     public function store(SortieRequest $request)
     {
         $sortie = Sortie::create([
-            'code' => Helper::num_generator('Sortie', date('Y' . '-' . 'm' . '-' . 'j'), Sortie::select('code')->get()->last(), 'code'),
+            'code' => Helper::num_generator('Sortie', date('Y-m-j'), Sortie::select('code')->get()->last(), 'code'),
             'date' => $request->date,
             'heure' => date('H:i:s'),
-            'date_saisie' => date('Y' . '-' . 'm' . '-' . 'j'),
+            'date_saisie' => date('Y-m-j'),
             'demande_id' => $request->demande,
+            'nature' => $request->nature,
             'agent_id' => Auth::user()->agent->id,
+            'bureau_id' => Demande::find($request->demande)->bureau_id,
         ]);
 
         $demande = Demande::find($request->demande);
@@ -102,6 +105,18 @@ class SortieController extends Controller
             $article->quantite_sortie += $reste_r;
             $article->reste -= $reste_r;
             $article->save();
+
+            $patrimoine = Patrimoine::where('bureau_id','=',$sortie->bureau_id)->where('article_id','=',$id_r)->first();
+            if ($patrimoine == null) {
+                Patrimoine::create([
+                    'bureau_id' => $sortie->bureau_id,
+                    'article_id' => $id_r,
+                    'quantite' => $reste_r,
+                ]);
+            }else {
+                $patrimoine->quantite += $reste_r;
+                $patrimoine->save();
+            }
         }
 
         foreach ($articles as $article) {

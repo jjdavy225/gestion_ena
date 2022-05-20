@@ -31,7 +31,7 @@ class DemandeRequest extends FormRequest
             'fiche' => ['bail','required','max:300'],
             'delai' => ['bail','required','integer'],
             'code_secteur' => ['bail','required','max:300'],
-            'code_proprietaire' => ['bail','required','max:300'],
+            'bureau' => ['bail','required','numeric'],
         ];
     }
 }

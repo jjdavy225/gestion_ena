@@ -28,6 +28,7 @@ class SortieRequest extends FormRequest
             'articles.*' => ['bail','required','numeric'],
             'qtes.*' => ['bail','required','numeric','min:0'],
             'date' => ['bail','required','date'],
+            'nature' => ['bail','required','max:40'],
             'type_sortie' =>['required',Rule::in(['complete','partielle'])],
             'demande' => ['bail','required','numeric']
         ];

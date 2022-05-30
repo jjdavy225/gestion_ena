@@ -4,10 +4,6 @@ namespace App\Helpers;
 
 class Helper{
 
-    public static function test(){
-        return('Hello Helper');
-    }
-
     public static function num_generator($nom_t,$date,$num_l,$l){
         $lettre = substr($nom_t,0,3);
         $maj = strtoupper($lettre);

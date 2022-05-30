@@ -39,7 +39,7 @@ class Article extends Model
     }
 
     public function stocks(){
-        return $this->belongsToMany(Stock::class)->withPivot('quantite_article','mouvement')->withTimestamps();
+        return $this->belongsToMany(Stock::class)->withPivot('quantite_totale','quantite_entree','quantite_retournee')->withTimestamps();
     }
 
     public function stock_jours(){
@@ -64,5 +64,9 @@ class Article extends Model
 
     public function patrimoines(){
         return $this->hasMany(Patrimoine::class);
+    }
+
+    public function mouvements(){
+        return $this->belongsToMany(Mouvement::class)->withPivot('quantite')->withTimestamps();
     }
 }

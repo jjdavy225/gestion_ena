@@ -23,8 +23,9 @@
             <tr>
                 <th>#</th>
                 <th>Code</th>
-                <th>Quantité</th>
-                <th>Mouvement</th>
+                <th>Quantité totale</th>
+                <th>Quantité entrée</th>
+                <th>Quantité retournée</th>
                 <th>Désignation</th>
                 <th>Marque</th>
                 <th>Type</th>
@@ -35,8 +36,9 @@
                 <tr>
                     <td><?php echo e($article->id); ?></td>
                     <td><?php echo e($article->code); ?></td>
-                    <td><?php echo e($article->pivot->quantite_article); ?></td>
-                    <td><?php echo e($article->pivot->mouvement); ?></td>
+                    <td><?php echo e($article->pivot->quantite_totale); ?></td>
+                    <td><?php echo e($article->pivot->quantite_entree); ?></td>
+                    <td><?php echo e($article->pivot->quantite_retournee); ?></td>
                     <td><?php echo e($article->designation); ?></td>
                     <td><?php echo e($article->marque->designation); ?></td>
                     <td><?php echo e($article->type->designation); ?></td>

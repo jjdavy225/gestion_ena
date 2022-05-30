@@ -87,13 +87,15 @@ class LivraisonController extends Controller
                 $stock->save();
                 if ($stock->articles()->find($id_r) != null) {
                     $article_stock = $stock->articles()->find($id_r)->pivot;
-                    $article_stock->quantite_article += $reste_r;
+                    $article_stock->quantite_entree += $reste_r;
+                    $article_stock->quantite_totale = $article_stock->quantite_entree + $article_stock->quantite_retournee;
                     $article_stock->save();
                 } else {
                     $stock->articles()->attach([
                         $id_r => [
-                            'quantite_article' => $reste_r,
-                            'mouvement' => 'entrée',
+                            'quantite_entree' => $reste_r,
+                            'quantite_retournee' => 00,
+                            'quantite_totale' => $reste_r,
                         ]
                     ]);
                 }
@@ -149,7 +151,7 @@ class LivraisonController extends Controller
             foreach ($stock->articles as $article) {
                 $inventaire->articles()->attach([
                     $article->id =>[
-                        'quantite' => $article->pivot->quantite_article,
+                        'quantite' => $article->pivot->quantite_totale,
                         'nature_stock' => $stock->nature,
                     ]
                 ]);

@@ -29,15 +29,21 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $i = 1;
+            @endphp
             @foreach ($patrimoine as $articleP)
                 <tr>
-                    <td>{{ $articleP->article->id }}</td>
+                    <td>{{ $i }}</td>
                     <td>{{ $articleP->article->code }}</td>
                     <td>{{ $articleP->quantite }}</td>
                     <td>{{ $articleP->article->designation }}</td>
                     <td>{{ $articleP->article->marque->designation }}</td>
                     <td>{{ $articleP->article->type->designation }}</td>
                 </tr>
+                @php
+                    $i++;
+                @endphp
             @endforeach
         </tbody>
     </table>

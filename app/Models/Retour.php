@@ -14,16 +14,21 @@ class Retour extends Model
         'date',
         'observation',
         'date_saisie',
-        'sortie_id',
+        'bureau_id',
+        'stock_id',
         'agent_id',
     ];
 
-    public function article(){
+    public function articles(){
         return $this->belongsToMany(Article::class)->withPivot('quantite','prix_unitaire')->withTimestamps();
     } 
 
-    public function sortie(){
-        return $this->belongsTo(Sortie::class);
+    public function bureau(){
+        return $this->belongsTo(Bureau::class);
+    }
+
+    public function stock(){
+        return $this->belongsTo(Stock::class);
     }
 
     public function agent(){

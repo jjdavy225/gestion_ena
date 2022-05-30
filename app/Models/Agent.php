@@ -55,4 +55,8 @@ class Agent extends Model
     public function retours(){
         return $this->hasMany(Retour::class);
     }
+
+    public function mouvements(){
+        return $this->hasMany(Mouvement::class);
+    }
 }

@@ -48,7 +48,7 @@ class DemandeController extends Controller
                 $id_article = $request->articles[$i]; 
                 $articleEnStock = $stock->articles()->find($id_article);
                 if ($articleEnStock != null) {
-                    if ($articleEnStock->pivot->quantite_article < $request->qtes[$i]) {
+                    if ($articleEnStock->pivot->quantite_totale < $request->qtes[$i]) {
                         return back()->with('errors_qte','Une erreur est survenue!  Vérifier les quantités saisies pour les articles !!');
                     }
                 }

@@ -78,11 +78,16 @@ class SortieController extends Controller
                 $articleEnStock = $stock->articles()->find($id_r);
                 if ($articleEnStock != null) {
                     $articleFound = true;
-                    if ($articleEnStock->pivot->quantite_article < $reste_r) {
+                    if ($articleEnStock->pivot->quantite_totale < $reste_r) {
                         $sortie->delete();
                         return back()->with('errors_qte','Les quantités en stock sont insuffisantes pour cette opération !!');
                     }else {
-                        $articleEnStock->pivot->quantite_article -= $reste_r;
+                        $articleEnStock->pivot->quantite_retournee -= $reste_r;
+                        if ($articleEnStock->pivot->quantite_retournee < 0) {
+                            $articleEnStock->pivot->quantite_entree += $articleEnStock->pivot->quantite_retournee;
+                            $articleEnStock->pivot->quantite_retournee = 0;
+                        }
+                        $articleEnStock->pivot->quantite_totale = $articleEnStock->pivot->quantite_entree + $articleEnStock->pivot->quantite_retournee;
                         $articleEnStock->pivot->save();
                         $stock->sortie += 1;
                         $stock->save();

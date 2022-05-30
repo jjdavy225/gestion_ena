@@ -28,10 +28,14 @@ class Stock extends Model
     ];
 
     public function articles(){
-        return $this->belongsToMany(Article::class)->withPivot('quantite_article','mouvement')->withTimestamps();
+        return $this->belongsToMany(Article::class)->withPivot('quantite_totale','quantite_entree','quantite_retournee')->withTimestamps();
     }
 
     public function livraisons(){
         return $this->hasMany(Livraison::class);
+    }
+
+    public function retours(){
+        return $this->hasMany(Retour::class);
     }
 }

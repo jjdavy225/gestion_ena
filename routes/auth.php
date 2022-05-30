@@ -16,7 +16,9 @@ use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\InventaireController;
 use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\MarqueController;
+use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\PatrimoineController;
+use App\Http\Controllers\RetourController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SortieController;
 use App\Http\Controllers\StockController;
@@ -81,4 +83,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('site',SiteController::class);
     Route::resource('bureau',BureauController::class);
     Route::resource('patrimoine', PatrimoineController::class);
+    Route::resource('retour', RetourController::class);
+    Route::resource('mouvement', MouvementController::class);
 });

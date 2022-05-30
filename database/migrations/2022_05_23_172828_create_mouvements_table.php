@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRetoursTable extends Migration
+class CreateMouvementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,24 @@ class CreateRetoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('retours', function (Blueprint $table) {
+        Schema::create('mouvements', function (Blueprint $table) {
             $table->id();
             $table->string('code',10)->unique();
             $table->date('date');
-            $table->string('observation');
+            $table->foreignId('bureau_initial_id')->constrained('bureaus')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->foreignId('bureau_final_id')->constrained('bureaus')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->string('type');
             $table->date('date_saisie');
-            $table->foreignId('bureau_id')->constrained()
-                ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('stock_id')->constrained()
-                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('observation');
+            $table->string('agent_mouvement');
             $table->foreignId('agent_id')->constrained()->cascadeOnUpdate();
             $table->timestamps();
         });
+  
     }
 
     /**
@@ -35,6 +40,6 @@ class CreateRetoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retours');
+        Schema::dropIfExists('mouvements');
     }
 }

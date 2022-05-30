@@ -50,6 +50,8 @@
             <a class="nav-link" href="{{ route('site.index') }}">Sites</a>
             <a class="nav-link" href="{{ route('bureau.index') }}">Bureaux</a>
             <a class="nav-link" href="{{ route('patrimoine.index') }}">Patrimoine</a>
+            <a class="nav-link" href="{{ route('retour.index') }}">Retour</a>
+            <a class="nav-link" href="{{ route('mouvement.index') }}">Mouvement</a>
         </div>
 
         <aside>

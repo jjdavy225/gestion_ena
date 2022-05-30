@@ -50,6 +50,8 @@
             <a class="nav-link" href="<?php echo e(route('site.index')); ?>">Sites</a>
             <a class="nav-link" href="<?php echo e(route('bureau.index')); ?>">Bureaux</a>
             <a class="nav-link" href="<?php echo e(route('patrimoine.index')); ?>">Patrimoine</a>
+            <a class="nav-link" href="<?php echo e(route('retour.index')); ?>">Retour</a>
+            <a class="nav-link" href="<?php echo e(route('mouvement.index')); ?>">Mouvement</a>
         </div>
 
         <aside>

@@ -24,8 +24,9 @@
             <tr>
                 <th>#</th>
                 <th>Code</th>
-                <th>Quantité</th>
-                <th>Mouvement</th>
+                <th>Quantité totale</th>
+                <th>Quantité entrée</th>
+                <th>Quantité retournée</th>
                 <th>Désignation</th>
                 <th>Marque</th>
                 <th>Type</th>
@@ -36,8 +37,9 @@
                 <tr>
                     <td>{{ $article->id }}</td>
                     <td>{{ $article->code }}</td>
-                    <td>{{ $article->pivot->quantite_article }}</td>
-                    <td>{{ $article->pivot->mouvement }}</td>
+                    <td>{{ $article->pivot->quantite_totale }}</td>
+                    <td>{{ $article->pivot->quantite_entree }}</td>
+                    <td>{{ $article->pivot->quantite_retournee }}</td>
                     <td>{{ $article->designation }}</td>
                     <td>{{ $article->marque->designation }}</td>
                     <td>{{ $article->type->designation }}</td>

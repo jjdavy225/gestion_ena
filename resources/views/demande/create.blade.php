@@ -35,7 +35,7 @@
                                 </script>
                                 @foreach ($stocks as $stock)
                                     @foreach ($stock->articles as $article)
-                                        @if ($article->pivot->quantite_article > 0)
+                                        @if ($article->pivot->quantite_totale > 0)
                                             <tr>
                                                 <td>{{ $article->designation }}</td>
                                                 <td>{{ $article->marque->designation }}</td>
@@ -46,7 +46,7 @@
                                                 </td>
                                                 <script type="text/javascript">
                                                     articles['{{ $article->code }}'] = ['{{ $article->designation }} {{ $article->marque->designation }}',
-                                                        '{{ $article->pivot->quantite_article }}'
+                                                        '{{ $article->pivot->quantite_totale }}'
                                                     ];
                                                 </script>
                                             </tr>
@@ -97,7 +97,7 @@
                 <div class="row border rounded-5 p-4 mb-4 mt-4 shadow">
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
-                            <label class="form-label" for="date">Date de commande</label>
+                            <label class="form-label" for="date">Date de la demande</label>
                             <input required class="form-control" type="date" name="date" id="date"
                                 value="{{ old('date') }}">
                             @error('date')

@@ -34,7 +34,7 @@
                                 </script>
                                 <?php $__currentLoopData = $stocks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stock): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php $__currentLoopData = $stock->articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php if($article->pivot->quantite_article > 0): ?>
+                                        <?php if($article->pivot->quantite_totale > 0): ?>
                                             <tr>
                                                 <td><?php echo e($article->designation); ?></td>
                                                 <td><?php echo e($article->marque->designation); ?></td>
@@ -45,7 +45,7 @@
                                                 </td>
                                                 <script type="text/javascript">
                                                     articles['<?php echo e($article->code); ?>'] = ['<?php echo e($article->designation); ?> <?php echo e($article->marque->designation); ?>',
-                                                        '<?php echo e($article->pivot->quantite_article); ?>'
+                                                        '<?php echo e($article->pivot->quantite_totale); ?>'
                                                     ];
                                                 </script>
                                             </tr>
@@ -96,7 +96,7 @@
                 <div class="row border rounded-5 p-4 mb-4 mt-4 shadow">
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
-                            <label class="form-label" for="date">Date de commande</label>
+                            <label class="form-label" for="date">Date de la demande</label>
                             <input required class="form-control" type="date" name="date" id="date"
                                 value="<?php echo e(old('date')); ?>">
                             <?php $__errorArgs = ['date'];

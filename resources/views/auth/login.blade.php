@@ -1,9 +1,8 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            <img class="w-40 h-20 fill-current text-gray-500" src="{{asset('images/logo_ena.png')}}" alt="Logo">
+            <p class="w-full text-center text-xl text-orange-500">GESTION ENA</p>
         </x-slot>
 
         <!-- Session Status -->

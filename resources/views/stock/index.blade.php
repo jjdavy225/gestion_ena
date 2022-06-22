@@ -10,6 +10,11 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    <div class="linksContainer">
+        @canany(['agent', 'responsable'])
+            <a class="buttonLinks" href="{{ route('stock.create') }}">Nouveau stock</a>
+        @endcanany
+    </div>
     <h1>Liste des articles</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -22,9 +27,9 @@
                 <th>Nb de sorties</th>
                 <th>Nb de retours</th>
                 <th>Jour</th>
-                <th></th>
-                <th></th>
-
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -38,11 +43,15 @@
                     <td>{{ $stock->sortie }}</td>
                     <td>{{ $stock->retour }}</td>
                     <td>{{ $stock->jour }}</td>
-                    <td><a href="{{ route('stock.show', $stock->id) }}">Consulter</a></td>
-                    <td><a href="{{ route('stock.edit', $stock->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a class="buttonLinksTab" href="{{ route('stock.show', $stock->id) }}">Consulter</a>
+                            <a class="buttonLinksTab" href="{{ route('stock.edit', $stock->id) }}">Modifier</a>
+                            <a class="buttonLinksTab" href="{{ route('stock.destroy', $stock->id) }}">Supprimer</a>
+                        </td>
+                    @endcanany
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau stock <a href="{{ route('stock.create') }}">ici!</a></h4>
 @endsection

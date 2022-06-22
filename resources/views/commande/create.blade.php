@@ -31,11 +31,10 @@
 
                 <div class="form-group mb-3">
                     <label class="form-label" class="label">Type de l'article</label>
-                    <select class="form-select" name="type">
+                    <select class="form-select" name="type" required>
                         <option disabled selected>Choisissez un type</option>
                         @foreach ($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->designation }}
-                            </option>
+                            <option value="{{ $type->id }}">{{ $type->designation }}</option>
                         @endforeach
                     </select>
                     @error('type')
@@ -44,7 +43,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="designation">Désignation</label>
-                    <input class="form-control" type="text" name="designation" id="designation"
+                    <input required class="form-control" type="text" name="designation" id="designation"
                         value="{{ old('designation') }}">
                     @error('designation')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -52,7 +51,7 @@
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label">Marque</label>
-                    <select class="form-select" name="marque">
+                    <select required class="form-select" name="marque">
                         <option disabled selected>Choisissez une marque</option>
                         @foreach ($marques as $marque)
                             <option value="{{ $marque->id }}">{{ $marque->designation }}
@@ -131,7 +130,7 @@
                                     a = true;
                                     texte.innerHTML += '<div class="form-group mb-3"><label class="form-label">' + articles[
                                             article] +
-                                        '</label><div class="row"><div class="col-lg-6"><input class="form-control" type="number" name="qtes[]" placeholder="Quantité" required></div><div class="col-lg-6"><input class="form-control" type="number" name="pu_s[]" placeholder="Prix unitaire" required></div></div></div>'
+                                        '</label><div class="row"><div class="col-lg-6"><input class="form-control" type="number" min="0" name="qtes[]" placeholder="Quantité" required></div><div class="col-lg-6"><input class="form-control" type="number" min="0" name="pu_s[]" placeholder="Prix unitaire" required></div></div></div>'
                                     document.getElementById('submit_all_js').innerHTML =
                                         '<input class="btn btn-dark col-lg-2 offset-5 shadow-sm" type="submit" value="Valider">'
                                 }
@@ -156,21 +155,21 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="date">Date de commande</label>
-                            <input class="form-control" type="date" name="date" id="date" value="{{ old('date') }}">
+                            <input required class="form-control" type="date" name="date" id="date" value="{{ old('date') }}">
                             @error('date')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="objet">Objet de la commande</label>
-                            <input class="form-control" type="text" name="objet" id="objet" value="{{ old('objet') }}">
+                            <input required class="form-control" type="text" name="objet" id="objet" value="{{ old('objet') }}">
                             @error('objet')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="num_fact">Numéro de la facture</label>
-                            <input class="form-control" type="text" name="num_fact" id="num_fact"
+                            <input required class="form-control" type="text" name="num_fact" id="num_fact"
                                 value="{{ old('num_fact') }}">
                             @error('num_fact')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -178,7 +177,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="date_fact">Date de la facture</label>
-                            <input class="form-control" type="date" name="date_fact" id="date_fact"
+                            <input required class="form-control" type="date" name="date_fact" id="date_fact"
                                 value="{{ old('date_fact') }}">
                             @error('date_fact')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -186,7 +185,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="remise">Remise</label>
-                            <input class="form-control" type="number" name="remise" id="remise"
+                            <input required class="form-control" type="number" min="0" name="remise" id="remise"
                                 value="{{ old('remise') }}">
                             @error('remise')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -194,14 +193,14 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="tva">Taux de valeur ajoutée</label>
-                            <input class="form-control" type="number" name="tva" id="tva" value="{{ old('tva') }}">
+                            <input required class="form-control" type="number" min="0" name="tva" id="tva" value="{{ old('tva') }}">
                             @error('tva')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="montant">Montant</label>
-                            <input class="form-control" type="number" name="montant" id="montant"
+                            <input required class="form-control" type="number" min="0" name="montant" id="montant"
                                 value="{{ old('montant') }}">
                             @error('montant')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -211,7 +210,7 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="delai_paie">Delai de paiement</label>
-                            <input class="form-control" type="number" name="delai_paie" id="delai_paie"
+                            <input required class="form-control" type="number" min="0" name="delai_paie" id="delai_paie"
                                 value="{{ old('delai_paie') }}">
                             @error('delai_paie')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -219,7 +218,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="delai_liv">Delai de livraison</label>
-                            <input class="form-control" type="number" name="delai_liv" id="delai_liv"
+                            <input required class="form-control" type="number" min="0" name="delai_liv" id="delai_liv"
                                 value="{{ old('delai_liv') }}">
                             @error('delai_liv')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -227,7 +226,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="date_liv">Date de livraison</label>
-                            <input class="form-control" type="date" name="date_liv" id="date_liv"
+                            <input required class="form-control" type="date" name="date_liv" id="date_liv"
                                 value="{{ old('date_liv') }}">
                             @error('date_liv')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -245,22 +244,9 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        {{-- <div class="form-group mb-3">
-                            <label class="form-label">Agent</label>
-                            <select class="form-select" name="agent">
-                                <option disabled selected>Choisissez un agent</option>
-                                @foreach ($agents as $agent)
-                                    <option value="{{ $agent->id }}">{{ $agent->nom }} {{ $agent->prenom }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('agent')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div> --}}
                         <div class="form-group mb-3">
                             <label class="form-label" for="frais">Frais</label>
-                            <input class="form-control" type="number" name="frais" id="frais"
+                            <input required class="form-control" type="number" min="0" name="frais" id="frais"
                                 value="{{ old('frais') }}">
                             @error('frais')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -268,7 +254,7 @@
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="garantie">Garantie</label>
-                            <input class="form-control" type="number" name="garantie" id="garantie"
+                            <input required class="form-control" type="number" min="0" name="garantie" id="garantie"
                                 value="{{ old('garantie') }}">
                             @error('garantie')
                                 <div class="alert alert-danger">{{ $message }}</div>

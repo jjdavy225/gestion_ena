@@ -66,7 +66,7 @@
                                 </script>
                                 <option disabled selected>Choisissez une demande</option>
                                 @foreach ($demandes as $demande)
-                                    @if ($demande->statut != 'Sortie')
+                                    @if ($demande->statut == 'D1V')
                                         <option value="{{ $demande->id }}">Code : {{ $demande->code }} |Objet :
                                             {{ $demande->objet }}</option>
                                         <script>

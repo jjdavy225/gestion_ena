@@ -10,6 +10,11 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    <div class="linksContainer">
+        @canany(['agent', 'responsable'])
+            <a class="buttonLinks" href="{{ route('site.create') }}">Nouveau site</a>
+        @endcanany
+    </div>
     <h1>Liste des sites</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -18,7 +23,9 @@
                 <th>Code</th>
                 <th>Désignation</th>
                 {{-- <th></th> --}}
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -27,11 +34,14 @@
                     <td>{{ $site->id }}</td>
                     <td>{{ $site->code }}</td>
                     <td>{{ $site->designation }}</td>
-                    {{-- <td><a href="{{ route('site.show', $site->id) }}">Voir</a></td> --}}
-                    <td><a href="{{ route('site.edit', $site->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a href="{{ route('site.edit', $site->id) }}">Modifier</a>
+                            <a href="{{ route('site.destroy', $site->id) }}">Supprimer</a>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau site <a href="{{ route('site.create') }}">ici!</a></h4>
 @endsection

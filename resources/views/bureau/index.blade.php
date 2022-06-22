@@ -10,6 +10,11 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    <div class="linksContainer">
+        @canany(['agent', 'responsable'])
+            <a class="buttonLinks" href="{{ route('bureau.create') }}">Nouveau bureau</a>
+        @endcanany
+    </div>
     <h1>Liste des bureaux</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -18,7 +23,9 @@
                 <th>Code</th>
                 <th>Désignation</th>
                 <th>Site</th>
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcanany
             </tr>
         </thead>
         <tbody>
@@ -28,10 +35,15 @@
                     <td>{{ $bureau->code }}</td>
                     <td>{{ $bureau->designation }}</td>
                     <td>{{ $bureau->site->designation }}</td>
-                    <td><a href="{{ route('bureau.edit', $bureau->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                    <td class="tabButtonContainer">
+                        <a href="{{ route('bureau.edit', $bureau->id) }}">Modifier</a>
+                        <a href="{{ route('bureau.destroy', $bureau->id) }}">Supprimer</a>
+                    </td>
+                @endcanany
+                    <td></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau bureau <a href="{{ route('bureau.create') }}">ici!</a></h4>
 @endsection

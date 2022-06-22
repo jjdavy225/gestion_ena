@@ -113,7 +113,7 @@ unset($__errorArgs, $__bag); ?>
                                 </script>
                                 <option disabled selected>Choisissez une commande</option>
                                 <?php $__currentLoopData = $commandes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $commande): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($commande->statut_liv != 'Livrée'): ?>
+                                    <?php if($commande->statut_liv == 'C1V'): ?>
                                         <option value="<?php echo e($commande->id); ?>">Code : <?php echo e($commande->num); ?> |Objet :
                                             <?php echo e($commande->objet); ?></option>
                                         <script>

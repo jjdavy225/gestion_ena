@@ -80,7 +80,7 @@
                                 </script>
                                 <option disabled selected>Choisissez une commande</option>
                                 @foreach ($commandes as $commande)
-                                    @if ($commande->statut_liv != 'Livrée')
+                                    @if ($commande->statut_liv == 'C1V')
                                         <option value="{{ $commande->id }}">Code : {{ $commande->num }} |Objet :
                                             {{ $commande->objet }}</option>
                                         <script>

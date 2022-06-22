@@ -12,8 +12,8 @@
 <?php $component->withAttributes([]); ?>
          <?php $__env->slot('logo', null, []); ?> 
             <img class="w-40 h-20 fill-current text-gray-500" src="<?php echo e(asset('images/logo_ena.png')); ?>" alt="Logo">
+            <p class="w-full text-center text-xl text-orange-500">GESTION ENA</p>
          <?php $__env->endSlot(); ?>
-        <p class="w-full text-center text-xl text-orange-500">GESTION ENA</p>
 
         <!-- Session Status -->
         <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>

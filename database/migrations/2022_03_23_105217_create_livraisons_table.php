@@ -23,28 +23,22 @@ class CreateLivraisonsTable extends Migration
             $table->integer('montant');
             $table->integer('delai')->nullable();
             $table->date('date_saisie');
-            $table->unsignedBigInteger('commande_id');
-            $table->foreign('commande_id')
-                ->references('id')
-                ->on('commandes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            $table->unsignedBigInteger('agent_id');
-            $table->foreign('agent_id')
-                ->references('id')
-                ->on('agents')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-            $table->unsignedBigInteger('stock_id');
-            $table->foreign('stock_id')
-                ->references('id')
-                ->on('stocks')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->foreignId('commande_id')->constrained()
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('agent_id')->constrained()
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+            $table->foreignId('stock_id')->constrained()
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+            $table->string('statut');
             $table->string('num_bon')->nullable();
             $table->date('date_bon')->nullable();
             $table->string('fact_num')->nullable();
             $table->date('fact_date')->nullable();
+            $table->string('type');
+            $table->json('json')->nullable();
             $table->timestamps();
         });
     }

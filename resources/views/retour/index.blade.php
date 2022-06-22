@@ -10,6 +10,11 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    <div class="linksContainer">
+        @canany(['agent', 'responsable'])
+            <a class="buttonLinks" href="{{ route('retour.create') }}">Nouveau retour</a>
+        @endcanany
+    </div>
     <h1>Liste des retours</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -18,7 +23,9 @@
                 <th>Code</th>
                 <th>Observation</th>
                 <th>Date de retour</th>
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcanany
             </tr>
         </thead>
         <tbody>
@@ -31,7 +38,13 @@
                     <td>{{ $retour->code }}</td>
                     <td>{{ $retour->observation }}</td>
                     <td>{{ $retour->date }}</td>
-                    <td><a href="{{ route('retour.show', $retour->id) }}">Voir</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a href="{{ route('retour.show', $retour->id) }}">Voir</a>
+                            <a href="{{ route('retour.edit', $retour->id) }}">Modifier</a>
+                            <a href="{{ route('retour.destroy', $retour->id) }}">Supprimer</a>
+                        </td>
+                    @endcanany
                 </tr>
                 @php
                     $i++;
@@ -39,5 +52,4 @@
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau retour <a href="{{ route('retour.create') }}">ici!</a></h4>
 @endsection

@@ -10,6 +10,9 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    @canany(['agent', 'responsable'])
+        <a class="buttonLinks" href="{{ route('mouvement.create') }}">Nouveau mouvement</a>
+    @endcanany
     <h1>Liste des mouvements</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -18,7 +21,9 @@
                 <th>Code</th>
                 <th>Observation</th>
                 <th>Date du mouvement</th>
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcanany
             </tr>
         </thead>
         <tbody>
@@ -31,7 +36,13 @@
                     <td>{{ $mouvement->code }}</td>
                     <td>{{ $mouvement->observation }}</td>
                     <td>{{ $mouvement->date }}</td>
-                    <td><a href="{{ route('mouvement.show', $mouvement->id) }}">Voir</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a href="{{ route('mouvement.show', $mouvement->id) }}">Voir</a>
+                            <a href="{{ route('mouvement.edit', $mouvement->id) }}">Modifier</a>
+                            <a href="{{ route('mouvement.destroy', $mouvement->id) }}">Supprimer</a>
+                        </td>
+                    @endcanany
                 </tr>
                 @php
                     $i++;
@@ -39,5 +50,4 @@
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau mouvement <a href="{{ route('mouvement.create') }}">ici!</a></h4>
 @endsection

@@ -181,7 +181,7 @@ unset($__errorArgs, $__bag); ?>
                                         <?php echo e($bureau->site->designation); ?>-<?php echo e($bureau->designation); ?></option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
-                            <?php $__errorArgs = ['demande'];
+                            <?php $__errorArgs = ['bureau'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }

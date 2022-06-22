@@ -2,9 +2,7 @@
     Liste des commandes
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('css1'); ?>
-    <link rel="stylesheet" href="<?php echo e(asset('css/style1.css')); ?>">
-<?php $__env->stopSection(); ?>
+
 
 <?php $__env->startSection('contenu'); ?>
     <?php if(Session::has('info')): ?>
@@ -13,34 +11,82 @@
 
         </div>
     <?php endif; ?>
+    <div class="linksContainer">
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+            <a class="buttonLinks" href="<?php echo e(route('commande.create')); ?>"><i class="fa-solid fa-plus"></i></a>
+            <a class="buttonLinks" href="<?php echo e(route('livraison.create')); ?>"><i class="fa-solid fa-cart-plus"></i></a>
+        <?php endif; ?>
+    </div>
     <h1>Liste des commandes</h1>
     <div class="container">
-        <table class="table table-success table-stripped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Code</th>
-                    <th>Objet</th>
-                    <th>Statut de livraison</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $__currentLoopData = $commandes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $commande): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('responsable')): ?>
+            <form action="<?php echo e(route('commande.validation')); ?>" method="post">
+                <?php echo csrf_field(); ?>
+            <?php endif; ?>
+            <table class="table table-success table-stripped">
+                <thead>
                     <tr>
-                        <td><?php echo e($commande->id); ?></td>
-                        <td><?php echo e($commande->num); ?></td>
-                        <td><?php echo e($commande->objet); ?></td>
-                        <td><?php echo e($commande->statut_liv); ?></td>
-                        <td><a href="<?php echo e(route('commande.show', $commande->id)); ?>">Voir</a></td>
-                        <td><a href="<?php echo e(route('commande.edit', $commande->id)); ?>">Modifier</a></td>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Objet</th>
+                        <th>Statut de livraison</th>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('responsable')): ?>
+                            <th>Choix pour validation</th>
+                        <?php endif; ?>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+                            <th></th>
+                        <?php endif; ?>
                     </tr>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php
+                        $check = false;
+                    ?>
+                    <?php $__currentLoopData = $commandes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $commande): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td><?php echo e($commande->id); ?></td>
+                            <td><?php echo e($commande->num); ?></td>
+                            <td><?php echo e($commande->objet); ?></td>
+                            <td>
+                                <?php if($commande->statut_liv == 'C1S'): ?>
+                                    Commande non validée
+                                <?php elseif($commande->statut_liv == 'C1V'): ?>
+                                    Non livrée
+                                <?php elseif($commande->statut_liv == 'C1P'): ?>
+                                    Partielle
+                                <?php elseif($commande->statut_liv == 'C1T'): ?>
+                                    Totale
+                                <?php endif; ?>
+                            </td>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('responsable')): ?>
+                                <?php if($commande->statut_liv == 'C1S'): ?>
+                                    <?php
+                                        $check = true;
+                                    ?>
+                                    <td><input type="checkbox" name="commandes[]" value="<?php echo e($commande->id); ?>" id="articles">
+                                    </td>
+                                <?php else: ?>
+                                    <td>Commande validée</td>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+                                <td class="tabButtonContainer">
+                                    <a class="buttonLinksTab" href="<?php echo e(route('commande.show', $commande->id)); ?>"><i class="fa-solid fa-file-lines"></i></a>
+                                    <a class="buttonLinksTab" href="<?php echo e(route('commande.edit', $commande->id)); ?>"><i class="fa-solid fa-file-pen"></i></a>
+                                    <a class="buttonLinksTab" href="<?php echo e(route('commande.destroy', $commande->id)); ?>"><i class="fa-solid fa-trash-can"></i></a>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('responsable')): ?>
+                <div class="container text-center">
+                    <input class="btn btn-dark" type="submit" value="Valider">
+                </div>
+            </form>
+        <?php endif; ?>
     </div>
-    <h4>Enregistrer une nouvelle commande <a href="<?php echo e(route('commande.create')); ?>">ici!</a></h4>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('template.primary', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/davy/gestion_ena_backup/resources/views/commande/index.blade.php ENDPATH**/ ?>

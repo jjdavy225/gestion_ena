@@ -19,10 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'agent_id',
+        'role_id',
         'name',
         'email',
         'password',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
 
     public function agent(){
         return $this->belongsTo(Agent::class);

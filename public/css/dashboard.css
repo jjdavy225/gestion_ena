@@ -1,0 +1,137 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(175, 172, 172);
+    justify-content: space-between;
+    padding: 0px 10px 0px 40px;
+}
+
+header .user{
+    display: flex;
+    /* border: 1px solid; */
+    align-items: center;
+    justify-content: right;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    /* border: 1px solid red; */
+}
+
+.logo img{
+    display: inline-flex;
+    height: 50px;
+}
+
+.logo div{
+    display: inline-block;
+}
+
+.logo a {
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(44, 43, 43);
+    transition: .1s;
+}
+
+.logo a:hover{
+    transform: scale(1.05);
+    color: black;
+}
+
+aside{
+    height: 100%;
+    padding: 50px 20px 0px 50px;
+}
+
+aside h1{
+    /* background-color: rgb(70, 70, 70); */
+    font-size: 35px;
+    color: rgb(53, 51, 51);
+    padding: 5px;
+    padding-left: 10px;
+    text-align: center;
+}
+
+aside table{
+    box-shadow: 0px 0px 5px 0px gray;
+}
+
+aside th{
+    background-color: whitesmoke !important;
+}
+
+aside td{
+    background-color: white !important;
+}
+
+.linksContainer{
+    display: flex;
+    justify-content: right;
+}
+
+.buttonLinks{
+    display: inline-block;
+    border: 1px solid;
+    padding: 3px 25px;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(43, 42, 41);
+    border-radius: 5px;
+}
+
+.tabButtonContainer{
+    text-align: right;
+}
+
+.tabButtonContainer_c{
+    text-align: center;
+}
+
+.buttonLinksTab{
+    display: inline-block;
+    border: 1px solid;
+    padding: 3px 25px;
+    text-decoration: none;
+    color: white;
+    background-color: rgb(42, 43, 42);
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding: .5em;
+    font-size: 12px;
+    color: rgb(141, 141, 141);
+}
+
+.infoUserContainer{
+    width: 50%;
+    margin: auto;
+}
+
+#tabAttribution{
+    box-shadow: none;
+}

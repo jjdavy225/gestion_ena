@@ -30,12 +30,10 @@
 
                 <div class="form-group mb-3">
                     <label class="form-label" class="label">Type de l'article</label>
-                    <select class="form-select" name="type">
+                    <select class="form-select" name="type" required>
                         <option disabled selected>Choisissez un type</option>
                         <?php $__currentLoopData = $types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($type->id); ?>"><?php echo e($type->designation); ?>
-
-                            </option>
+                            <option value="<?php echo e($type->id); ?>"><?php echo e($type->designation); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <?php $__errorArgs = ['type'];
@@ -51,7 +49,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="designation">Désignation</label>
-                    <input class="form-control" type="text" name="designation" id="designation"
+                    <input required class="form-control" type="text" name="designation" id="designation"
                         value="<?php echo e(old('designation')); ?>">
                     <?php $__errorArgs = ['designation'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -66,7 +64,7 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label">Marque</label>
-                    <select class="form-select" name="marque">
+                    <select required class="form-select" name="marque">
                         <option disabled selected>Choisissez une marque</option>
                         <?php $__currentLoopData = $marques; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $marque): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($marque->id); ?>"><?php echo e($marque->designation); ?>
@@ -153,7 +151,7 @@ unset($__errorArgs, $__bag); ?>
                                     a = true;
                                     texte.innerHTML += '<div class="form-group mb-3"><label class="form-label">' + articles[
                                             article] +
-                                        '</label><div class="row"><div class="col-lg-6"><input class="form-control" type="number" name="qtes[]" placeholder="Quantité" required></div><div class="col-lg-6"><input class="form-control" type="number" name="pu_s[]" placeholder="Prix unitaire" required></div></div></div>'
+                                        '</label><div class="row"><div class="col-lg-6"><input class="form-control" type="number" min="0" name="qtes[]" placeholder="Quantité" required></div><div class="col-lg-6"><input class="form-control" type="number" min="0" name="pu_s[]" placeholder="Prix unitaire" required></div></div></div>'
                                     document.getElementById('submit_all_js').innerHTML =
                                         '<input class="btn btn-dark col-lg-2 offset-5 shadow-sm" type="submit" value="Valider">'
                                 }
@@ -178,7 +176,7 @@ unset($__errorArgs, $__bag); ?>
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="date">Date de commande</label>
-                            <input class="form-control" type="date" name="date" id="date" value="<?php echo e(old('date')); ?>">
+                            <input required class="form-control" type="date" name="date" id="date" value="<?php echo e(old('date')); ?>">
                             <?php $__errorArgs = ['date'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -192,7 +190,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="objet">Objet de la commande</label>
-                            <input class="form-control" type="text" name="objet" id="objet" value="<?php echo e(old('objet')); ?>">
+                            <input required class="form-control" type="text" name="objet" id="objet" value="<?php echo e(old('objet')); ?>">
                             <?php $__errorArgs = ['objet'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -206,7 +204,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="num_fact">Numéro de la facture</label>
-                            <input class="form-control" type="text" name="num_fact" id="num_fact"
+                            <input required class="form-control" type="text" name="num_fact" id="num_fact"
                                 value="<?php echo e(old('num_fact')); ?>">
                             <?php $__errorArgs = ['num_fact'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -221,7 +219,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="date_fact">Date de la facture</label>
-                            <input class="form-control" type="date" name="date_fact" id="date_fact"
+                            <input required class="form-control" type="date" name="date_fact" id="date_fact"
                                 value="<?php echo e(old('date_fact')); ?>">
                             <?php $__errorArgs = ['date_fact'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -236,7 +234,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="remise">Remise</label>
-                            <input class="form-control" type="number" name="remise" id="remise"
+                            <input required class="form-control" type="number" min="0" name="remise" id="remise"
                                 value="<?php echo e(old('remise')); ?>">
                             <?php $__errorArgs = ['remise'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -251,7 +249,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="tva">Taux de valeur ajoutée</label>
-                            <input class="form-control" type="number" name="tva" id="tva" value="<?php echo e(old('tva')); ?>">
+                            <input required class="form-control" type="number" min="0" name="tva" id="tva" value="<?php echo e(old('tva')); ?>">
                             <?php $__errorArgs = ['tva'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -265,7 +263,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="montant">Montant</label>
-                            <input class="form-control" type="number" name="montant" id="montant"
+                            <input required class="form-control" type="number" min="0" name="montant" id="montant"
                                 value="<?php echo e(old('montant')); ?>">
                             <?php $__errorArgs = ['montant'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -282,7 +280,7 @@ unset($__errorArgs, $__bag); ?>
                     <div class="col-lg-6">
                         <div class="form-group mb-3">
                             <label class="form-label" for="delai_paie">Delai de paiement</label>
-                            <input class="form-control" type="number" name="delai_paie" id="delai_paie"
+                            <input required class="form-control" type="number" min="0" name="delai_paie" id="delai_paie"
                                 value="<?php echo e(old('delai_paie')); ?>">
                             <?php $__errorArgs = ['delai_paie'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -297,7 +295,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="delai_liv">Delai de livraison</label>
-                            <input class="form-control" type="number" name="delai_liv" id="delai_liv"
+                            <input required class="form-control" type="number" min="0" name="delai_liv" id="delai_liv"
                                 value="<?php echo e(old('delai_liv')); ?>">
                             <?php $__errorArgs = ['delai_liv'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -312,7 +310,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="date_liv">Date de livraison</label>
-                            <input class="form-control" type="date" name="date_liv" id="date_liv"
+                            <input required class="form-control" type="date" name="date_liv" id="date_liv"
                                 value="<?php echo e(old('date_liv')); ?>">
                             <?php $__errorArgs = ['date_liv'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -344,10 +342,9 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
-                        
                         <div class="form-group mb-3">
                             <label class="form-label" for="frais">Frais</label>
-                            <input class="form-control" type="number" name="frais" id="frais"
+                            <input required class="form-control" type="number" min="0" name="frais" id="frais"
                                 value="<?php echo e(old('frais')); ?>">
                             <?php $__errorArgs = ['frais'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -362,7 +359,7 @@ unset($__errorArgs, $__bag); ?>
                         </div>
                         <div class="form-group mb-3">
                             <label class="form-label" for="garantie">Garantie</label>
-                            <input class="form-control" type="number" name="garantie" id="garantie"
+                            <input required class="form-control" type="number" min="0" name="garantie" id="garantie"
                                 value="<?php echo e(old('garantie')); ?>">
                             <?php $__errorArgs = ['garantie'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

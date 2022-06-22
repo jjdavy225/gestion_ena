@@ -147,7 +147,7 @@
                                         {{ $bureau->site->designation }}-{{ $bureau->designation }}</option>
                                 @endforeach
                             </select>
-                            @error('demande')
+                            @error('bureau')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

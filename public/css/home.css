@@ -13,17 +13,19 @@ body {
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 60px;
-    background-color: rgb(32, 90, 61);
+    border: 1px solid;
 }
 
 header > div {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    /* height: 100%; */
-    padding-top: .46em;
-    padding-left: 1em;
     transition: .1s;
+    margin: 0px 15px;
 }
 
 header > div > a {
@@ -32,7 +34,7 @@ header > div > a {
     font-weight: bold;
     color: whitesmoke;
     text-decoration: none;
-    
+
 }
 
 header > div > a:hover {
@@ -61,7 +63,7 @@ footer {
     /* width: 20%; */
     flex-direction: column;
     min-height: 90.5vh;
-    background-color: rgb(56, 73, 59);
+    background-color: rgb(61, 61, 61);
 }
 
 #menu a {

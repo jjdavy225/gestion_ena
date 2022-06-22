@@ -5,6 +5,11 @@
 @endsection
 
 @section('contenu')
+<div class="linksContainer">
+    @canany(['agent', 'responsable'])
+        <a class="buttonLinks" href="{{ route('fournisseur.create') }}">Nouveau fournisseur</a>
+    @endcanany
+</div>
     <h1>Liste des fournisseurs</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -13,8 +18,9 @@
                 <th>Code</th>
                 <th>Sigle</th>
                 <th>Siège</th>
-                <th></th>
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -24,11 +30,15 @@
                     <td>{{ $fournisseur->code }}</td>
                     <td>{{ $fournisseur->sigle }}</td>
                     <td>{{ $fournisseur->siege }}</td>
-                    <td><a href="{{ route('fournisseur.show', $fournisseur->id) }}">Voir</a></td>
-                    <td><a href="{{ route('fournisseur.edit', $fournisseur->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a class="buttonLinksTab" href="{{ route('fournisseur.show', $fournisseur->id) }}">Voir</a>
+                            <a class="buttonLinksTab" href="{{ route('fournisseur.edit', $fournisseur->id) }}">Modifier</a>
+                            <a class="buttonLinksTab" href="{{ route('fournisseur.destroy', $fournisseur->id) }}">Supprimer</a>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouveau fournisseur <a href="{{ route('fournisseur.create') }}">ici!</a></h4>
 @endsection

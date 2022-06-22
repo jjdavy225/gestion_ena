@@ -9,6 +9,9 @@
 
         </div>
     <?php endif; ?>
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+        <a class="buttonLinks" href="<?php echo e(route('article.create')); ?>">Nouvel article</a>
+    <?php endif; ?>
     <h1>Liste des articles</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -19,7 +22,9 @@
                 <th>Marque</th>
                 <th>Type</th>
                 
-                <th></th>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+                    <th></th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -30,13 +35,17 @@
                     <td><?php echo e($article->designation); ?></td>
                     <td><?php echo e($article->marque->designation); ?></td>
                     <td><?php echo e($article->type->designation); ?></td>
-                    
-                    <td><a href="<?php echo e(route('article.edit', $article->id)); ?>">Modifier</a></td>
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+                        <td class="tabButtonContainer">
+                            <a href="<?php echo e(route('article.show', $article->id)); ?>">Voir</a>
+                            <a href="<?php echo e(route('article.edit', $article->id)); ?>">Modifier</a>
+                            <a href="<?php echo e(route('article.destroy', $article->id)); ?>">Supprimer</a>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
-    <h4>Enregistrer un nouvel article <a href="<?php echo e(route('article.create')); ?>">ici!</a></h4>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('template.primary', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/davy/gestion_ena_backup/resources/views/article/index.blade.php ENDPATH**/ ?>

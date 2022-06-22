@@ -35,9 +35,11 @@ class CommandeRequest extends FormRequest
             'delai_liv' => ['bail','required','numeric'],
             'date_liv' => ['bail', 'required', 'date'],
             'fournisseur' => ['required','bail','numeric'],
-            // 'agent' => ['required','bail','numeric'],
             'frais' => ['bail', 'required', 'numeric'],
             'garantie' => ['bail', 'required', 'numeric'],
+            'articles.*' =>['bail','required','numeric','min:0'],
+            'pu_s.*' =>['bail','required','numeric','min:0'],
+            'qtes.*' =>['bail','required','numeric','min:0'],
         ];
     }
 }

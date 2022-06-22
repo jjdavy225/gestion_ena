@@ -45,7 +45,7 @@ class DemandeController extends Controller
     {
         foreach (Stock::all() as $stock) {
             for ($i=0; $i < count($request->articles); $i++) {
-                $id_article = $request->articles[$i]; 
+                $id_article = $request->articles[$i];
                 $articleEnStock = $stock->articles()->find($id_article);
                 if ($articleEnStock != null) {
                     if ($articleEnStock->pivot->quantite_totale < $request->qtes[$i]) {
@@ -64,7 +64,7 @@ class DemandeController extends Controller
             'agent_id' => Auth::user()->agent->id,
             'code_secteur' => $request->code_secteur,
             'bureau_id' => $request->bureau,
-            'statut' => 'Aucune sortie',
+            'statut' => 'D1S',
         ]);
 
         $nb_article = count($request->articles);
@@ -125,5 +125,22 @@ class DemandeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validation(Request $request)
+    {
+        $request->validate([
+            'demandes.*' =>['required','numeric']
+        ]);
+        foreach ($request->demandes as $demande) {
+            $demande = Demande::find($demande);
+            if ($demande->statut != 'D1S') {
+                continue;
+            }else {
+                $demande->statut = 'D1V';
+                $demande->save();
+            }
+        }
+        return back()->with('info','Demandes validées');
     }
 }

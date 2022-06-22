@@ -10,11 +10,15 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = [
-        'code',
         'designation',
     ];
 
-    public function agent(){
-        return $this->belongsTo(Agent::class);
+    public function users(){
+        return $this->hasMany(User::class);
     }
+
+    public const ADMIN = 1;
+    public const RESPONSABLE = 2;
+    public const AGENT = 3;
+
 }

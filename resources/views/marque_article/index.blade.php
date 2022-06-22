@@ -10,6 +10,9 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    @canany(['agent', 'responsable'])
+        <a class="buttonLinks" href="{{ route('marque_article.create') }}">Nouvelle marque</a>
+    @endcanany
     <h1>Liste des marques des articles</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -17,7 +20,9 @@
                 <th>#</th>
                 <th>Code</th>
                 <th>Désignation</th>
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -26,10 +31,14 @@
                     <td>{{ $marque->id }}</td>
                     <td>{{ $marque->code }}</td>
                     <td>{{ $marque->designation }}</td>
-                    <td><a href="{{ route('marque_article.edit', $marque->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a class="buttonLinksTab" href="{{ route('marque_article.edit', $marque->id) }}">Modifier</a>
+                            <a class="buttonLinksTab" href="{{ route('marque_article.destroy', $marque->id) }}">Supprimer</a>
+                        </td>
+                    @endcan
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer une nouvelle marque <a href="{{ route('marque_article.create') }}">ici!</a></h4>
 @endsection

@@ -20,10 +20,13 @@ class Livraison extends Model
         'commande_id',
         'agent_id',
         'stock_id',
+        'statut',
         'num_bon',
         'date_bon',
         'fact_num',
         'fact_date',
+        'type',
+        'json',
     ];
 
     public function commande(){

@@ -46,7 +46,16 @@ class LivraisonController extends Controller
      */
     public function store(LivraisonRequest $request)
     {
-        $livraison = Livraison::create([
+        if ($request->liv != 'complete') {
+            $json = [
+                'articles' => $request->articles,
+                'qtes' => $request->qtes,
+            ];
+            $json = json_encode($json);
+        } else {
+            $json = null;
+        }
+        Livraison::create([
             'code' => Helper::num_generator('Livraison', date('Y' . '-' . 'm' . '-' . 'j'), Livraison::select('code')->get()->last(), 'code'),
             'date' => $request->date,
             'remise' => $request->remise,
@@ -57,106 +66,14 @@ class LivraisonController extends Controller
             'commande_id' => $request->commande,
             'agent_id' => Auth::user()->agent->id,
             'stock_id' => $request->stock,
+            'statut' => 'L1S',
             'num_bon' => $request->num_bon,
             'date_bon' => $request->date_bon,
             'fact_num' => $request->fact_num,
             'fact_date' => $request->fact_date,
+            'type' => $request->liv,
+            'json' => $json,
         ]);
-        $commande = Commande::find($request->commande);
-        $articles = $commande->articles()->get();
-        $stock = Stock::find($request->stock);
-
-        
-        if ($request->liv == 'complete') {
-            $articles_r = $articles;
-        }else {
-            $articles_r = $request->articles;
-        }
-        $nb_article = count($articles_r);
-        $complete = [];
-        for ($i = 0; $i < $nb_article; $i++) {
-            if ($request->liv == 'complete') {
-                $id_r = $articles_r[$i]->id;
-                $reste_r = $articles_r[$i]->pivot->reste;
-            } else {
-                $id_r = $request->articles[$i];
-                $reste_r =$request->qtes[$i];
-            }
-            if ($reste_r > 0) {
-                $stock->entree += 1;
-                $stock->save();
-                if ($stock->articles()->find($id_r) != null) {
-                    $article_stock = $stock->articles()->find($id_r)->pivot;
-                    $article_stock->quantite_entree += $reste_r;
-                    $article_stock->quantite_totale = $article_stock->quantite_entree + $article_stock->quantite_retournee;
-                    $article_stock->save();
-                } else {
-                    $stock->articles()->attach([
-                        $id_r => [
-                            'quantite_entree' => $reste_r,
-                            'quantite_retournee' => 00,
-                            'quantite_totale' => $reste_r,
-                        ]
-                    ]);
-                }
-                $article = $articles->find($id_r)->pivot;
-                $livraison->articles()->attach([
-                    $id_r => [
-                        'quantite_livree' => $reste_r,
-                        'prix_unitaire' => $article->prix_unitaire,
-                        'reste' => $article->reste - $reste_r,
-                    ]
-                ]);
-                $article->quantite_livree += $reste_r;
-                $article->reste -= $reste_r;
-                $article->save();
-            }
-        }
-
-        $stock->stock = count($stock->articles);
-        $stock->save();
-
-        foreach ($articles as $article) {
-            if ($article->pivot->reste <= 0) {
-                $article->pivot->reste = 0;
-                $complete[] = true;
-            } else {
-                $complete[] = false;
-            }
-        }
-
-        $complete_v = true;
-        foreach ($complete as $item) {
-            if (!$item) {
-                $complete_v = false;
-                break;
-            }
-        }
-        if ($complete_v) {
-            $commande->statut_liv = 'Livrée';
-            $commande->save();
-        }else {
-            $commande->statut_liv = 'Partielle';
-            $commande->save();
-        }
-
-        $inventaire = Inventaire::create([
-            'code' => Helper::num_generator('Inventaire', date('Y' . '-' . 'm' . '-' . 'j'), Inventaire::select('code')->get()->last(), 'code'),
-            'exercice_code' => date('Y'),
-            'jour' => date('Y' . '-' . 'm' . '-' . 'j'),
-            'nature' => 'Inventaire après la livraison '.$livraison->code,
-        ]);
-
-        foreach (Stock::all() as $stock) {
-            foreach ($stock->articles as $article) {
-                $inventaire->articles()->attach([
-                    $article->id =>[
-                        'quantite' => $article->pivot->quantite_totale,
-                        'nature_stock' => $stock->nature,
-                    ]
-                ]);
-            }
-        }
 
         return redirect(route('livraison.index'))->with('info', 'Livraison enregistrée');
     }
@@ -205,5 +122,117 @@ class LivraisonController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validation(Request $request)
+    {
+        $request->validate([
+            'livraisons.*' => ['required', 'numeric'],
+        ]);
+
+        foreach ($request->livraisons as $livraison_id) {
+            $livraison = Livraison::find($livraison_id);
+            $commande = Commande::find($livraison->commande_id);
+            $articles = $commande->articles()->get();
+            $stock = Stock::find($livraison->stock_id);
+
+            $request = json_decode($livraison->json);
+
+            if ( $livraison->type == 'complete') {
+                $articles_r = $articles;
+            } else {
+                $articles_r = $request->articles;
+            }
+            $nb_article = count($articles_r);
+            $complete = [];
+            for ($i = 0; $i < $nb_article; $i++) {
+                if ($livraison->type == 'complete') {
+                    $id_r = $articles_r[$i]->id;
+                    $reste_r = $articles_r[$i]->pivot->reste;
+                } else {
+                    $id_r = $request->articles[$i];
+                    $reste_r = $request->qtes[$i];
+                }
+                if ($reste_r > 0) {
+                    $stock->entree += 1;
+                    $stock->save();
+                    if ($stock->articles()->find($id_r) != null) {
+                        $article_stock = $stock->articles()->find($id_r)->pivot;
+                        $article_stock->quantite_entree += $reste_r;
+                        $article_stock->quantite_totale = $article_stock->quantite_entree + $article_stock->quantite_retournee;
+                        $article_stock->save();
+                    } else {
+                        $stock->articles()->attach([
+                            $id_r => [
+                                'quantite_entree' => $reste_r,
+                                'quantite_retournee' => 00,
+                                'quantite_totale' => $reste_r,
+                            ]
+                        ]);
+                    }
+                    $article = $articles->find($id_r)->pivot;
+                    $livraison->articles()->attach([
+                        $id_r => [
+                            'quantite_livree' => $reste_r,
+                            'prix_unitaire' => $article->prix_unitaire,
+                            'reste' => $article->reste - $reste_r,
+                        ]
+                    ]);
+                    $livraison->statut = 'L1V';
+                    $livraison->json = null;
+                    $livraison->save();
+                    $article->quantite_livree += $reste_r;
+                    $article->reste -= $reste_r;
+                    $article->save();
+                }
+            }
+
+            $stock->stock = count($stock->articles);
+            $stock->save();
+
+            foreach ($articles as $article) {
+                if ($article->pivot->reste <= 0) {
+                    $article->pivot->reste = 0;
+                    $complete[] = true;
+                } else {
+                    $complete[] = false;
+                }
+            }
+
+            $complete_v = true;
+            foreach ($complete as $item) {
+                if (!$item) {
+                    $complete_v = false;
+                    break;
+                }
+            }
+            if ($complete_v) {
+                $commande->statut_liv = 'C1T';
+                $commande->save();
+            } else {
+                $commande->statut_liv = 'C1P';
+                $commande->save();
+            }
+
+            $inventaire = Inventaire::create([
+                'code' => Helper::num_generator('Inventaire', date('Y' . '-' . 'm' . '-' . 'j'), Inventaire::select('code')->get()->last(), 'code'),
+                'exercice_code' => date('Y'),
+                'jour' => date('Y' . '-' . 'm' . '-' . 'j'),
+                'nature' => 'Inventaire après la livraison ' . $livraison->code,
+            ]);
+
+            foreach (Stock::all() as $stock) {
+                foreach ($stock->articles as $article) {
+                    $inventaire->articles()->attach([
+                        $article->id => [
+                            'quantite' => $article->pivot->quantite_totale,
+                            'nature_stock' => $stock->nature,
+                        ]
+                    ]);
+                }
+            }
+        }
+
+        return back()->with('info','Livraisons validées');
     }
 }

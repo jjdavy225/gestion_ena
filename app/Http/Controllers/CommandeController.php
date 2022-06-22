@@ -23,7 +23,7 @@ class CommandeController extends Controller
     public function index()
     {
         $commandes = Commande::all();
-        return view('commande.index',compact('commandes'));
+        return view('commande.index', compact('commandes'));
     }
 
     /**
@@ -38,20 +38,20 @@ class CommandeController extends Controller
         $articles = Article::all();
         $types = Type::all();
         $marques = Marque::all();
-        return view('commande.create', compact('fournisseurs', 'articles','types','marques'));
+        return view('commande.create', compact('fournisseurs', 'articles', 'types', 'marques'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CommandeRequest $request)
     {
         $commande = Commande::create([
-            'num' => Helper::num_generator('Commande', date('Y-m-j'), Commande::select('num')->get()->last(),'num'),
+            'num' => Helper::num_generator('Commande', date('Y-m-j'), Commande::select('num')->get()->last(), 'num'),
             'date' => $request->date,
             'objet' => $request->objet,
             'num_fact' => $request->num_fact,
@@ -62,7 +62,7 @@ class CommandeController extends Controller
             'delai_paie' => $request->delai_paie,
             'delai_liv' => $request->delai_liv,
             'date_liv' => $request->date_liv,
-            'statut_liv' => 'Non livrée',
+            'statut_liv' => 'C1S',
             'date_saisie' => date('Y-m-j'),
             'date_annul' => null,
             'fournisseur_id' => $request->fournisseur,
@@ -77,13 +77,13 @@ class CommandeController extends Controller
                 $request->articles[$i] => [
                     'prix_unitaire' => $request->pu_s[$i],
                     'quantite' => $request->qtes[$i],
-                    'quantite_livree' =>0,
+                    'quantite_livree' => 0,
                     'reste' => $request->qtes[$i],
                 ]
             ]);
         }
 
-        return redirect(route('commande.index'))->with('info','Commande enregistrée');
+        return redirect(route('commande.index'))->with('info', 'Commande enregistrée');
     }
 
     /**
@@ -94,8 +94,8 @@ class CommandeController extends Controller
      */
     public function show($id)
     {
-        $commande = Commande::where('id','=',$id)->with('articles')->with('fournisseur')->get()->first();
-        return view('commande.show',compact('commande'));
+        $commande = Commande::find($id);
+        return view('commande.show', compact('commande'));
     }
 
     /**
@@ -130,5 +130,22 @@ class CommandeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validation(Request $request)
+    {
+        $request->validate([
+            'commandes.*' =>['required','numeric']
+        ]);
+        foreach ($request->commandes as $commande) {
+            $commande = Commande::find($commande);
+            if ($commande->statut_liv != 'C1S') {
+                continue;
+            }else {
+                $commande->statut_liv = 'C1V';
+                $commande->save();
+            }
+        }
+        return back()->with('info','Commandes validées');
     }
 }

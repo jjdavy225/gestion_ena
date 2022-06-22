@@ -12,60 +12,75 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            {{-- <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+            <div class="flex">
+                <div style="margin: 0em 1em">
+                    <!-- Nom -->
+                    <div>
+                        <x-label for="nom" :value="__('Nom')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div> --}}
+                        <x-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required
+                            autofocus />
+                    </div>
 
-            <div class="mt-4">
-                <x-label for="agent" :value="__('Agent')"/>
-                <select class="form-select" name="agent_id" id="agent">
-                    <option disabled selected>Choisissez un agent</option>
-                    @foreach (App\Models\Agent::all() as $agent)
-                        <option value="{{ $agent->id }}">{{ $agent->nom }} {{ $agent->prenom }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('agent')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+                    <!-- Prénom -->
+                    <div class="mt-4">
+                        <x-label for="prenom" :value="__('Prénoms')" />
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                        <x-input id="prenom" class="block mt-1 w-full" type="text" name="prenom" :value="old('prenom')"
+                            required autofocus />
+                    </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+                    <!-- Matricule -->
+                    <div class="mt-4">
+                        <x-label for="matricule" :value="__('Matricule')" />
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                        <x-input id="matricule" class="block mt-1 w-full" type="text" name="matricule" :value="old('matricule')"
+                            required autofocus />
+                    </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
+                    <!-- Numéro de téléphone -->
+                    <div class="mt-4">
+                        <x-label for="tel" :value="__('Téléphone')" />
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-input id="tel" class="block mt-1 w-full" type="text" name="tel" :value="old('tel')" required
+                            autofocus />
+                    </div>
+                </div>
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+                <div style="margin: 0em 1em">
+                    <!-- Email Address -->
+                    <div>
+                        <x-label for="email" :value="__('Email')" />
+
+                        <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                            required />
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mt-4">
+                        <x-label for="password" :value="__('Mot de passe')" />
+
+                        <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
+                            autocomplete="new-password" />
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mt-4">
+                        <x-label for="password_confirmation" :value="__('Confirmer votre mot de passe')" />
+
+                        <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                            name="password_confirmation" required />
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                    {{ __('Déjà enregistré ?') }}
                 </a>
 
                 <x-button class="ml-4">
-                    {{ __('Register') }}
+                    {{ __('S\'enregistrer') }}
                 </x-button>
             </div>
         </form>

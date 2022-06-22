@@ -14,6 +14,9 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    @canany(['agent', 'responsable'])
+        <a class="buttonLinks" href="{{ route('sortie.create') }}">Nouvelle sortie</a>
+    @endcanany
     <h1>Liste des sorties</h1>
     <div class="container">
         <table class="table table-success table-stripped">
@@ -23,8 +26,9 @@
                     <th>Code</th>
                     <th>Date de la sortie</th>
                     <th>Demande concernée</th>
-                    <th></th>
-                    <th></th>
+                    @canany(['agent', 'responsable'])
+                        <th></th>
+                    @endcanany
                 </tr>
             </thead>
             <tbody>
@@ -33,15 +37,18 @@
                         <td>{{ $sortie->id }}</td>
                         <td>{{ $sortie->code }}</td>
                         <td>{{ $sortie->date }}</td>
-                        <td><a
-                                href="{{ route('demande.show', $sortie->demande->id) }}">{{ $sortie->demande->code }}</a>
+                        <td><a href="{{ route('demande.show', $sortie->demande->id) }}">{{ $sortie->demande->code }}</a>
                         </td>
-                        <td><a href="{{ route('sortie.show', $sortie->id) }}">Voir</a></td>
-                        <td><a href="{{ route('sortie.edit', $sortie->id) }}">Modifier</a></td>
+                        @canany(['agent', 'responsable'])
+                            <td class="tabButtonContainer">
+                                <a href="{{ route('sortie.show', $sortie->id) }}">Voir</a>
+                                <a href="{{ route('sortie.edit', $sortie->id) }}">Modifier</a>
+                                <a href="{{ route('sortie.destroy', $sortie->id) }}">Supprimer</a>
+                            </td>
+                        @endcanany
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-    <h4>Enregistrer une nouvelle sortie <a href="{{ route('sortie.create') }}">ici!</a></h4>
 @endsection

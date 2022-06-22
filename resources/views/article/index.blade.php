@@ -10,6 +10,9 @@
             {{ Session::get('info') }}
         </div>
     @endif
+    @canany(['agent', 'responsable'])
+        <a class="buttonLinks" href="{{ route('article.create') }}">Nouvel article</a>
+    @endcanany
     <h1>Liste des articles</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -20,7 +23,9 @@
                 <th>Marque</th>
                 <th>Type</th>
                 {{-- <th></th> --}}
-                <th></th>
+                @canany(['agent', 'responsable'])
+                    <th></th>
+                @endcanany
             </tr>
         </thead>
         <tbody>
@@ -31,11 +36,15 @@
                     <td>{{ $article->designation }}</td>
                     <td>{{ $article->marque->designation }}</td>
                     <td>{{ $article->type->designation }}</td>
-                    {{-- <td><a href="{{ route('article.show', $article->id) }}">Voir</a></td> --}}
-                    <td><a href="{{ route('article.edit', $article->id) }}">Modifier</a></td>
+                    @canany(['agent', 'responsable'])
+                        <td class="tabButtonContainer">
+                            <a href="{{ route('article.show', $article->id) }}">Voir</a>
+                            <a href="{{ route('article.edit', $article->id) }}">Modifier</a>
+                            <a href="{{ route('article.destroy', $article->id) }}">Supprimer</a>
+                        </td>
+                    @endcanany
                 </tr>
             @endforeach
         </tbody>
     </table>
-    <h4>Enregistrer un nouvel article <a href="{{ route('article.create') }}">ici!</a></h4>
 @endsection

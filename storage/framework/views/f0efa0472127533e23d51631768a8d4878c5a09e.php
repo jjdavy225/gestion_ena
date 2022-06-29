@@ -26,6 +26,7 @@
             </a>
         </div>
         <div class="navbar-nav" id="menu">
+            
             <a class="nav-link" href="<?php echo e(route('commande.index')); ?>">Commandes</a>
             <a class="nav-link" href="<?php echo e(route('article.index')); ?>">Articles</a>
             <a class="nav-link" href="<?php echo e(route('fournisseur.index')); ?>">Fournisseurs</a>
@@ -35,12 +36,14 @@
             <a class="nav-link" href="<?php echo e(route('stock.index')); ?>">Stocks</a>
             <a class="nav-link" href="<?php echo e(route('inventaire.index')); ?>">Inventaires</a>
             <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demandes</a>
+            
             <a class="nav-link" href="<?php echo e(route('sortie.index')); ?>">Sorties</a>
             <a class="nav-link" href="<?php echo e(route('site.index')); ?>">Sites</a>
             <a class="nav-link" href="<?php echo e(route('bureau.index')); ?>">Bureaux</a>
             <a class="nav-link" href="<?php echo e(route('patrimoine.index')); ?>">Patrimoine</a>
             <a class="nav-link" href="<?php echo e(route('retour.index')); ?>">Retour</a>
             <a class="nav-link" href="<?php echo e(route('mouvement.index')); ?>">Mouvement</a>
+            
         </div>
     </div>
 
@@ -52,10 +55,15 @@
                         <a href="<?php echo e(route('dashboard')); ?>">Tableau de bord</a>
                     <?php endif; ?>
                     <i class="fa fa-user white"></i>
-                    <span><?php echo e(Auth::user()->agent->nom); ?> <?php if(Auth::user()->role_id != null): ?>| <?php echo e(Auth::user()->role->designation); ?><?php endif; ?></span>
+                    <span><?php echo e(Auth::user()->agent->nom); ?> <?php if(Auth::user()->role_id != null): ?>
+                            | <?php echo e(Auth::user()->role->designation); ?>
+
+                        <?php endif; ?>
+                    </span>
                     <form action="<?php echo e(route('logout')); ?>" method="post">
                         <?php echo csrf_field(); ?>
-                        <input class="btn" type="submit" value="Log out">
+                        <button class="btn btn-dark mx-3" type="submit"><i class="fa-solid fa-right-from-bracket"></i>
+                            Déconnexion</button>
                     </form>
                 <?php else: ?>
                     <a style="margin-right: 20px" href="<?php echo e(route('login')); ?>">Connexion</a>

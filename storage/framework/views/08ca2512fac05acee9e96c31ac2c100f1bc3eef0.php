@@ -11,7 +11,7 @@
     <?php endif; ?>
     <div class="linksContainer">
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-            <a class="buttonLinks" href="<?php echo e(route('stock.create')); ?>">Nouveau stock</a>
+            <a class="buttonLinks" href="<?php echo e(route('stock.create')); ?>"><i class="fa-solid fa-plus"></i></a>
         <?php endif; ?>
     </div>
     <h1>Liste des articles</h1>
@@ -44,9 +44,9 @@
                     <td><?php echo e($stock->jour); ?></td>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="<?php echo e(route('stock.show', $stock->id)); ?>">Consulter</a>
-                            <a class="buttonLinksTab" href="<?php echo e(route('stock.edit', $stock->id)); ?>">Modifier</a>
-                            <a class="buttonLinksTab" href="<?php echo e(route('stock.destroy', $stock->id)); ?>">Supprimer</a>
+                            <a class="buttonLinksTab" href="<?php echo e(route('stock.show', $stock->id)); ?>"><i class="fa-solid fa-folder-open"></i></a>
+                            <a class="buttonLinksTab" href="<?php echo e(route('stock.edit', $stock->id)); ?>"><i class="fa-solid fa-file-pen"></i></a>
+                            <a class="buttonLinksTab" href="<?php echo e(route('stock.destroy', $stock->id)); ?>"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     <?php endif; ?>
                 </tr>

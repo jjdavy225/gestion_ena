@@ -37,8 +37,6 @@ class CreateLivraisonsTable extends Migration
             $table->date('date_bon')->nullable();
             $table->string('fact_num')->nullable();
             $table->date('fact_date')->nullable();
-            $table->string('type');
-            $table->json('json')->nullable();
             $table->timestamps();
         });
     }

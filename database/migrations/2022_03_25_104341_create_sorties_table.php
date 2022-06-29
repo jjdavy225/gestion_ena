@@ -30,6 +30,9 @@ class CreateSortiesTable extends Migration
             $table->string('code_secteur')->nullable();
             $table->foreignId('agent_id')->constrained()
                 ->cascadeOnUpdate();
+            $table->string('statut');
+            $table->string('type');
+            $table->json('json')->nullable();
             $table->string('agent_matr_est_saisie')->nullable();
             $table->string('supprime')->nullable();
             $table->timestamps();

@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
         Route::post('commande/validation', [CommandeController::class, 'validation'])->name('commande.validation');
         Route::post('livraison/validation', [LivraisonController::class, 'validation'])->name('livraison.validation');
         Route::post('demande/validation', [DemandeController::class, 'validation'])->name('demande.validation');
+        Route::post('sortie/validation', [SortieController::class, 'validation'])->name('sortie.validation');
     });
 
     Route::middleware('agent_responsable')->group(function () {

@@ -113,7 +113,7 @@ unset($__errorArgs, $__bag); ?>
                                 </script>
                                 <option disabled selected>Choisissez une commande</option>
                                 <?php $__currentLoopData = $commandes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $commande): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($commande->statut_liv == 'C1V'): ?>
+                                    <?php if(($commande->statut_liv == 'C1V') || ($commande->statut_liv == 'C1P')): ?>
                                         <option value="<?php echo e($commande->id); ?>">Code : <?php echo e($commande->num); ?> |Objet :
                                             <?php echo e($commande->objet); ?></option>
                                         <script>
@@ -286,7 +286,7 @@ unset($__errorArgs, $__bag); ?>
                                         texte.innerHTML +=
                                             '<div class="form-group mb-3 col-lg-6" style="margin-left:auto;margin-right:auto;"><label class="form-label">' +
                                             designation +
-                                            '</label><input class="form-control" type="number" name="qtes[]" placeholder="Restant : '+ reste +'" required max="' +
+                                            '</label><input class="form-control" type="number" name="qtes[]" placeholder="Restant : '+ reste +'" required min="0" max="' +
                                             reste + '"></div>'
                                         document.getElementById('submit_all_js').innerHTML =
                                             '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'

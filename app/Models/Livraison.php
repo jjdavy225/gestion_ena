@@ -25,8 +25,6 @@ class Livraison extends Model
         'date_bon',
         'fact_num',
         'fact_date',
-        'type',
-        'json',
     ];
 
     public function commande(){

@@ -12,7 +12,7 @@
     @endif
     <div class="linksContainer">
         @canany(['agent', 'responsable'])
-            <a class="buttonLinks" href="{{ route('stock.create') }}">Nouveau stock</a>
+            <a class="buttonLinks" href="{{ route('stock.create') }}"><i class="fa-solid fa-plus"></i></a>
         @endcanany
     </div>
     <h1>Liste des articles</h1>
@@ -45,9 +45,9 @@
                     <td>{{ $stock->jour }}</td>
                     @canany(['agent', 'responsable'])
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="{{ route('stock.show', $stock->id) }}">Consulter</a>
-                            <a class="buttonLinksTab" href="{{ route('stock.edit', $stock->id) }}">Modifier</a>
-                            <a class="buttonLinksTab" href="{{ route('stock.destroy', $stock->id) }}">Supprimer</a>
+                            <a class="buttonLinksTab" href="{{ route('stock.show', $stock->id) }}"><i class="fa-solid fa-folder-open"></i></a>
+                            <a class="buttonLinksTab" href="{{ route('stock.edit', $stock->id) }}"><i class="fa-solid fa-file-pen"></i></a>
+                            <a class="buttonLinksTab" href="{{ route('stock.destroy', $stock->id) }}"><i class="fa-solid fa-trash-can"></i></a>
                         </td>
                     @endcanany
                 </tr>

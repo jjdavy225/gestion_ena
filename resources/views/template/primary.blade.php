@@ -26,6 +26,10 @@
             </a>
         </div>
         <div class="navbar-nav" id="menu">
+            {{-- <a href="#gestionStock" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionStock">Gestion du stock</a>
+            <div class="collapse" id="gestionStock">
+                <div class="card card-body"> --}}
             <a class="nav-link" href="{{ route('commande.index') }}">Commandes</a>
             <a class="nav-link" href="{{ route('article.index') }}">Articles</a>
             <a class="nav-link" href="{{ route('fournisseur.index') }}">Fournisseurs</a>
@@ -35,12 +39,27 @@
             <a class="nav-link" href="{{ route('stock.index') }}">Stocks</a>
             <a class="nav-link" href="{{ route('inventaire.index') }}">Inventaires</a>
             <a class="nav-link" href="{{ route('demande.index') }}">Demandes</a>
+            {{-- </div>
+            </div>
+            <a href="#gestionPatrimoine" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionPatrimoine">Gestion du patrimoine</a>
+            <div class="collapse" id="gestionPatrimoine">
+                <div class="card card-body"> --}}
             <a class="nav-link" href="{{ route('sortie.index') }}">Sorties</a>
             <a class="nav-link" href="{{ route('site.index') }}">Sites</a>
             <a class="nav-link" href="{{ route('bureau.index') }}">Bureaux</a>
             <a class="nav-link" href="{{ route('patrimoine.index') }}">Patrimoine</a>
             <a class="nav-link" href="{{ route('retour.index') }}">Retour</a>
             <a class="nav-link" href="{{ route('mouvement.index') }}">Mouvement</a>
+            {{-- </div>
+            </div>
+            <a href="#gestionParcAuto" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionParcAuto">Gestion du parc auto</a>
+            <div class="collapse" id="gestionParcAuto">
+                <div class="card card-body">
+                    Aucun module !!
+                </div>
+            </div> --}}
         </div>
     </div>
 
@@ -52,10 +71,14 @@
                         <a href="{{ route('dashboard') }}">Tableau de bord</a>
                     @endcan
                     <i class="fa fa-user white"></i>
-                    <span>{{ Auth::user()->agent->nom }} @if(Auth::user()->role_id != null)| {{ Auth::user()->role->designation }}@endif</span>
+                    <span>{{ Auth::user()->agent->nom }} @if (Auth::user()->role_id != null)
+                            | {{ Auth::user()->role->designation }}
+                        @endif
+                    </span>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <input class="btn" type="submit" value="Log out">
+                        <button class="btn btn-dark mx-3" type="submit"><i class="fa-solid fa-right-from-bracket"></i>
+                            Déconnexion</button>
                     </form>
                 @else
                     <a style="margin-right: 20px" href="{{ route('login') }}">Connexion</a>

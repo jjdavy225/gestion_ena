@@ -139,13 +139,19 @@ aside tbody td{
 }
 
 .tabButtonContainer{
+    /* display: flex; */
     text-align: right;
+    /* justify-content: space-evenly; */
+}
+
+.tabButtonContainer form{
+    display: inline;
 }
 
 .buttonLinksTab{
     display: inline-block;
     border: 1px solid;
-    padding: 3px 25px;
+    padding: 3px 10px;
     text-decoration: none;
     color: white;
     background-color: rgb(42, 43, 42);

@@ -129,7 +129,10 @@ class CommandeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commande = Commande::find($id);
+        $commande->articles()->detach();
+        $commande->delete();
+        return back()->with('info','Commande supprimée avec succès');
     }
 
     public function validation(Request $request)

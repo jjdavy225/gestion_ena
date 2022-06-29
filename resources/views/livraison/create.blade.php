@@ -80,7 +80,7 @@
                                 </script>
                                 <option disabled selected>Choisissez une commande</option>
                                 @foreach ($commandes as $commande)
-                                    @if ($commande->statut_liv == 'C1V')
+                                    @if (($commande->statut_liv == 'C1V') || ($commande->statut_liv == 'C1P'))
                                         <option value="{{ $commande->id }}">Code : {{ $commande->num }} |Objet :
                                             {{ $commande->objet }}</option>
                                         <script>
@@ -223,7 +223,7 @@
                                         texte.innerHTML +=
                                             '<div class="form-group mb-3 col-lg-6" style="margin-left:auto;margin-right:auto;"><label class="form-label">' +
                                             designation +
-                                            '</label><input class="form-control" type="number" name="qtes[]" placeholder="Restant : '+ reste +'" required max="' +
+                                            '</label><input class="form-control" type="number" name="qtes[]" placeholder="Restant : '+ reste +'" required min="0" max="' +
                                             reste + '"></div>'
                                         document.getElementById('submit_all_js').innerHTML =
                                             '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'

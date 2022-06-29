@@ -21,7 +21,7 @@ class SortieController extends Controller
     public function index()
     {
         $sorties = Sortie::all();
-        return view('sortie.index',compact('sorties'));
+        return view('sortie.index', compact('sorties'));
     }
 
     /**
@@ -43,7 +43,16 @@ class SortieController extends Controller
      */
     public function store(SortieRequest $request)
     {
-        $sortie = Sortie::create([
+        if ($request->type_sortie != 'complete') {
+            $json = [
+                'articles' => $request->articles,
+                'qtes' => $request->qtes,
+            ];
+            $json = json_encode($json);
+        } else {
+            $json = null;
+        }
+        Sortie::create([
             'code' => Helper::num_generator('Sortie', date('Y-m-j'), Sortie::select('code')->get()->last(), 'code'),
             'date' => $request->date,
             'heure' => date('H:i:s'),
@@ -51,102 +60,12 @@ class SortieController extends Controller
             'demande_id' => $request->demande,
             'nature' => $request->nature,
             'agent_id' => Auth::user()->agent->id,
+            'statut' => 'S1S',
+            'type' => $request->type_sortie,
+            'json' => $json,
             'bureau_id' => Demande::find($request->demande)->bureau_id,
         ]);
 
-        $demande = Demande::find($request->demande);
-        $articles = $demande->articles()->get();
-
-        if ($request->type_sortie == 'complete') {
-            $articlesSorties = $articles;
-        }else {
-            $articlesSorties = $request->articles;
-        }
-
-        $nb_article = count($articlesSorties);
-        for ($i=0; $i < $nb_article; $i++) { 
-            if ($request->type_sortie == 'complete') {
-                $id_r = $articlesSorties[$i]->id;
-                $reste_r = $articlesSorties[$i]->pivot->reste;
-            } else {
-                $id_r = $request->articles[$i];
-                $reste_r =$request->qtes[$i];
-            }
-
-            $articleFound = false;
-            foreach (Stock::all() as $stock) {
-                $articleEnStock = $stock->articles()->find($id_r);
-                if ($articleEnStock != null) {
-                    $articleFound = true;
-                    if ($articleEnStock->pivot->quantite_totale < $reste_r) {
-                        $sortie->delete();
-                        return back()->with('errors_qte','Les quantités en stock sont insuffisantes pour cette opération !!');
-                    }else {
-                        $articleEnStock->pivot->quantite_retournee -= $reste_r;
-                        if ($articleEnStock->pivot->quantite_retournee < 0) {
-                            $articleEnStock->pivot->quantite_entree += $articleEnStock->pivot->quantite_retournee;
-                            $articleEnStock->pivot->quantite_retournee = 0;
-                        }
-                        $articleEnStock->pivot->quantite_totale = $articleEnStock->pivot->quantite_entree + $articleEnStock->pivot->quantite_retournee;
-                        $articleEnStock->pivot->save();
-                        $stock->sortie += 1;
-                        $stock->save();
-                    }
-                }
-            }
-            if (!$articleFound) {
-                $sortie->delete();
-                return back()->with('errors_qte','Une erreur est survenue. Vérifier de bien avoir les articles en stocks !!');
-            }
-
-            $article = $articles->find($id_r)->pivot;
-            $sortie->articles()->attach([
-                $id_r =>[
-                    'quantite_sortie' => $reste_r,
-                    'reste' =>  $article->reste - $reste_r,
-                ],
-            ]);
-
-            $article->quantite_sortie += $reste_r;
-            $article->reste -= $reste_r;
-            $article->save();
-
-            $patrimoine = Patrimoine::where('bureau_id','=',$sortie->bureau_id)->where('article_id','=',$id_r)->first();
-            if ($patrimoine == null) {
-                Patrimoine::create([
-                    'bureau_id' => $sortie->bureau_id,
-                    'article_id' => $id_r,
-                    'quantite' => $reste_r,
-                ]);
-            }else {
-                $patrimoine->quantite += $reste_r;
-                $patrimoine->save();
-            }
-        }
-
-        foreach ($articles as $article) {
-            if ($article->pivot->reste <= 0) {
-                $article->pivot->reste = 0;
-                $complete[] = true;
-            } else {
-                $complete[] = false;
-            }
-        }
-
-        $complete_v = true;
-        foreach ($complete as $item) {
-            if (!$item) {
-                $complete_v = false;
-                break;
-            }
-        }
-        if ($complete_v) {
-            $demande->statut = 'Sortie';
-            $demande->save();
-        }else {
-            $demande->statut = 'Partielle';
-            $demande->save();
-        }
 
         return redirect(route('sortie.index'))->with('info', 'Sortie enregistrée');
     }
@@ -160,7 +79,7 @@ class SortieController extends Controller
     public function show($id)
     {
         $sortie = Sortie::find($id);
-        return view('sortie.show',compact('sortie'));
+        return view('sortie.show', compact('sortie'));
     }
 
     /**
@@ -195,5 +114,114 @@ class SortieController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validation(Request $request)
+    {
+        $request->validate([
+            'sorties.*' => ['required', 'numeric'],
+        ]);
+
+        foreach ($request->sorties as $sortie_id) {
+            $sortie = Sortie::find($sortie_id);
+            $demande = Demande::find($sortie->demande_id);
+            $articles = $demande->articles()->get();
+
+            $request = json_decode($sortie->json);
+
+            if ($sortie->type == 'complete') {
+                $articlesSorties = $articles;
+            } else {
+                $articlesSorties = $request->articles;
+            }
+
+            $nb_article = count($articlesSorties);
+            for ($i = 0; $i < $nb_article; $i++) {
+                if ($sortie->type == 'complete') {
+                    $id_r = $articlesSorties[$i]->id;
+                    $reste_r = $articlesSorties[$i]->pivot->reste;
+                } else {
+                    $id_r = $request->articles[$i];
+                    $reste_r = $request->qtes[$i];
+                }
+
+                $articleFound = false;
+                foreach (Stock::all() as $stock) {
+                    $articleEnStock = $stock->articles()->find($id_r);
+                    if ($articleEnStock != null) {
+                        $articleFound = true;
+                        if ($articleEnStock->pivot->quantite_totale < $reste_r) {
+                            return back()->with('errors_qte', 'Les quantités en stock sont insuffisantes pour cette opération !!');
+                        } else {
+                            $articleEnStock->pivot->quantite_retournee -= $reste_r;
+                            if ($articleEnStock->pivot->quantite_retournee < 0) {
+                                $articleEnStock->pivot->quantite_entree += $articleEnStock->pivot->quantite_retournee;
+                                $articleEnStock->pivot->quantite_retournee = 0;
+                            }
+                            $articleEnStock->pivot->quantite_totale = $articleEnStock->pivot->quantite_entree + $articleEnStock->pivot->quantite_retournee;
+                            $articleEnStock->pivot->save();
+                            $stock->sortie += 1;
+                            $stock->save();
+                        }
+                    }
+                }
+                if (!$articleFound) {
+                    return back()->with('errors_qte', 'Une erreur est survenue. Vérifier de bien avoir les articles en stocks !!');
+                }
+
+                $article = $articles->find($id_r)->pivot;
+                $sortie->articles()->attach([
+                    $id_r => [
+                        'quantite_sortie' => $reste_r,
+                        'reste' =>  $article->reste - $reste_r,
+                    ],
+                ]);
+                $sortie->statut = 'S1V';
+                $sortie->json = null;
+                $sortie->save();
+
+                $article->quantite_sortie += $reste_r;
+                $article->reste -= $reste_r;
+                $article->save();
+
+                $patrimoine = Patrimoine::where('bureau_id', '=', $sortie->bureau_id)->where('article_id', '=', $id_r)->first();
+                if ($patrimoine == null) {
+                    Patrimoine::create([
+                        'bureau_id' => $sortie->bureau_id,
+                        'article_id' => $id_r,
+                        'quantite' => $reste_r,
+                    ]);
+                } else {
+                    $patrimoine->quantite += $reste_r;
+                    $patrimoine->save();
+                }
+            }
+
+            foreach ($articles as $article) {
+                if ($article->pivot->reste <= 0) {
+                    $article->pivot->reste = 0;
+                    $complete[] = true;
+                } else {
+                    $complete[] = false;
+                }
+            }
+
+            $complete_v = true;
+            foreach ($complete as $item) {
+                if (!$item) {
+                    $complete_v = false;
+                    break;
+                }
+            }
+            if ($complete_v) {
+                $demande->statut = 'D1T';
+                $demande->save();
+            } else {
+                $demande->statut = 'D1P';
+                $demande->save();
+            }
+        }
+
+        return back()->with('info', 'Sorties validées');
     }
 }

@@ -21,6 +21,9 @@ class Sortie extends Model
         'bureau_id',
         'code_secteur',
         'agent_id',
+        'statut',
+        'type',
+        'json',
         'agent_matr_est_saisie',
         'supprime',
     ];

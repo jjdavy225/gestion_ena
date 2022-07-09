@@ -19,7 +19,9 @@ body{
     /* border: 1px solid; */
     width: 25%;
     /* min-width: fit-content; */
-    border-right: 1px solid rgb(175, 172, 172);
+    /* border-right: 1px solid rgb(175, 172, 172); */
+    background-color: rgb(3, 141, 56);
+    background-image: linear-gradient(rgb(1, 124, 48),rgb(0, 173, 66));
 }
 
 .logo{
@@ -27,6 +29,7 @@ body{
     align-items: center;
     justify-content: center;
     height: 63px;
+    background-color: #dc3545;
     /* border: 1px solid red; */
 }
 
@@ -44,13 +47,13 @@ body{
     text-decoration: none;
     font-size: 20px;
     font-weight: bold;
-    color: rgb(44, 43, 43);
+    color: white;
     transition: .1s;
 }
 
 .logo a:hover{
     transform: scale(1.05);
-    color: black;
+    color: white;
 }
 
 #menu {
@@ -60,15 +63,15 @@ body{
 }
 
 #menu a{
-    color: gray;
+    color: white;
     margin: 5px 1.7em;
     padding: 2px 15px;
-    border: 1px solid white;
+    border: 1px solid transparent;
     transition: .2s;
 }
 
 #menu a:hover{
-    border: 1px solid gray;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     /* box-shadow: 0px 1px 5px gray; */
 }
@@ -80,13 +83,81 @@ body{
     flex-direction: column;
 }
 
-header div{
-    height: 60px;
+header{
+    height: 63px;
+    padding: 0px 5px;
     display: flex;
     /* border: 1px solid; */
     align-items: center;
+    margin-top: auto;
+    justify-content: space-between;
+    /* border-bottom: 1px solid rgb(175, 172, 172); */
+}
+
+header .header_div{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
     justify-content: right;
-    border-bottom: 1px solid rgb(175, 172, 172);
+}
+
+.header_div div{
+    margin: 0px .5em;
+
+}
+
+.back a{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-decoration: none;
+    color: #dc3545;
+    height: 27px;
+    font-size: 25px;
+    border: 1px solid;
+    padding: 4px;
+    border-radius: 8px;
+    margin: .5em;
+    transition: .2s all ease-in;
+}
+
+.back a:hover{
+    color: white;
+    background-color: #dc3545;
+    border: 1px solid#dc3545;
+}
+
+.account{
+    color: gray;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    font-size: 14px;
+    border-right: 1px solid;
+}
+
+#dropdownMenuButton1{
+    border: none;
+    background-color: white;
+}
+
+.registration a{
+    display: inline-block;
+    border: 1px solid;
+    padding: 8px;
+    font-size: 12px;
+    border-radius: 30px;
+    color: #dc3545;
+    text-decoration: none;
+    transition: .2s all ease-in;
+}
+
+.registration a:hover{
+    color: white;
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
 }
 
 footer {
@@ -98,13 +169,17 @@ footer {
 }
 
 aside{
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 50px 20px 0px 50px;
+    box-shadow: inset 0px 0px 10px 1px rgb(199, 198, 198);
+    background-color: whitesmoke;
 }
 
 aside h1{
     /* background-color: rgb(70, 70, 70); */
-    font-size: 35px;
+    font-size: 30px;
     color: rgb(53, 51, 51);
     padding: 5px;
     padding-left: 10px;
@@ -117,10 +192,14 @@ aside table{
 
 aside thead th{
     background-color: whitesmoke !important;
+    font-size: 15px;
+    white-space: nowrap;
 }
 
 aside tbody td{
     background-color: white !important;
+    /* width: 100%; */
+    font-size: 14px;
 }
 
 .linksContainer{
@@ -131,13 +210,18 @@ aside tbody td{
 .buttonLinks{
     display: inline-block;
     border: 1px solid;
-    padding: 3px 25px;
+    padding: 3px 15px;
     text-decoration: none;
     color: white;
-    background-color: rgb(43, 42, 41);
+    background-color: #dc3545;
     border-radius: 5px;
+    transition: .2s all ease-out;
 }
 
+.buttonLinks:hover{
+    background-color: #be2736;
+    color: white;
+}
 .tabButtonContainer{
     /* display: flex; */
     text-align: right;
@@ -156,4 +240,39 @@ aside tbody td{
     color: white;
     background-color: rgb(42, 43, 42);
     border-radius: 5px;
+    transition: .2s all ease-in-out;
+}
+
+.tableShowContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.tableShowContainer div{
+    width: 100%;
+    max-width: 50%;
+    margin: .5em;
+}
+
+.swal-actions button{
+    height: 30px !important;
+    padding: 0px 10px !important;
+}
+.swal-icon{
+    height: 40px !important;
+    width: 40px !important;
+    margin: 10px auto 0px auto !important;
+}
+.swal-icon div{
+    font-size: 30px !important;
+}
+.swal-title{
+    font-size: 20px !important;
+}
+.swal-htmlContainer{
+    text-align: center !important;
+    font-size: 15px !important;
+    padding: 0px !important;
+    margin: 5px 0px 0px 0px !important;
 }

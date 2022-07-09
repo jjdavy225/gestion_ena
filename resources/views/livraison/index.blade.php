@@ -9,13 +9,10 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     @canany(['agent', 'responsable'])
-        <a class="buttonLinks" href="{{ route('livraison.create') }}"><i class="fa-solid fa-plus"></i></a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="{{ route('livraison.create') }}"><i class="fa-solid fa-plus"></i></a>
+        </div>
     @endcanany
     <h1>Liste des livraisons</h1>
     <div class="container">
@@ -45,8 +42,9 @@
                         <td>{{ $livraison->code }}</td>
                         <td>{{ $livraison->date }}</td>
                         <td>
-                            <a
-                                href="{{ route('commande.show', $livraison->commande->id) }}">{{ $livraison->commande->num }}</a>
+                            {{ $livraison->commande->num }}
+                            <a href="{{ route('commande.show', $livraison->commande->id) }}"><i
+                                    class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i></a>
                         </td>
                         <td>
                             @if ($livraison->statut == 'L1S')
@@ -67,15 +65,15 @@
                         @endcan
                         @canany(['agent', 'responsable'])
                             <td class="tabButtonContainer">
-                                <a class="buttonLinksTab" href="{{ route('livraison.show', $livraison->id) }}"><i
+                                <a class="buttonLinksTab btn-primary" href="{{ route('livraison.show', $livraison->id) }}"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a class="buttonLinksTab" href="{{ route('livraison.edit', $livraison->id) }}"><i
+                                <a class="buttonLinksTab btn-success" href="{{ route('livraison.edit', $livraison->id) }}"><i
                                         class="fa-solid fa-file-pen"></i></a>
-                                <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
-                                    action="{{ route('livraison.destroy', $livraison->id) }}" method="post">
+                                <form class="delete" action="{{ route('livraison.destroy', $livraison->id) }}"
+                                    method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="buttonLinksTab"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         @endcanany

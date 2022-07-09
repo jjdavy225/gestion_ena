@@ -5,13 +5,10 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     @canany(['agent', 'responsable'])
-        <a class="buttonLinks" href="{{ route('type_article.create') }}">Nouveau type</a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="{{ route('type_article.create') }}"><i class="fa-solid fa-plus"></i></a>
+        </div>
     @endcanany
     <h1>Liste des types des articles</h1>
     <table class="table table-success table-stripped">
@@ -33,8 +30,13 @@
                     <td>{{ $type->designation }}</td>
                     @canany(['agent', 'responsable'])
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="{{ route('type_article.edit', $type->id) }}">Modifier</a>
-                            <a class="buttonLinksTab" href="{{ route('type_article.destroy', $type->id) }}">Supprimer</a>
+                            <a class="buttonLinksTab btn-success" href="{{ route('type_article.edit', $type->id) }}"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                            <form class="delete" action="{{ route('type_article.destroy', $type->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     @endcan
                 </tr>

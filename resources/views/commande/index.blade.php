@@ -9,20 +9,19 @@
 @endsection --}}
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
+
+    @canany(['agent', 'responsable'])
+        <div class="linksContainer">
+            <a class="buttonLinks" title="Nouvelle commande" href="{{ route('commande.create') }}"><i
+                    class="fa-solid fa-plus"></i></a>
+            <a class="buttonLinks" title="Nouvelle livraison" href="{{ route('livraison.create') }}"><i
+                    class="fa-solid fa-cart-plus"></i></a>
         </div>
-    @endif
-    <div class="linksContainer">
-        @canany(['agent', 'responsable'])
-            <a class="buttonLinks" href="{{ route('commande.create') }}"><i class="fa-solid fa-plus"></i></a>
-            <a class="buttonLinks" href="{{ route('livraison.create') }}"><i class="fa-solid fa-cart-plus"></i></a>
-        @endcanany
-    </div>
+    @endcanany
+
     <h1>Liste des commandes</h1>
     <div class="container">
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -40,10 +39,11 @@
             <tbody>
                 @php
                     $check = false;
+                    $i = 1
                 @endphp
                 @foreach ($commandes as $commande)
                     <tr>
-                        <td>{{ $commande->id }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $commande->num }}</td>
                         <td>{{ $commande->objet }}</td>
                         <td>
@@ -70,15 +70,14 @@
                         @endcan
                         @canany(['agent', 'responsable'])
                             <td class="tabButtonContainer">
-                                <a class="buttonLinksTab" href="{{ route('commande.show', $commande->id) }}"><i
+                                <a class="buttonLinksTab btn-primary" href="{{ route('commande.show', $commande->id) }}"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a class="buttonLinksTab" href="{{ route('commande.edit', $commande->id) }}"><i
+                                <a class="buttonLinksTab btn-success" href="{{ route('commande.edit', $commande->id) }}"><i
                                         class="fa-solid fa-file-pen"></i></a>
-                                <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
-                                    action="{{ route('commande.destroy', $commande->id) }}" method="post">
+                                <form class="delete" action="{{ route('commande.destroy', $commande->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="buttonLinksTab"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         @endcan
@@ -92,7 +91,7 @@
                     @csrf
                     <div class="container text-center">
                         <input type="hidden" name="commandes[]" id="com">
-                        <input class="btn btn-dark" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submit" type="submit" value="Valider">
                     </div>
                 </form>
                 <script>

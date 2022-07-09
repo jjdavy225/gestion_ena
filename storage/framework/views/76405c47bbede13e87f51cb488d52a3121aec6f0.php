@@ -5,21 +5,19 @@
 
 
 <?php $__env->startSection('contenu'); ?>
-    <?php if(Session::has('info')): ?>
-        <div class="alert alert-primary">
-            <?php echo e(Session::get('info')); ?>
 
+    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
+        <div class="linksContainer">
+            <a class="buttonLinks" title="Nouvelle commande" href="<?php echo e(route('commande.create')); ?>"><i
+                    class="fa-solid fa-plus"></i></a>
+            <a class="buttonLinks" title="Nouvelle livraison" href="<?php echo e(route('livraison.create')); ?>"><i
+                    class="fa-solid fa-cart-plus"></i></a>
         </div>
     <?php endif; ?>
-    <div class="linksContainer">
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-            <a class="buttonLinks" href="<?php echo e(route('commande.create')); ?>"><i class="fa-solid fa-plus"></i></a>
-            <a class="buttonLinks" href="<?php echo e(route('livraison.create')); ?>"><i class="fa-solid fa-cart-plus"></i></a>
-        <?php endif; ?>
-    </div>
+
     <h1>Liste des commandes</h1>
     <div class="container">
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -37,10 +35,11 @@
             <tbody>
                 <?php
                     $check = false;
+                    $i = 1
                 ?>
                 <?php $__currentLoopData = $commandes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $commande): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($commande->id); ?></td>
+                        <td><?php echo e($i++); ?></td>
                         <td><?php echo e($commande->num); ?></td>
                         <td><?php echo e($commande->objet); ?></td>
                         <td>
@@ -67,15 +66,14 @@
                         <?php endif; ?>
                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                             <td class="tabButtonContainer">
-                                <a class="buttonLinksTab" href="<?php echo e(route('commande.show', $commande->id)); ?>"><i
+                                <a class="buttonLinksTab btn-primary" href="<?php echo e(route('commande.show', $commande->id)); ?>"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a class="buttonLinksTab" href="<?php echo e(route('commande.edit', $commande->id)); ?>"><i
+                                <a class="buttonLinksTab btn-success" href="<?php echo e(route('commande.edit', $commande->id)); ?>"><i
                                         class="fa-solid fa-file-pen"></i></a>
-                                <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
-                                    action="<?php echo e(route('commande.destroy', $commande->id)); ?>" method="post">
+                                <form class="delete" action="<?php echo e(route('commande.destroy', $commande->id)); ?>" method="post">
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('DELETE'); ?>
-                                    <button class="buttonLinksTab"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         <?php endif; ?>
@@ -89,7 +87,7 @@
                     <?php echo csrf_field(); ?>
                     <div class="container text-center">
                         <input type="hidden" name="commandes[]" id="com">
-                        <input class="btn btn-dark" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submit" type="submit" value="Valider">
                     </div>
                 </form>
                 <script>

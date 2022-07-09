@@ -7,14 +7,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('contenu'); ?>
-    <?php if(Session::has('info')): ?>
-        <div class="alert alert-primary">
-            <?php echo e(Session::get('info')); ?>
-
-        </div>
-    <?php endif; ?>
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-        <a class="buttonLinks" href="<?php echo e(route('livraison.create')); ?>"><i class="fa-solid fa-plus"></i></a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="<?php echo e(route('livraison.create')); ?>"><i class="fa-solid fa-plus"></i></a>
+        </div>
     <?php endif; ?>
     <h1>Liste des livraisons</h1>
     <div class="container">
@@ -44,8 +40,10 @@
                         <td><?php echo e($livraison->code); ?></td>
                         <td><?php echo e($livraison->date); ?></td>
                         <td>
-                            <a
-                                href="<?php echo e(route('commande.show', $livraison->commande->id)); ?>"><?php echo e($livraison->commande->num); ?></a>
+                            <?php echo e($livraison->commande->num); ?>
+
+                            <a href="<?php echo e(route('commande.show', $livraison->commande->id)); ?>"><i
+                                    class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i></a>
                         </td>
                         <td>
                             <?php if($livraison->statut == 'L1S'): ?>
@@ -66,15 +64,15 @@
                         <?php endif; ?>
                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                             <td class="tabButtonContainer">
-                                <a class="buttonLinksTab" href="<?php echo e(route('livraison.show', $livraison->id)); ?>"><i
+                                <a class="buttonLinksTab btn-primary" href="<?php echo e(route('livraison.show', $livraison->id)); ?>"><i
                                         class="fa-solid fa-file-lines"></i></a>
-                                <a class="buttonLinksTab" href="<?php echo e(route('livraison.edit', $livraison->id)); ?>"><i
+                                <a class="buttonLinksTab btn-success" href="<?php echo e(route('livraison.edit', $livraison->id)); ?>"><i
                                         class="fa-solid fa-file-pen"></i></a>
-                                <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
-                                    action="<?php echo e(route('livraison.destroy', $livraison->id)); ?>" method="post">
+                                <form class="delete" action="<?php echo e(route('livraison.destroy', $livraison->id)); ?>"
+                                    method="post">
                                     <?php echo csrf_field(); ?>
                                     <?php echo method_field('DELETE'); ?>
-                                    <button class="buttonLinksTab"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                                 </form>
                             </td>
                         <?php endif; ?>

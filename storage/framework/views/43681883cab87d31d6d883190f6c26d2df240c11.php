@@ -83,7 +83,7 @@
                                 document.getElementById('submit_all_js').innerHTML = '';
                             } else {
                                 document.getElementById('submit_all_js').innerHTML =
-                                    '<input class="btn btn-dark col-lg-2 offset-5 shadow-sm" type="submit" value="Valider">'
+                                    '<input class="btn btn-danger col-lg-2" type="submit" value="Valider">'
                             }
                         }))
                     </script>
@@ -195,7 +195,7 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
-                <div id="submit_all_js"></div>
+                <div class="boutons" id="submit_all_js"></div>
             </form>
         </div>
     <?php $__env->stopSection(); ?>

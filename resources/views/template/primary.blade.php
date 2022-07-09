@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @yield('css1')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
     <link rel="stylesheet" href="{{ asset('css/primary.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">{{-- Font awesome --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('titre')</title>
 </head>
@@ -25,7 +25,7 @@
                 <div>GESTION ENA</div>
             </a>
         </div>
-        <div class="navbar-nav" id="menu">
+        <div class="navbar-nav bg-gradient-success accordion" id="menu">
             {{-- <a href="#gestionStock" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
                 aria-controls="gestionStock">Gestion du stock</a>
             <div class="collapse" id="gestionStock">
@@ -65,24 +65,45 @@
 
     <div class="main">
         <header>
-            <div class="user">
+            <div class="back">
+                <a href="javascript:history.back()" title="Retour"><i class="fa-solid fa-angles-left"></i></a>
+            </div>
+            <div class="header_div">
                 @auth
-                    @can('admin')
-                        <a href="{{ route('dashboard') }}">Tableau de bord</a>
-                    @endcan
-                    <i class="fa fa-user white"></i>
-                    <span>{{ Auth::user()->agent->nom }} @if (Auth::user()->role_id != null)
-                            | {{ Auth::user()->role->designation }}
-                        @endif
-                    </span>
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="btn btn-dark mx-3" type="submit"><i class="fa-solid fa-right-from-bracket"></i>
-                            Déconnexion</button>
-                    </form>
+                    @if (Auth::user()->role_id != null)
+                        <div class="account">
+                            {{ Auth::user()->role->designation }}
+                        </div>
+                    @endif
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="{{ asset('images/user.png') }}" height="40px">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li class="text-center">{{ Auth::user()->agent->nom }} {{ Auth::user()->agent->prenom }}
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            @can('admin')
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Tableau de bord</a></li>
+                            @endcan
+                            <li>
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button class="dropdown-item" type="submit"><i
+                                            class="fa-solid fa-right-from-bracket"></i>
+                                        Déconnexion</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 @else
-                    <a style="margin-right: 20px" href="{{ route('login') }}">Connexion</a>
-                    <a href="{{ route('register') }}">S'enregistrer</a>
+                    <div class="registration">
+                        <a href="{{ route('login') }}">Connexion</a>
+                        <a href="{{ route('register') }}">S'enregistrer</a>
+                    </div>
                 @endauth
             </div>
         </header>
@@ -90,13 +111,24 @@
             <section>
                 @yield('contenu')
             </section>
+
+            <footer>
+                <div>
+                    Copyrights &copy ENA 2022 | Tous droits réservés
+                </div>
+            </footer>
         </aside>
-        <footer>
-            <div>
-                Copyrights &copy ENA 2022 | Tous droits réservés
-            </div>
-        </footer>
     </div>
+
+    @include('sweetalert::alert')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/deleteConfirmation.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" defer></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js" defer></script>
+    <script src="{{ asset('js/datatables.js') }}"></script>
 </body>
 
 </html>

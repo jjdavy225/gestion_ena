@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'tel' => '0767230749',
         ]);
 
-        Role::create(['designation' => 'Admin']);
+        Role::create(['designation' => 'Administrateur']);
         Role::create(['designation' => 'Responsable']);
         Role::create(['designation' => 'Agent']);
 

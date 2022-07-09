@@ -9,14 +9,27 @@
 @endsection
 
 @section('contenu')
-    <h1>Infos</h1>
-    <ul class="show">
-        <li>Code de l'inventaire : {{ $inventaire->code }}</li>
-        <li>Date de réalisation inventaire : {{ $inventaire->created_at }}</li>
-        <li>Nature du inventaire : {{ $inventaire->nature }}</li>
-    </ul>
-    <h4>Les articles inventoriés</h4>
-    <table class="table table-success table-stripped">
+    <div class="tableShowContainer">
+        <div>
+            <h1>Infos</h1>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Code de l'inventaire</th>
+                    <td>{{ $inventaire->code }}</td>
+                </tr>
+                <tr>
+                    <th>Date de réalisation de l'inventaire</th>
+                    <td>{{ $inventaire->created_at }}</td>
+                </tr>
+                <tr>
+                    <th>Nature de l'inventaire</th>
+                    <td>{{ $inventaire->nature }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <h1>Les articles inventoriés</h1>
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>
@@ -29,9 +42,12 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $i = 1;
+            @endphp
             @foreach ($inventaire->articles as $article)
                 <tr>
-                    <td>{{ $article->id }}</td>
+                    <td>{{ $i++ }}</td>
                     <td>{{ $article->code }}</td>
                     <td>{{ $article->pivot->quantite }}</td>
                     <td>{{ $article->pivot->nature_stock }}</td>
@@ -42,5 +58,4 @@
             @endforeach
         </tbody>
     </table>
-    <button><a href="{{ route('inventaire.index') }}">Retour</a></button>
 @endsection

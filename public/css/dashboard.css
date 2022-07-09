@@ -17,7 +17,7 @@ header {
     height: 60px;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid rgb(175, 172, 172);
+    /* border-bottom: 1px solid rgb(175, 172, 172); */
     justify-content: space-between;
     padding: 0px 10px 0px 40px;
 }
@@ -27,6 +27,22 @@ header .user{
     /* border: 1px solid; */
     align-items: center;
     justify-content: right;
+}
+
+.account{
+    color: gray;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    padding-right: 20px;
+    font-size: 14px;
+    border-right: 1px solid;
+    margin-right: 1em;
+}
+
+#dropdownMenuButton1{
+    border: none;
+    background-color: white;
 }
 
 .logo{
@@ -61,8 +77,11 @@ header .user{
 }
 
 aside{
+    display: flex;
+    flex-direction: column;
     height: 100%;
     padding: 50px 20px 0px 50px;
+    box-shadow: inset 0px 0px 10px 1px rgb(199, 198, 198);
 }
 
 aside h1{

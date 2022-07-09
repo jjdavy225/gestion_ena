@@ -3,14 +3,11 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('contenu'); ?>
-    <?php if(Session::has('info')): ?>
-        <div class="alert alert-primary">
-            <?php echo e(Session::get('info')); ?>
-
-        </div>
-    <?php endif; ?>
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-        <a class="buttonLinks" href="<?php echo e(route('article.create')); ?>">Nouvel article</a>
+        <div class="linksContainer">
+            <a class="buttonLinks" title="Nouvel article" href="<?php echo e(route('article.create')); ?>"><i
+                    class="fa-solid fa-plus"></i></a>
+        </div>
     <?php endif; ?>
     <h1>Liste des articles</h1>
     <table class="table table-success table-stripped">
@@ -37,9 +34,14 @@
                     <td><?php echo e($article->type->designation); ?></td>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                         <td class="tabButtonContainer">
-                            <a href="<?php echo e(route('article.show', $article->id)); ?>">Voir</a>
-                            <a href="<?php echo e(route('article.edit', $article->id)); ?>">Modifier</a>
-                            <a href="<?php echo e(route('article.destroy', $article->id)); ?>">Supprimer</a>
+                            <a class="buttonLinksTab btn-success" href="<?php echo e(route('article.edit', $article->id)); ?>"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                            <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
+                                action="<?php echo e(route('article.destroy', $article->id)); ?>" method="post">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     <?php endif; ?>
                 </tr>

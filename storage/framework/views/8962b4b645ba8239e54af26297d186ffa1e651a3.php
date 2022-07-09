@@ -3,14 +3,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('contenu'); ?>
-    <?php if(Session::has('info')): ?>
-        <div class="alert alert-primary">
-            <?php echo e(Session::get('info')); ?>
-
-        </div>
-    <?php endif; ?>
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-        <a class="buttonLinks" href="<?php echo e(route('type_article.create')); ?>">Nouveau type</a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="<?php echo e(route('type_article.create')); ?>"><i class="fa-solid fa-plus"></i></a>
+        </div>
     <?php endif; ?>
     <h1>Liste des types des articles</h1>
     <table class="table table-success table-stripped">
@@ -32,8 +28,13 @@
                     <td><?php echo e($type->designation); ?></td>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="<?php echo e(route('type_article.edit', $type->id)); ?>">Modifier</a>
-                            <a class="buttonLinksTab" href="<?php echo e(route('type_article.destroy', $type->id)); ?>">Supprimer</a>
+                            <a class="buttonLinksTab btn-success" href="<?php echo e(route('type_article.edit', $type->id)); ?>"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                            <form class="delete" action="<?php echo e(route('type_article.destroy', $type->id)); ?>" method="post">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     <?php endif; ?>
                 </tr>

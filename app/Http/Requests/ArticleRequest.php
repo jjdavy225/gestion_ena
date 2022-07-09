@@ -24,9 +24,11 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['required','bail','numeric'],
+            'type' => ['required_if:newType,null','bail','numeric'],
             'designation' =>['required','bail','max:25'],
-            'marque' => ['required', 'bail','numeric'],
+            'marque' => ['required_if:newMarque,null', 'bail'],
+            'newType' => ['max:30'],
+            'newMarque' => ['max:30'],
         ];
     }
 }

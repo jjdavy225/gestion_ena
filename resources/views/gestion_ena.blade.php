@@ -5,7 +5,7 @@
 @endsection
 
 @section('contenu')
-    <h1>Inventaire courant</h1>
+    {{-- <h1>Inventaire courant</h1>
     <table class="table table-success table-stripped">
         <thead>
             <tr>
@@ -64,5 +64,5 @@
                 @endforeach
             </tbody>
         </table>
-    @endif
+    @endif --}}
 @endsection

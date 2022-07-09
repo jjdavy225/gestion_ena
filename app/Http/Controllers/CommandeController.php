@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\CommandeRequest;
-use App\Models\Agent;
 use App\Models\Article;
 use App\Models\Commande;
 use App\Models\Fournisseur;
@@ -12,6 +11,7 @@ use App\Models\Marque;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class CommandeController extends Controller
 {
@@ -83,7 +83,7 @@ class CommandeController extends Controller
             ]);
         }
 
-        return redirect(route('commande.index'))->with('info', 'Commande enregistrée');
+        return redirect(route('commande.index'))->with('toast_success', 'Commande enregistrée');
     }
 
     /**
@@ -130,25 +130,30 @@ class CommandeController extends Controller
     public function destroy($id)
     {
         $commande = Commande::find($id);
-        $commande->articles()->detach();
-        $commande->delete();
-        return back()->with('info','Commande supprimée avec succès');
+        if ($commande->livraisons()->count() != 0) {
+            alert()->info('Commande non supprimée', 'Les commandes ayant des livraisons ne peuvent être supprimées !');
+            return back();
+        } else {
+            $commande->articles()->detach();
+            $commande->delete();
+        }
+        return back()->with('toast_success', 'Commande supprimée avec succès');
     }
 
     public function validation(Request $request)
     {
         $request->validate([
-            'commandes.*' =>['required','numeric']
+            'commandes.*' => ['required', 'numeric']
         ]);
         foreach ($request->commandes as $commande) {
             $commande = Commande::find($commande);
             if ($commande->statut_liv != 'C1S') {
                 continue;
-            }else {
+            } else {
                 $commande->statut_liv = 'C1V';
                 $commande->save();
             }
         }
-        return back()->with('info','Commandes validées');
+        return back()->with('', 'Commandes validées');
     }
 }

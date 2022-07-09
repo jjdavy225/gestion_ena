@@ -8,36 +8,64 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('contenu'); ?>
-    <h1>Infos</h1>
-    <ul class="show">
-        <li>Numéro du stock : <?php echo e($stock->code); ?></li>
-        <li>Date de création du stock : <?php echo e($stock->jour); ?></li>
-        <li>Nature du stock : <?php echo e($stock->nature); ?></li>
-        <li>Nombre d'entrées : <?php echo e($stock->entree); ?></li>
-        <li>Nombre de retours : <?php echo e($stock->retour); ?></li>
-        <li>Nombre de sorties : <?php echo e($stock->sortie); ?></li>
-    </ul>
-    <h4>Contenu du stock</h4>
-    <table class="table table-success table-stripped">
+    <div class="tableShowContainer">
+        <div>
+            <h1>Infos</h1>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Numéro du stock</th>
+                    <td><?php echo e($stock->code); ?></td>
+                </tr>
+                <tr>
+                    <th>Date de création stock</th>
+                    <td><?php echo e($stock->jour); ?></td>
+                </tr>
+                <tr>
+                    <th>Nature du stock</th>
+                    <td><?php echo e($stock->nature); ?></td>
+                </tr>
+                <tr>
+                    <th>Nombre d'entrées</th>
+                    <td><?php echo e($stock->entree); ?></td>
+                </tr>
+                <tr>
+                    <th>Nombre de sorties</th>
+                    <td><?php echo e($stock->sortie); ?></td>
+                </tr>
+                <tr>
+                    <th>Nombre de retours</th>
+                    <td><?php echo e($stock->retour); ?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h1>Contenu du stock</h1>
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>
                 <th>Code</th>
-                <th>Quantité totale</th>
-                <th>Quantité entrée</th>
-                <th>Quantité retournée</th>
+                <th>Qte totale</th>
+                <th>Qte entrée</th>
+                <th>Qte sortie</th>
+                <th>Qte retournée</th>
                 <th>Désignation</th>
                 <th>Marque</th>
                 <th>Type</th>
             </tr>
         </thead>
         <tbody>
+            <?php
+                $i = 1
+            ?>
             <?php $__currentLoopData = $stock->articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                    <td><?php echo e($article->id); ?></td>
+                    <td><?php echo e($i++); ?></td>
                     <td><?php echo e($article->code); ?></td>
                     <td><?php echo e($article->pivot->quantite_totale); ?></td>
                     <td><?php echo e($article->pivot->quantite_entree); ?></td>
+                    <td><?php echo e($article->pivot->quantite_sortie); ?></td>
                     <td><?php echo e($article->pivot->quantite_retournee); ?></td>
                     <td><?php echo e($article->designation); ?></td>
                     <td><?php echo e($article->marque->designation); ?></td>
@@ -46,7 +74,6 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
-    <button><a href="<?php echo e(route('stock.index')); ?>">Retour</a></button>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('template.primary', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/davy/gestion_ena_backup/resources/views/stock/show.blade.php ENDPATH**/ ?>

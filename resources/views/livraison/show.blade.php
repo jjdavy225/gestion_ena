@@ -9,27 +9,69 @@
 @endsection
 
 @section('contenu')
-    <h1>Infos</h1>
-    <ul class="show">
-        <li>Numéro de la livraison : {{ $livraison->code }}</li>
-        <li>Date de livraison : {{ $livraison->date }}</li>
-        <li>Commande concernée : <a href="{{route('commande.show',$livraison->commande->id)}}">{{ $livraison->commande->num }}</a></li>
-        <li>Fournisseur : {{ $livraison->commande->fournisseur->sigle }}</li>
-        <li>Stock : <a href="{{route('stock.show',$livraison->stock->id)}}">{{ $livraison->stock->code }}</a> | {{$livraison->stock->nature}}</li>
-        <li>Les articles livrés
-            <ul>
-                @foreach ($livraison->articles as $article)
-                    <li>{{ $article->designation }} | {{$article->marque->designation}}
-                        <ul>
-                            <li>Quantité livrée : {{ $article->pivot->quantite_livree }}</li>
-                            <li>Quantité restante : {{ $article->pivot->reste }}</li>
-                            <li>Prix unitaire : {{ $article->pivot->prix_unitaire }}</li>
-                        </ul>
-                    </li>
-                @endforeach
-            </ul>
-        </li>
-        <li>Agent : {{ $livraison->agent->nom }} {{ $livraison->agent->prenom }}</li>
-    </ul>
-    <button><a href="{{ route('livraison.index') }}">Retour</a></button>
+    <div class="tableShowContainer">
+        <div>
+            <h1>Infos</h1>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Code de la livraison</th>
+                    <td>{{ $livraison->code }}</td>
+                </tr>
+                <tr>
+                    <th>Date de la livraison</th>
+                    <td>{{ $livraison->date }}</td>
+                </tr>
+                <tr>
+                    <th>Commande concernée</th>
+                    <td>{{ $livraison->commande->num }} <a
+                            href="{{ route('commande.show', $livraison->commande->id) }}"><i
+                                class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i></a></td>
+                </tr>
+                <tr>
+                    <th>Stock de destination</th>
+                    <td>{{ $livraison->stock->code }} <a href="{{ route('stock.show', $livraison->stock->id) }}"><i
+                                class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i></a></td>
+                </tr>
+                <tr>
+                    <th>Fournisseur</th>
+                    <td>{{ $livraison->commande->fournisseur->sigle }}</td>
+                </tr>
+                <tr>
+                    <th>Agent</th>
+                    <td>{{ $livraison->agent->nom }} {{ $livraison->agent->prenom }}</td>
+                </tr>
+                <tr>
+                    <th>Statut</th>
+                    <td>
+                        @if ($livraison->statut == 'L1S')
+                            Non validée
+                        @elseif ($livraison->statut == 'L1V')
+                            Livraison validée
+                        @endif
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <h4 class="text-center">Les articles livrés</h4>
+    <table class="table table-bordered">
+        <thead>
+            <th>Désignation</th>
+            <th>Marque</th>
+            <th>Qte livrée</th>
+            <th>Qte restante</th>
+            <th>Pprix unitaire</th>
+        </thead>
+        <tbody>
+            @foreach ($livraison->articles as $article)
+                <tr>
+                    <td>{{ $article->designation }}</td>
+                    <td>{{ $article->marque->designation }}</td>
+                    <td>{{ $article->pivot->quantite_livree }}</td>
+                    <td>{{ $article->pivot->reste }}</td>
+                    <td>{{ $article->pivot->prix_unitaire }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @endsection

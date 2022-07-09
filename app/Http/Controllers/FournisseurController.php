@@ -57,7 +57,7 @@ class FournisseurController extends Controller
             'regime_impot' => $request->regime_impot,
             'centre_impot' => $request->centre_impot,
         ]);
-        return redirect(route('fournisseur.index'))->with('infos', 'Fournisseur créé avec succès');
+        return redirect(route('fournisseur.index'))->with('toast_success', 'Fournisseur créé avec succès');
     }
 
     /**
@@ -68,7 +68,8 @@ class FournisseurController extends Controller
      */
     public function show($id)
     {
-        //
+        $fournisseur = Fournisseur::find($id);
+        return view('fournisseur.show',compact('fournisseur'));
     }
 
     /**

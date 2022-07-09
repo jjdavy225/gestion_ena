@@ -5,13 +5,10 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     @canany(['agent', 'responsable'])
-        <a class="buttonLinks" href="{{ route('marque_article.create') }}">Nouvelle marque</a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="{{ route('marque_article.create') }}"><i class="fa-solid fa-plus"></i></a>
+        </div>
     @endcanany
     <h1>Liste des marques des articles</h1>
     <table class="table table-success table-stripped">
@@ -33,8 +30,13 @@
                     <td>{{ $marque->designation }}</td>
                     @canany(['agent', 'responsable'])
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="{{ route('marque_article.edit', $marque->id) }}">Modifier</a>
-                            <a class="buttonLinksTab" href="{{ route('marque_article.destroy', $marque->id) }}">Supprimer</a>
+                            <a class="buttonLinksTab btn-success" href="{{ route('marque_article.edit', $marque->id) }}"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                            <form class="delete" action="{{ route('marque_article.destroy', $marque->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     @endcan
                 </tr>

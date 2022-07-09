@@ -3,11 +3,12 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('contenu'); ?>
-<div class="linksContainer">
     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
-        <a class="buttonLinks" href="<?php echo e(route('fournisseur.create')); ?>">Nouveau fournisseur</a>
+        <div class="linksContainer">
+            <a class="buttonLinks" href="<?php echo e(route('fournisseur.create')); ?>"><i class="fa-solid fa-plus"></i></a>
+        </div>
     <?php endif; ?>
-</div>
+
     <h1>Liste des fournisseurs</h1>
     <table class="table table-success table-stripped">
         <thead>
@@ -30,9 +31,16 @@
                     <td><?php echo e($fournisseur->siege); ?></td>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['agent', 'responsable'])): ?>
                         <td class="tabButtonContainer">
-                            <a class="buttonLinksTab" href="<?php echo e(route('fournisseur.show', $fournisseur->id)); ?>">Voir</a>
-                            <a class="buttonLinksTab" href="<?php echo e(route('fournisseur.edit', $fournisseur->id)); ?>">Modifier</a>
-                            <a class="buttonLinksTab" href="<?php echo e(route('fournisseur.destroy', $fournisseur->id)); ?>">Supprimer</a>
+                            <a class="buttonLinksTab btn-primary" href="<?php echo e(route('fournisseur.show', $fournisseur->id)); ?>"><i
+                                    class="fa-solid fa-file-lines"></i></a>
+                            <a class="buttonLinksTab btn-success" href="<?php echo e(route('fournisseur.edit', $fournisseur->id)); ?>"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                            <form class="delete" onsubmit="return confirm('Do you really want to submit the form ?');"
+                                action="<?php echo e(route('fournisseur.destroy', $fournisseur->id)); ?>" method="post">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     <?php endif; ?>
                 </tr>

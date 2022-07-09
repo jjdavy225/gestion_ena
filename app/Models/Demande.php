@@ -21,7 +21,7 @@ class Demande extends Model
         'agent_id',
         'agt_matr_est_faite',
         'bureau_id',
-        'code_proprietaire',
+        'code_secteur',
         'statut',
         'date_auto',
         'num_auto',

@@ -42,13 +42,29 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
+        if ($request->type == null) {
+            $type = Type::create([
+                'code' => Helper::num_generator('Type', date('Y-m-j'), Type::select('code')->get()->last(),'code'),
+                'designation' => $request->newType
+            ])->id;
+        }else{
+            $type = $request->type;
+        }
+        if ($request->marque == null) {
+            $marque = Marque::create([
+                'code' => Helper::num_generator('Marque', date('Y-m-j'), Marque::select('code')->get()->last(),'code'),
+                'designation' => $request->newMarque
+            ])->id;
+        }else{
+            $marque = $request->marque;
+        }
         Article::create([
-            'code' => Helper::num_generator('Article', date('Y' . '-' . 'm' . '-' . 'j'), Article::select('code')->get()->last(),'code'),
+            'code' => Helper::num_generator('Article', date('Y-m-j'), Article::select('code')->get()->last(),'code'),
             'designation' => $request->designation,
-            'type_id' => $request->type,
-            'marque_id' => $request->marque,
+            'type_id' => $type,
+            'marque_id' => $marque,
         ]);
-        return redirect(route('article.index'))->with('info','Article créé avec succès');
+        return redirect(route('article.index'))->with('toast_success','Article créé avec succès');
     }
 
     /**

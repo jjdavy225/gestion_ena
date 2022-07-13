@@ -15,7 +15,7 @@
     <h1>Liste des demandes</h1>
     <div class="container">
 
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>

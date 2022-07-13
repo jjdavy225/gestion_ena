@@ -27,10 +27,11 @@ class CreateMouvementsTable extends Migration
             $table->date('date_saisie');
             $table->string('observation');
             $table->string('agent_mouvement');
+            $table->string('statut');
             $table->foreignId('agent_id')->constrained()->cascadeOnUpdate();
             $table->timestamps();
         });
-  
+
     }
 
     /**

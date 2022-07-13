@@ -17,7 +17,7 @@
     <h1>Liste des demandes</h1>
     <div class="container">
 
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -87,11 +87,11 @@
                     @csrf
                     <div class="container text-center">
                         <input type="hidden" name="demandes[]" id="dem">
-                        <input class="btn btn-danger" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submitVal" value="Valider">
                     </div>
                 </form>
                 <script>
-                    document.getElementById('submit').addEventListener('click', (function() {
+                    document.getElementById('submitVal').addEventListener('click', (function() {
                         const demandes = document.getElementsByClassName('demande');
                         let dem = [];
                         for (let i = 0; i < demandes.length; i++) {

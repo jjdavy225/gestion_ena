@@ -14,7 +14,7 @@
     <?php endif; ?>
     <h1>Liste des livraisons</h1>
     <div class="container">
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -33,10 +33,11 @@
             <tbody>
                 <?php
                     $check = false;
+                    $i = 1
                 ?>
                 <?php $__currentLoopData = $livraisons; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $livraison): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($livraison->id); ?></td>
+                        <td><?php echo e($i++); ?></td>
                         <td><?php echo e($livraison->code); ?></td>
                         <td><?php echo e($livraison->date); ?></td>
                         <td>
@@ -86,11 +87,11 @@
                     <?php echo csrf_field(); ?>
                     <div class="container text-center">
                         <input type="hidden" name="livraisons[]" id="liv">
-                        <input class="btn btn-dark" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submitVal" value="Valider">
                     </div>
                 </form>
                 <script>
-                    document.getElementById('submit').addEventListener('click', (function() {
+                    document.getElementById('submitVal').addEventListener('click', (function() {
                         const livraisons = document.getElementsByClassName('livraison');
                         let liv = [];
                         for (let i = 0; i < livraisons.length; i++) {

@@ -10,7 +10,7 @@
         </div>
     <?php endif; ?>
     <h1>Liste des articles</h1>
-    <table class="table table-success table-stripped">
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>

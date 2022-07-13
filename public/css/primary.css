@@ -236,6 +236,7 @@ aside tbody td{
     display: inline-block;
     border: 1px solid;
     padding: 3px 10px;
+    margin: 0px 3px;
     text-decoration: none;
     color: white;
     background-color: rgb(42, 43, 42);

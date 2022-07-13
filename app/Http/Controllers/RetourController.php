@@ -20,7 +20,7 @@ class RetourController extends Controller
     public function index()
     {
         $retours = Retour::all();
-        return view('retour.index',compact('retours'));
+        return view('retour.index', compact('retours'));
     }
 
     /**
@@ -49,36 +49,15 @@ class RetourController extends Controller
             'date' => $request->date,
             'observation' => $request->obs,
             'date_saisie' => date('Y-m-j'),
+            'statut' => 'R1S',
             'bureau_id' => $request->bureau,
             'stock_id' => $request->stock,
             'agent_id' => Auth::user()->agent->id,
         ]);
 
-        $stock = Stock::find($request->stock);
         $nb_article = count($request->articles);
 
         for ($i = 0; $i < $nb_article; $i++) {
-            $articleEnStock = $stock->articles()->find($request->articles[$i]);
-            if ($articleEnStock == null) {
-                $stock->articles()->attach([
-                    $request->articles[$i] => [
-                        'quantite_entree' => 00,
-                        'quantite_retournee' => $request->qtes[$i],
-                        'quantite_totale' => $request->qtes[$i],
-                    ]
-                ]);
-            }else {
-                $articleEnStock->pivot->quantite_retournee += $request->qtes[$i];
-                $articleEnStock->pivot->quantite_totale = $articleEnStock->pivot->quantite_retournee + $articleEnStock->pivot->quantite_entree ;
-                $articleEnStock->pivot->save();
-            }
-            $stock->retour += 1;
-            $stock->save();
-
-            $patrimoine = Patrimoine::where('bureau_id', '=', $request->bureau)->where('article_id', '=', $request->articles[$i])->first();
-            $patrimoine->quantite -= $request->qtes[$i];
-            $patrimoine->save();
-
             $retour->articles()->attach([
                 $request->articles[$i] => [
                     'quantite' => $request->qtes[$i],
@@ -86,7 +65,7 @@ class RetourController extends Controller
                 ]
             ]);
         }
-        return 'Hello server';
+        return redirect()->route('retour.index')->with('toast_success', 'Retour éffectué avec succès');
     }
 
     /**
@@ -98,7 +77,7 @@ class RetourController extends Controller
     public function show($id)
     {
         $retour = Retour::find($id);
-        return view('retour.show',compact('retour'));
+        return view('retour.show', compact('retour'));
     }
 
     /**
@@ -132,6 +111,61 @@ class RetourController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $retour = Retour::find($id);
+        if ($retour->statut == 'R1S') {
+            $retour->dettach();
+            $retour->delete();
+            return back()->with('toast_success', 'Retour supprimé avec succès');
+        } else {
+            alert('Suppression impossible', 'Cet élément a déja été validé !', 'error');
+            return back();
+        }
+    }
+
+    public function validation(Request $request)
+    {
+        $request->validate([
+            'retours.*' => ['required', 'numeric']
+        ]);
+
+        foreach ($request->retours as $retour) {
+            $retour = Retour::find($retour);
+            $stock = $retour->stock;
+
+            foreach ($retour->articles as $article) {
+                $patrimoine = Patrimoine::where('bureau_id', '=', $retour->bureau_id)->where('article_id', '=', $article->id)->first();
+                $patrimoine->quantite -= $article->pivot->quantite;
+                if ($patrimoine->quantite <= 0) {
+                    $article->pivot->quantite += $patrimoine->quantite;
+                    $article->pivot->save();
+                    $patrimoine->delete();
+                } else {
+                    $patrimoine->save();
+                }
+
+                $articleEnStock = $stock->articles()->find($article->id);
+                if ($articleEnStock == null) {
+                    $stock->articles()->attach([
+                        $article->id => [
+                            'quantite_entree' => 00,
+                            'quantite_retournee' => $article->pivot->quantite,
+                            'quantite_totale' => $article->pivot->quantite,
+                        ]
+                    ]);
+                } else {
+                    $articleEnStock->pivot->quantite_retournee += $article->pivot->quantite;
+                    $articleEnStock->pivot->quantite_totale = $articleEnStock->pivot->quantite_retournee + $articleEnStock->pivot->quantite_entree;
+                    $articleEnStock->pivot->save();
+                }
+                $stock->retour += 1;
+                $stock->save();
+
+            }
+
+            $retour->statut = 'R1V';
+            $retour->save();
+        }
+
+        return back()->with('toast_success', 'Retours validés avec succès');
     }
 }

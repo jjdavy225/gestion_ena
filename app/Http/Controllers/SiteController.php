@@ -43,7 +43,7 @@ class SiteController extends Controller
             'designation' => $request->designation,
         ]);
 
-        return redirect(route('site.index'))->with('info','Nouveau site créé');
+        return redirect(route('site.index'))->with('toast_success','Nouveau site créé');
     }
 
     /**

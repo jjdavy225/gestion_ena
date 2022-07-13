@@ -111,7 +111,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <script src="<?php echo e(asset('js/app.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/deleteConfirmation.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/eventConfirm.js')); ?>"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" defer></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js" defer></script>
     <script src="<?php echo e(asset('js/datatables.js')); ?>"></script>

@@ -5,18 +5,13 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     <div class="linksContainer">
         @canany(['agent', 'responsable'])
-            <a class="buttonLinks" href="{{ route('bureau.create') }}">Nouveau bureau</a>
+            <a class="buttonLinks" href="{{ route('bureau.create') }}"><i class="fa-solid fa-plus"></i></a>
         @endcanany
     </div>
     <h1>Liste des bureaux</h1>
-    <table class="table table-success table-stripped">
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>
@@ -36,12 +31,13 @@
                     <td>{{ $bureau->designation }}</td>
                     <td>{{ $bureau->site->designation }}</td>
                     @canany(['agent', 'responsable'])
-                    <td class="tabButtonContainer">
-                        <a href="{{ route('bureau.edit', $bureau->id) }}">Modifier</a>
-                        <a href="{{ route('bureau.destroy', $bureau->id) }}">Supprimer</a>
-                    </td>
-                @endcanany
-                    <td></td>
+                        <td class="tabButtonContainer">
+                            <a class="buttonLinksTab btn-primary" href="{{ route('patrimoine.show', $bureau->id) }}"><i
+                                    class="fa-solid fa-file-lines"></i></a>
+                            <a class="buttonLinksTab btn-success" href="{{ route('bureau.edit', $bureau->id) }}"><i
+                                    class="fa-solid fa-file-pen"></i></a>
+                        </td>
+                    @endcanany
                 </tr>
             @endforeach
         </tbody>

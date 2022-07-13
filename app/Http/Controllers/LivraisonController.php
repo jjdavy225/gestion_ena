@@ -84,10 +84,12 @@ class LivraisonController extends Controller
             $articleLivree = $articles->find($id_r);
             if ($articleLivree == null) {
                 $livraison->delete();
-                return back()->with('error', 'Une erreur est survenue. Veuillez réessayer');
+                alert('Une erreur est survenue','Veuillez réessayer','error');
+                return back();
             } elseif ($articleLivree->pivot->quantite < $reste_r) {
                 $livraison->delete();
-                return back()->with('error', 'Vérifiez les quantités de la demande');
+                alert('Une erreur est survenue','Vérifiez les quantités des articles demandés','error');
+                return back();
             } else {
                 $livraison->articles()->attach([
                     $id_r => [
@@ -99,7 +101,7 @@ class LivraisonController extends Controller
             }
         }
 
-        return redirect(route('livraison.index'))->with('info', 'Livraison enregistrée');
+        return redirect(route('livraison.index'))->with('toast_success', 'Livraison enregistrée');
     }
 
     /**
@@ -148,7 +150,7 @@ class LivraisonController extends Controller
         $livraison = Livraison::find($id);
         $livraison->articles()->detach();
         $livraison->delete();
-        return back()->with('info','Livraison supprimée avec succès');
+        return back()->with('toast_success','Livraison supprimée avec succès');
     }
 
     public function validation(Request $request)
@@ -159,9 +161,9 @@ class LivraisonController extends Controller
 
         foreach ($request->livraisons as $livraison_id) {
             $livraison = Livraison::find($livraison_id);
-            $commande = Commande::find($livraison->commande_id);
+            $commande = $livraison->commande;
             $articles = $commande->articles()->get();
-            $stock = Stock::find($livraison->stock_id);
+            $stock = $livraison->stock;
 
             $articles_r = $livraison->articles;
             $nb_article = count($articles_r);
@@ -241,6 +243,6 @@ class LivraisonController extends Controller
             }
         }
 
-        return back()->with('info', 'Livraisons validées');
+        return back()->with('toast_success', 'Livraisons validées');
     }
 }

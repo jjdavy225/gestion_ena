@@ -41,10 +41,6 @@
                     <td><?php echo e($demande->code_secteur); ?></td>
                 </tr>
                 <tr>
-                    <th>Code propriétaire</th>
-                    <td><?php echo e($demande->code_proprietaire); ?></td>
-                </tr>
-                <tr>
                     <th>Statut</th>
                     <td>
                         <?php if($demande->statut == 'D1S'): ?>

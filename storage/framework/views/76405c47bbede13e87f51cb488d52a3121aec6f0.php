@@ -87,11 +87,11 @@
                     <?php echo csrf_field(); ?>
                     <div class="container text-center">
                         <input type="hidden" name="commandes[]" id="com">
-                        <input class="btn btn-danger" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submitVal" value="Valider">
                     </div>
                 </form>
                 <script>
-                    document.getElementById('submit').addEventListener('click', (function() {
+                    document.getElementById('submitVal').addEventListener('click', (function() {
                         const commandes = document.getElementsByClassName('commande');
                         let com = [];
                         for (let i = 0; i < commandes.length; i++) {

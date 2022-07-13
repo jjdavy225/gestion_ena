@@ -14,6 +14,7 @@ class Retour extends Model
         'date',
         'observation',
         'date_saisie',
+        'statut',
         'bureau_id',
         'stock_id',
         'agent_id',
@@ -21,7 +22,7 @@ class Retour extends Model
 
     public function articles(){
         return $this->belongsToMany(Article::class)->withPivot('quantite','prix_unitaire')->withTimestamps();
-    } 
+    }
 
     public function bureau(){
         return $this->belongsTo(Bureau::class);

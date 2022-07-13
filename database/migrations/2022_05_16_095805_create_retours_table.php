@@ -19,6 +19,7 @@ class CreateRetoursTable extends Migration
             $table->date('date');
             $table->string('observation');
             $table->date('date_saisie');
+            $table->string('statut');
             $table->foreignId('bureau_id')->constrained()
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('stock_id')->constrained()

@@ -18,6 +18,7 @@ class Mouvement extends Model
         'date_saisie',
         'observation',
         'agent_mouvement',
+        'statut',
         'agent_id',
     ];
 

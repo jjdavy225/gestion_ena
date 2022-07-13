@@ -131,7 +131,7 @@ class CommandeController extends Controller
     {
         $commande = Commande::find($id);
         if ($commande->livraisons()->count() != 0) {
-            alert()->info('Commande non supprimée', 'Les commandes ayant des livraisons ne peuvent être supprimées !');
+            alert()->error('Commande non supprimée', 'Les commandes ayant des livraisons ne peuvent être supprimées !')->persistent();
             return back();
         } else {
             $commande->articles()->detach();
@@ -154,6 +154,6 @@ class CommandeController extends Controller
                 $commande->save();
             }
         }
-        return back()->with('', 'Commandes validées');
+        return back()->with('toast_success', 'Commandes validées');
     }
 }

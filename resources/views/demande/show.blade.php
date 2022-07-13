@@ -42,10 +42,6 @@
                     <td>{{ $demande->code_secteur }}</td>
                 </tr>
                 <tr>
-                    <th>Code propriétaire</th>
-                    <td>{{ $demande->code_proprietaire }}</td>
-                </tr>
-                <tr>
                     <th>Statut</th>
                     <td>
                         @if ($demande->statut == 'D1S')

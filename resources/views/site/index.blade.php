@@ -5,18 +5,13 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     <div class="linksContainer">
         @canany(['agent', 'responsable'])
-            <a class="buttonLinks" href="{{ route('site.create') }}">Nouveau site</a>
+            <a class="buttonLinks" href="{{ route('site.create') }}"><i class="fa-solid fa-plus"></i></a>
         @endcanany
     </div>
     <h1>Liste des sites</h1>
-    <table class="table table-success table-stripped">
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>
@@ -36,8 +31,13 @@
                     <td>{{ $site->designation }}</td>
                     @canany(['agent', 'responsable'])
                         <td class="tabButtonContainer">
-                            <a href="{{ route('site.edit', $site->id) }}">Modifier</a>
-                            <a href="{{ route('site.destroy', $site->id) }}">Supprimer</a>
+                            <a class="buttonLinksTab btn-success" href="{{ route('site.edit', $site->id) }}"><i
+                                    class="fa-solid fa-file-lines"></i></a>
+                            <form class="delete" action="{{ route('site.destroy', $site->id) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="buttonLinksTab btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
                         </td>
                     @endcan
                 </tr>

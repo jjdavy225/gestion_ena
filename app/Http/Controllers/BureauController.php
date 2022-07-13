@@ -46,7 +46,7 @@ class BureauController extends Controller
             'site_id' => $request->site,
         ]);
 
-        return redirect(route('bureau.index'))->with('info','Nouveau bureau créé');
+        return redirect(route('bureau.index'))->with('toast_success','Nouveau bureau créé');
     }
 
     /**

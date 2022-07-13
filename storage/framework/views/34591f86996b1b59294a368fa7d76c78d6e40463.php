@@ -11,8 +11,8 @@
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php $component->withAttributes([]); ?>
          <?php $__env->slot('logo', null, []); ?> 
-            <img class="w-40 h-20 fill-current text-gray-500" src="<?php echo e(asset('images/logo_ena.png')); ?>" alt="Logo">
-            <p class="w-full text-center text-xl text-orange-500">GESTION ENA</p>
+            
+            
          <?php $__env->endSlot(); ?>
 
         <!-- Session Status -->

@@ -9,11 +9,6 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('errors_qte'))
-        <div class="alert alert-danger">
-            {{ Session::get('errors_qte') }}
-        </div>
-    @endif
     <div class="container-fluid">
         <div class="container">
             <form action="{{ route('retour.store') }}" method="post">
@@ -92,7 +87,7 @@
                 </div>
                 <div class="form-group mb-3" id="tab_article">
                     <div class="container" id="table_liste_article">
-                        <table class="table table-success table-stripped">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Articles</th>
@@ -100,6 +95,9 @@
                                 </tr>
                             </thead>
                             <tbody id="tab_choix_js">
+                                <tr>
+                                    <td colspan="2" class="text-center text-secondary">Aucune donnée. Choisissez d'abord un bureau</td>
+                                </tr>
                                 <script type="text/javascript">
                                     const doc = document.getElementById('bureau');
                                     const doc2 = document.getElementById('tab_choix_js');
@@ -110,15 +108,18 @@
                                     }))
 
                                     function tab_choix(articles, tab) {
-                                        tab.innerHTML = ""
+                                        let text = ''
                                         for (var designation in articles) {
                                             var id = articles[designation][0]
                                             var quantite = articles[designation][1]
                                             if (quantite > 0) {
-                                                tab.innerHTML += '<tr><td>' + designation +
+                                                text += '<tr><td>' + designation +
                                                     '</td><td><input class="checkbox styled checkbox-primary" id="' + designation +
                                                     '"type="checkbox" name="articles[]" value="' + id + '"></td></tr>';
                                             }
+                                        }
+                                        if (text != '') {
+                                            tab.innerHTML = text
                                         }
                                     }
                                 </script>
@@ -159,7 +160,7 @@
                                 document.getElementById('submit_all_js').innerHTML = '';
                             } else {
                                 document.getElementById('submit_all_js').innerHTML =
-                                    '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'
+                                    '<input class="btn btn-danger col-lg-2 offset-5" type="submit" value="Soumettre">'
                             }
                         }))
                     </script>

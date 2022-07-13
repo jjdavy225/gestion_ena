@@ -226,7 +226,7 @@
                                             '</label><input class="form-control" type="number" name="qtes[]" placeholder="Restant : '+ reste +'" required min="0" max="' +
                                             reste + '"></div>'
                                         document.getElementById('submit_all_js').innerHTML =
-                                            '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'
+                                            '<input class="btn btn-danger col-lg-2 offset-5" type="submit" value="Soumettre">'
                                     }
                                 }
                             }
@@ -247,7 +247,7 @@
                     }));
                     document.getElementById('complete').addEventListener('change', (function() {
                         document.getElementById('submit_all_js').innerHTML =
-                            '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'
+                            '<input class="btn btn-danger col-lg-2 offset-5" type="submit" value="Soumettre">'
                         document.getElementById('tab_article').style.display = 'none';
                     }));
                 </script>

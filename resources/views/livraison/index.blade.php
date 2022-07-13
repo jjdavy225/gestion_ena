@@ -16,7 +16,7 @@
     @endcanany
     <h1>Liste des livraisons</h1>
     <div class="container">
-        <table class="table table-success table-stripped">
+        <table class="table datatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -35,10 +35,11 @@
             <tbody>
                 @php
                     $check = false;
+                    $i = 1
                 @endphp
                 @foreach ($livraisons as $livraison)
                     <tr>
-                        <td>{{ $livraison->id }}</td>
+                        <td>{{ $i++ }}</td>
                         <td>{{ $livraison->code }}</td>
                         <td>{{ $livraison->date }}</td>
                         <td>
@@ -87,11 +88,11 @@
                     @csrf
                     <div class="container text-center">
                         <input type="hidden" name="livraisons[]" id="liv">
-                        <input class="btn btn-dark" id="submit" type="submit" value="Valider">
+                        <input class="btn btn-danger" id="submitVal" value="Valider">
                     </div>
                 </form>
                 <script>
-                    document.getElementById('submit').addEventListener('click', (function() {
+                    document.getElementById('submitVal').addEventListener('click', (function() {
                         const livraisons = document.getElementsByClassName('livraison');
                         let liv = [];
                         for (let i = 0; i < livraisons.length; i++) {

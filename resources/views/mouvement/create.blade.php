@@ -152,7 +152,7 @@
                                             quantite + '" required min="0" max="' +
                                             quantite + '"></div>'
                                         document.getElementById('submit_all_js').innerHTML =
-                                            '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'
+                                            '<input class="btn btn-danger col-lg-2 offset-5" type="submit" value="Soumettre">'
                                     }
                                 }
                             }
@@ -162,7 +162,7 @@
                                 document.getElementById('submit_all_js').innerHTML = '';
                             } else {
                                 document.getElementById('submit_all_js').innerHTML =
-                                    '<input class="btn btn-dark col-lg-2 offset-5" type="submit" value="Soumettre">'
+                                    '<input class="btn btn-danger col-lg-2 offset-5" type="submit" value="Soumettre">'
                             }
                         }))
                     </script>

@@ -5,13 +5,8 @@
 @endsection
 
 @section('contenu')
-    @if (Session::has('info'))
-        <div class="alert alert-primary">
-            {{ Session::get('info') }}
-        </div>
-    @endif
     <h1>Liste des bureaux concernés</h1>
-    <table class="table table-success table-stripped">
+    <table class="table datatable">
         <thead>
             <tr>
                 <th>#</th>
@@ -26,14 +21,15 @@
             @endphp
             @foreach ($patrimoines->groupBy('bureau_id') as $id_bureau => $bureau)
                 <tr>
-                    <td>{{ $i }}</td>
-                    <td>{{ $bureau->first()->bureau->site->designation }}-{{ $bureau->first()->bureau->designation }}</td>
+                    <td>{{ $i++ }}</td>
+                    <td>{{ $bureau->first()->bureau->site->designation }}-{{ $bureau->first()->bureau->designation }}
+                    </td>
                     <td>{{ $bureau->count() }}</td>
-                    <td><a href="{{ route('patrimoine.show', $id_bureau) }}">Consulter</a></td>
+                    <td class="tabButtonContainer">
+                        <a class="buttonLinksTab btn-primary" href="{{ route('patrimoine.show', $id_bureau) }}"><i
+                            class="fa-solid fa-folder-open"></i></a>
+                    </td>
                 </tr>
-                @php
-                    $i++;
-                @endphp
             @endforeach
         </tbody>
     </table>

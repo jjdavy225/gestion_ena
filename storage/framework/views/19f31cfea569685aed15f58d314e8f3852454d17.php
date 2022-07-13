@@ -428,7 +428,7 @@ unset($__errorArgs, $__bag); ?>
                             selects[i].insertBefore(newOption, optionNew[i])
                             labels[i].innerHTML = labelPrevious
                             selects[i].style.display = 'block'
-                            seloffset-5 shadow-smects[i].addEventListener('change', (function() {
+                            selects[i].addEventListener('change', (function() {
                                 if (this.value === newOption.value) {
                                     if (i == 0) {
                                         selects[i].setAttribute('name', 'newType')

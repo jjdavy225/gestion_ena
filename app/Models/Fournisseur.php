@@ -32,4 +32,8 @@ class Fournisseur extends Model
     public function commandes(){
         return $this->hasMany(Commande::class);
     }
+
+    public function vehicules(){
+        return $this->hasMany(Voiture::class);
+    }
 }

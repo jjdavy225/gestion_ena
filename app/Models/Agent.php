@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'matricule',
         'nom',
@@ -58,5 +58,29 @@ class Agent extends Model
 
     public function mouvements(){
         return $this->hasMany(Mouvement::class);
+    }
+
+    public function pannes(){
+        return $this->hasMany(Panne::class);
+    }
+
+    public function reparations(){
+        return $this->hasMany(Reparation::class);
+    }
+
+    public function entretiens(){
+        return $this->hasMany(Entretien::class);
+    }
+
+    public function conducteur_info(){
+        return $this->hasOne(Conducteur::class,'agent_conducteur_id');
+    }
+
+    public function conducteurs(){
+        return $this->hasMany(Conducteur::class);
+    }
+
+    public function affectations(){
+        return $this->hasMany(Affectation::class);
     }
 }

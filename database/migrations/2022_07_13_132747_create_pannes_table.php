@@ -15,6 +15,15 @@ class CreatePannesTable extends Migration
     {
         Schema::create('pannes', function (Blueprint $table) {
             $table->id();
+            $table->string('code',10);
+            $table->foreignId('vehicule_id')->constrained()
+                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('causes');
+            $table->string('observation');
+            $table->date('date_panne');
+            $table->boolean('repare')->default(0);
+            $table->foreignId('agent_id')->constrained()
+                ->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

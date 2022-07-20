@@ -51,6 +51,8 @@
             <a class="nav-link" href="{{ route('patrimoine.index') }}">Patrimoine</a>
             <a class="nav-link" href="{{ route('retour.index') }}">Retour</a>
             <a class="nav-link" href="{{ route('mouvement.index') }}">Mouvement</a>
+            <a class="nav-link" href="{{ route('modele.index') }}">Modèles de véhicule</a>
+            <a class="nav-link" href="{{ route('vehicule.index') }}">Véhicules</a>
             {{-- </div>
             </div>
             <a href="#gestionParcAuto" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"

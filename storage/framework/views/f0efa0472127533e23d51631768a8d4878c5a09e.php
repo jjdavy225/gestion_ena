@@ -43,6 +43,8 @@
             <a class="nav-link" href="<?php echo e(route('patrimoine.index')); ?>">Patrimoine</a>
             <a class="nav-link" href="<?php echo e(route('retour.index')); ?>">Retour</a>
             <a class="nav-link" href="<?php echo e(route('mouvement.index')); ?>">Mouvement</a>
+            <a class="nav-link" href="<?php echo e(route('modele.index')); ?>">Modèles de véhicule</a>
+            <a class="nav-link" href="<?php echo e(route('vehicule.index')); ?>">Véhicules</a>
             
         </div>
     </div>

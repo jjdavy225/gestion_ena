@@ -21,7 +21,7 @@ class CreateVehiculesTable extends Migration
             $table->date('date_mise_en_circulation');
             $table->string('type_acquisition');
             $table->date('date_acquisition');
-            $table->integer('kilometrage')->default(0);
+            $table->integer('kilometrage');
             $table->foreignId('fournisseur_id')->constrained()
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->boolean('dispo')->default(1);

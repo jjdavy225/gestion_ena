@@ -20,7 +20,7 @@ class Vehicule extends Model
         'fournisseur_id',
         'dispo',
         'modele_id',
-        'marqueVehicule_id',
+        'marque_vehicule_id',
     ];
 
     public function fournisseur(){
@@ -31,7 +31,7 @@ class Vehicule extends Model
         return $this->belongsTo(Modele::class);
     }
 
-    public function marqueVehicule(){
+    public function marque_vehicule(){
         return $this->belongsTo(MarqueVehicule::class);
     }
 

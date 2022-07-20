@@ -17,6 +17,7 @@ use App\Http\Controllers\GestionUsersController;
 use App\Http\Controllers\InventaireController;
 use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\MarqueController;
+use App\Http\Controllers\ModeleController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\PatrimoineController;
 use App\Http\Controllers\RetourController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SortieController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\VehiculeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -86,6 +88,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('patrimoine', PatrimoineController::class)->only('index');
     Route::resource('retour', RetourController::class)->only('index');
     Route::resource('mouvement', MouvementController::class)->only('index');
+    Route::resource('modele',ModeleController::class)->only('index');
+    Route::resource('vehicule',VehiculeController::class)->only('index');
 
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('dashboard', [GestionUsersController::class, 'dashboard'])->name('dashboard');
@@ -119,5 +123,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('patrimoine', PatrimoineController::class)->except('index');
         Route::resource('retour', RetourController::class)->except('index');
         Route::resource('mouvement', MouvementController::class)->except('index');
+        Route::resource('modele', ModeleController::class)->except('index');
+        Route::resource('vehicule',VehiculeController::class)->except('index');
     });
 });

@@ -152,7 +152,9 @@ class DemandeVehiculeController extends Controller
             $demandeVehicule->statut = 'D1R';
             $demandeVehicule->save();
             $vehicule = $demandeVehicule->vehicule;
-            $vehicule->dispo = true;
+            if ($vehicule->pannes()->where('vehicule_utilisable',false)->where('repare',false)->count() == 0) {
+                $vehicule->dispo = true;
+            }
             $vehicule->kilometrage = $request->kilometrage_retour;
             $vehicule->save();
             return back()->with('toast_success', 'Véhicule retourné !');

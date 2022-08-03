@@ -18,7 +18,6 @@
                 <th>Code</th>
                 <th>Véhicule</th>
                 <th>Conducteur principal</th>
-                <th>Conducteur secondaire</th>
                 <th>Statut</th>
                 @can('responsable')
                     <th>Choix pour validation</th>
@@ -44,11 +43,6 @@
                     </td>
                     <td>{{ $affectation->conducteur_principal->agent_conducteur->nom.' '.explode(' ',$affectation->conducteur_principal->agent_conducteur->prenom)[0] }}
                         <a href="{{ route('conducteur.show', $affectation->conducteur_principal->id) }}">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
-                        </a>
-                    </td>
-                    <td>{{ $affectation->conducteur_secondaire->agent_conducteur->nom.' '.explode(' ',$affectation->conducteur_secondaire->agent_conducteur->prenom)[0] }}
-                        <a href="{{ route('conducteur.show', $affectation->conducteur_secondaire->id) }}">
                             <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
                         </a>
                     </td>

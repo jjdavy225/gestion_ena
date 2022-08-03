@@ -25,6 +25,13 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Vehicule concerné</th>
+                    <td>{{ $reparation->panne->vehicule->immatriculation }}
+                        <a href="{{ route('vehicule.show', $reparation->panne->vehicule->id) }}">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i></a>
+                    </td>
+                </tr>
+                <tr>
                     <th>Date de la réparation</th>
                     <td>{{ $reparation->date }}</td>
                 </tr>

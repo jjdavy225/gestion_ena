@@ -8,6 +8,7 @@ use App\Models\Conducteur;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class AffectationController extends Controller
 {
@@ -30,7 +31,7 @@ class AffectationController extends Controller
     public function create()
     {
         $conducteurs = Conducteur::all();
-        $vehicules = Vehicule::where('dispo',1)->get();
+        $vehicules = Vehicule::where('affecte',0)->get();
         return view('affectation.create', compact('vehicules', 'conducteurs'));
     }
 
@@ -43,9 +44,9 @@ class AffectationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'conducteur_principal' => 'required|numeric|min:0',
+            'conducteur_principal' => 'required|numeric|min:0|unique:affectations,conducteur_principal_id',
             'vehicule' => 'bail|required|numeric|min:0',
-            'conducteur_secondaire' => 'bail|nullable|numeric|min:0|different:conducteur_principal',
+            'conducteur_secondaire' => 'bail|nullable|numeric|min:0|different:conducteur_principal|unique:affectations,conducteur_secondaire_id',
             'date_debut' => 'bail|required|date',
             'date_fin' => 'bail|required|date|after:date_debut',
             'direction' => 'nullable|max:20',
@@ -113,9 +114,9 @@ class AffectationController extends Controller
         }
 
         $request->validate([
-            'conducteur_principal' => 'required|numeric|min:0',
+            'conducteur_principal' => ['required','numeric','min:0',Rule::unique('affectations','conducteur_principal_id',$affectation->conducteur_principal_id)],
             'vehicule' => 'bail|required|numeric|min:0',
-            'conducteur_secondaire' => 'bail|nullable|numeric|min:0|different:conducteur_principal',
+            'conducteur_secondaire' => ['bail','nullable','numeric','min:0','different:conducteur_principal',Rule::unique('affectations','conducteur_secondaire_id',$affectation->conducteur_secondaire_id)],
             'date_debut' => 'bail|required|date',
             'date_fin' => 'bail|required|date|after:date_debut',
             'direction' => 'nullable|max:20',

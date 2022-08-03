@@ -17,7 +17,7 @@
                 <th>#</th>
                 <th>Code</th>
                 <th>Panne</th>
-                <th>Montant</th>
+                <th>Véhicule</th>
                 <th>Statut</th>
                 @can('responsable')
                     <th>Choix pour validation</th>
@@ -41,7 +41,11 @@
                             <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
                         </a>
                     </td>
-                    <td>{{ $reparation->montant }}</td>
+                    <td>{{ $reparation->panne->vehicule->immatriculation }}
+                        <a href="{{ route('vehicule.show', $reparation->panne->vehicule->id) }}">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
+                        </a>
+                    </td>
                     <td>
                         @if ($reparation->statut == 'R1S')
                             Non validée

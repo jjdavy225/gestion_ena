@@ -26,26 +26,40 @@
             </a>
         </div>
         <div class="navbar-nav bg-gradient-success accordion" id="menu">
-            
-            <a class="nav-link" href="<?php echo e(route('commande.index')); ?>">Commandes</a>
-            <a class="nav-link" href="<?php echo e(route('article.index')); ?>">Articles</a>
-            <a class="nav-link" href="<?php echo e(route('fournisseur.index')); ?>">Fournisseurs</a>
-            <a class="nav-link" href="<?php echo e(route('type_article.index')); ?>">Types d'articles</a>
-            <a class="nav-link" href="<?php echo e(route('marque_article.index')); ?>">Marques des articles</a>
-            <a class="nav-link" href="<?php echo e(route('livraison.index')); ?>">Livraisons</a>
-            <a class="nav-link" href="<?php echo e(route('stock.index')); ?>">Stocks</a>
-            <a class="nav-link" href="<?php echo e(route('inventaire.index')); ?>">Inventaires</a>
-            <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demandes</a>
-            
-            <a class="nav-link" href="<?php echo e(route('sortie.index')); ?>">Sorties</a>
-            <a class="nav-link" href="<?php echo e(route('site.index')); ?>">Sites</a>
-            <a class="nav-link" href="<?php echo e(route('bureau.index')); ?>">Bureaux</a>
-            <a class="nav-link" href="<?php echo e(route('patrimoine.index')); ?>">Patrimoine</a>
-            <a class="nav-link" href="<?php echo e(route('retour.index')); ?>">Retour</a>
-            <a class="nav-link" href="<?php echo e(route('mouvement.index')); ?>">Mouvement</a>
-            <a class="nav-link" href="<?php echo e(route('modele.index')); ?>">Modèles de véhicule</a>
-            <a class="nav-link" href="<?php echo e(route('vehicule.index')); ?>">Véhicules</a>
-            
+            <a href="#gestionStock" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionStock">Gestion du stock</a>
+            <div class="collapse" id="gestionStock">
+                <a class="nav-link" href="<?php echo e(route('commande.index')); ?>">Commandes</a>
+                <a class="nav-link" href="<?php echo e(route('article.index')); ?>">Articles</a>
+                <a class="nav-link" href="<?php echo e(route('fournisseur.index')); ?>">Fournisseurs</a>
+                <a class="nav-link" href="<?php echo e(route('type_article.index')); ?>">Types d'articles</a>
+                <a class="nav-link" href="<?php echo e(route('marque_article.index')); ?>">Marques des articles</a>
+                <a class="nav-link" href="<?php echo e(route('livraison.index')); ?>">Livraisons</a>
+                <a class="nav-link" href="<?php echo e(route('stock.index')); ?>">Stocks</a>
+                <a class="nav-link" href="<?php echo e(route('inventaire.index')); ?>">Inventaires</a>
+                <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demandes</a>
+            </div>
+            <a href="#gestionPatrimoine" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionPatrimoine">Gestion du patrimoine</a>
+            <div class="collapse" id="gestionPatrimoine">
+                <a class="nav-link" href="<?php echo e(route('sortie.index')); ?>">Sorties</a>
+                <a class="nav-link" href="<?php echo e(route('site.index')); ?>">Sites</a>
+                <a class="nav-link" href="<?php echo e(route('bureau.index')); ?>">Bureaux</a>
+                <a class="nav-link" href="<?php echo e(route('patrimoine.index')); ?>">Patrimoine</a>
+                <a class="nav-link" href="<?php echo e(route('retour.index')); ?>">Retour</a>
+                <a class="nav-link" href="<?php echo e(route('mouvement.index')); ?>">Mouvement</a>
+            </div>
+            <a href="#gestionParcAuto" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                aria-controls="gestionParcAuto">Gestion du parc auto</a>
+            <div class="collapse" id="gestionParcAuto">
+                <a class="nav-link" href="<?php echo e(route('modele.index')); ?>">Modèles de véhicule</a>
+                <a class="nav-link" href="<?php echo e(route('vehicule.index')); ?>">Véhicules</a>
+                <a class="nav-link" href="<?php echo e(route('panne.index')); ?>">Pannes</a>
+                <a class="nav-link" href="<?php echo e(route('reparation.index')); ?>">Réparations</a>
+                <a class="nav-link" href="<?php echo e(route('affectation.index')); ?>">Affectations</a>
+                <a class="nav-link" href="<?php echo e(route('conducteur.index')); ?>">Conducteurs</a>
+                <a class="nav-link" href="<?php echo e(route('demande_vehicule.index')); ?>">Demandes vehicule</a>
+            </div>
         </div>
     </div>
 
@@ -63,12 +77,12 @@
                         </div>
                     <?php endif; ?>
                     <div class="dropdown">
-                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="<?php echo e(asset('images/user.png')); ?>" height="40px">
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li class="text-center"><?php echo e(Auth::user()->agent->nom); ?> <?php echo e(Auth::user()->agent->prenom); ?>
+                            <li class="text-center"><?php echo e(Auth::user()->agent->nom); ?> <?php echo e(explode(" ",Auth::user()->agent->prenom)[0]); ?>
 
                             </li>
                             <li>

@@ -83,4 +83,8 @@ class Agent extends Model
     public function affectations(){
         return $this->hasMany(Affectation::class);
     }
+
+    public function demande_vehicules(){
+        return $this->hasMany(DemandeVehicule::class);
+    }
 }

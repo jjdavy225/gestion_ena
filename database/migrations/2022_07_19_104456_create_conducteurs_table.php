@@ -19,7 +19,7 @@ class CreateConducteursTable extends Migration
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('numero_permis');
             $table->string('type_permis');
-            $table->integer('validite_permis');
+            $table->date('validite_permis');
             $table->foreignId('agent_id')->constrained()
                 ->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

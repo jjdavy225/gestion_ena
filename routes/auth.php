@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AffectationController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -11,7 +12,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BureauController;
 use App\Http\Controllers\CommandeController;
+use App\Http\Controllers\ConducteurController;
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\DemandeVehiculeController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\GestionUsersController;
 use App\Http\Controllers\InventaireController;
@@ -19,7 +22,9 @@ use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\MarqueController;
 use App\Http\Controllers\ModeleController;
 use App\Http\Controllers\MouvementController;
+use App\Http\Controllers\PanneController;
 use App\Http\Controllers\PatrimoineController;
+use App\Http\Controllers\ReparationController;
 use App\Http\Controllers\RetourController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SortieController;
@@ -88,8 +93,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('patrimoine', PatrimoineController::class)->only('index');
     Route::resource('retour', RetourController::class)->only('index');
     Route::resource('mouvement', MouvementController::class)->only('index');
-    Route::resource('modele',ModeleController::class)->only('index');
-    Route::resource('vehicule',VehiculeController::class)->only('index');
+    Route::resource('modele', ModeleController::class)->only('index');
+    Route::resource('vehicule', VehiculeController::class)->only('index');
+    Route::resource('panne', PanneController::class)->only('index');
+    Route::resource('reparation', ReparationController::class)->only('index');
+    Route::resource('affectation', AffectationController::class)->only('index');
+    Route::resource('conducteur', ConducteurController::class)->only('index');
+    Route::resource('demande_vehicule', DemandeVehiculeController::class)->only('index');
+
 
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('dashboard', [GestionUsersController::class, 'dashboard'])->name('dashboard');
@@ -98,13 +109,18 @@ Route::middleware('auth')->group(function () {
         Route::post('modification_role', [GestionUsersController::class, 'modificationRole'])->name('user.role_modif');
     });
 
-    Route::middleware('responsable')->group(function (){
+    Route::middleware('responsable')->group(function () {
         Route::post('commande/validation', [CommandeController::class, 'validation'])->name('commande.validation');
         Route::post('livraison/validation', [LivraisonController::class, 'validation'])->name('livraison.validation');
         Route::post('demande/validation', [DemandeController::class, 'validation'])->name('demande.validation');
         Route::post('sortie/validation', [SortieController::class, 'validation'])->name('sortie.validation');
         Route::post('retour/validation', [RetourController::class, 'validation'])->name('retour.validation');
         Route::post('mouvement/validation', [MouvementController::class, 'validation'])->name('mouvement.validation');
+        Route::post('panne/validation', [PanneController::class, 'validation'])->name('panne.validation');
+        Route::post('reparation/validation', [ReparationController::class, 'validation'])->name('reparation.validation');
+        Route::post('affectation/validation', [AffectationController::class, 'validation'])->name('affectation.validation');
+        Route::post('demande_vehicule/validation', [DemandeVehiculeController::class, 'validation'])->name('demande_vehicule.validation');
+        Route::post('demande_vehicule/retour', [DemandeVehiculeController::class, 'retour'])->name('demande_vehicule.retour');
     });
 
     Route::middleware('agent_responsable')->group(function () {
@@ -124,6 +140,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('retour', RetourController::class)->except('index');
         Route::resource('mouvement', MouvementController::class)->except('index');
         Route::resource('modele', ModeleController::class)->except('index');
-        Route::resource('vehicule',VehiculeController::class)->except('index');
+        Route::resource('vehicule', VehiculeController::class)->except('index');
+        Route::resource('panne', PanneController::class)->except('index');
+        Route::resource('reparation', ReparationController::class)->except('index');
+        Route::resource('affectation', AffectationController::class)->except('index');
+        Route::resource('conducteur', ConducteurController::class)->except('index');
+        Route::resource('demande_vehicule', DemandeVehiculeController::class)->except('index');
     });
 });

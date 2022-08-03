@@ -26,10 +26,14 @@ class Conducteur extends Model
     }
 
     public function affectation_principale(){
-        return $this->hasOne(Conducteur::class,'conducteur_principal_id');
+        return $this->hasOne(Affectation::class,'conducteur_principal_id');
     }
 
     public function affectation_secondaire(){
-        return $this->hasOne(Conducteur::class,'conducteur_secondaire_id');
+        return $this->hasOne(Affectation::class,'conducteur_secondaire_id');
+    }
+
+    public function demande_vehicules(){
+        return $this->hasMany(DemandeVehicule::class);
     }
 }

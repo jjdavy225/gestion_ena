@@ -14,12 +14,18 @@ class Affectation extends Model
         'date_debut',
         'date_fin_prevue',
         'date_fin_reelle',
+        'vehicule_id',
         'conducteur_principal_id',
         'conducteur_secondaire_id',
         'direction',
         'service',
         'agent_id',
+        'statut',
     ];
+
+    public function vehicule(){
+        return $this->belongsTo(Vehicule::class);
+    }
 
     public function conducteur_principal(){
         return $this->belongsTo(Conducteur::class);

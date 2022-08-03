@@ -5,22 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Panne extends Model
+class DemandeVehicule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'code',
+        'objet',
+        'conducteur_id',
+        'date_sortie',
+        'date_retour',
         'vehicule_id',
-        'vehicule_utilisable',
-        'causes',
-        'observation',
-        'degats',
-        'date_panne',
-        'repare',
-        'agent_id',
+        'kilometrage_depart',
+        'kilometrage_retour',
+        'date_retour_reelle',
         'statut',
+        'agent_id',
     ];
+
+    public function conducteur(){
+        return $this->belongsTo(Conducteur::class);
+    }
 
     public function vehicule(){
         return $this->belongsTo(Vehicule::class);
@@ -28,9 +33,5 @@ class Panne extends Model
 
     public function agent(){
         return $this->belongsTo(Agent::class);
-    }
-
-    public function reparations(){
-        return $this->hasMany(Reparation::class);
     }
 }

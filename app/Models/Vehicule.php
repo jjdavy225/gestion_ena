@@ -19,6 +19,7 @@ class Vehicule extends Model
         'kilometrage',
         'fournisseur_id',
         'dispo',
+        'affecte',
         'modele_id',
         'marque_vehicule_id',
     ];
@@ -41,5 +42,13 @@ class Vehicule extends Model
 
     public function entretiens(){
         return $this->hasMany(Entretien::class);
+    }
+
+    public function affectations(){
+        return $this->hasMany(Affectation::class);
+    }
+
+    public function demande_vehicules(){
+        return $this->hasMany(DemandeVehicule::class);
     }
 }

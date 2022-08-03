@@ -25,6 +25,7 @@ class CreateVehiculesTable extends Migration
             $table->foreignId('fournisseur_id')->constrained()
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->boolean('dispo')->default(1);
+            $table->boolean('affecte')->default(0);
             $table->foreignId('modele_id')->constrained()
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->foreignId('marque_vehicule_id')->constrained()

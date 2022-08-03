@@ -10,6 +10,7 @@ class Reparation extends Model
     use HasFactory;
 
     protected $fillable = [
+        'code',
         'panne_id',
         'date',
         'montant',

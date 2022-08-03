@@ -15,11 +15,12 @@ class CreateReparationsTable extends Migration
     {
         Schema::create('reparations', function (Blueprint $table) {
             $table->id();
+            $table->string('code',10)->unique();
             $table->foreignId('panne_id')->constrained()
                 ->restrictOnDelete()->cascadeOnUpdate();
             $table->date('date');
             $table->integer('montant');
-            $table->string('observation');
+            $table->string('observation')->nullable();
             $table->string('statut');
             $table->string('agent_reparation')->nullable();
             $table->foreignId('agent_id')->constrained()

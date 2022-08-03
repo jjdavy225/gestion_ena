@@ -44,9 +44,9 @@ class VehiculeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'immatriculation' => 'required|bail|min:5|max:15',
-            'carte_grise' => 'required|bail|min:5|max:15',
-            'chassis' => 'required|bail|min:5|max:15',
+            'immatriculation' => 'required|bail|min:5|max:15|unique:vehicules,immatriculation',
+            'carte_grise' => 'required|bail|min:5|max:15|unique:vehicules,carte_grise',
+            'chassis' => 'required|bail|min:5|max:15|unique:vehicules,num_chassis',
             'date_circulation' => 'required|bail|date',
             'type_acquisition' => 'required|bail|alpha|max:25',
             'date_acquisition' => 'required|bail|date',

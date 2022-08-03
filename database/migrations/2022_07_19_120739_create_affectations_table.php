@@ -18,15 +18,18 @@ class CreateAffectationsTable extends Migration
             $table->string('code')->unique();
             $table->date('date_debut');
             $table->date('date_fin_prevue');
-            $table->date('date_fin_reelle');
+            $table->date('date_fin_reelle')->nullable();
+            $table->foreignId('vehicule_id')->constrained()
+                ->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('conducteur_principal_id')->constrained('conducteurs')
-                ->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignId('conducteur_secondaire_id')->constrained('conducteurs')
-                ->restrictOnDelete()->cascadeOnUpdate();
+                ->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('conducteur_secondaire_id')->nullable()->constrained('conducteurs')
+                ->nullOnDelete()->cascadeOnUpdate();
             $table->string('direction');
             $table->string('service');
             $table->foreignId('agent_id')->constrained()
                 ->restrictOnDelete()->cascadeOnUpdate();
+            $table->string('statut');
             $table->timestamps();
         });
     }

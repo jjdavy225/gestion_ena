@@ -55,7 +55,7 @@
                         <select required class="selectChanger form-select" name="type_acquisition">
                             <option value="">Choisissez un type</option>
                             @foreach (App\Models\Vehicule::distinct()->pluck('type_acquisition') as $type)
-                                <option>{{ $type }}</option>
+                                <option @if($type == old('type_acquisition')) {{ 'selected' }}@endif>{{ $type }}</option>
                             @endforeach
                             <option class="new" value="new">Nouveau type d'acquisition</option>
                         </select>
@@ -86,7 +86,7 @@
                         <select required class="form-select" name="fournisseur">
                             <option value="">Choisissez un fournisseur</option>
                             @foreach ($fournisseurs as $fournisseur)
-                                <option value="{{ $fournisseur->id }}">{{ $fournisseur->sigle }}</option>
+                                <option @if($fournisseur->id == old('fournisseur')) {{ 'selected' }}@endif value="{{ $fournisseur->id }}">{{ $fournisseur->sigle }}</option>
                             @endforeach
                         </select>
                         @error('fournisseur')
@@ -98,7 +98,7 @@
                         <select required class="form-select" name="modele">
                             <option value="">Choisissez un modèle</option>
                             @foreach ($modeles as $modele)
-                                <option value="{{ $modele->id }}">{{ $modele->designation }}</option>
+                                <option @if($modele->id == old('modele')) {{ 'selected' }}@endif value="{{ $modele->id }}">{{ $modele->designation }}</option>
                             @endforeach
                         </select>
                         @error('modele')
@@ -110,7 +110,7 @@
                         <select required class="selectChanger form-select" name="marque">
                             <option value="">Choisissez une marque</option>
                             @foreach ($marques as $marque)
-                                <option value="{{ $marque->id }}">{{ $marque->designation }}</option>
+                                <option @if($marque->id == old('marque')) {{ 'selected' }}@endif value="{{ $marque->id }}">{{ $marque->designation }}</option>
                             @endforeach
                             <option class="new" value="new">Nouvelle marque</option>
                         </select>

@@ -33,14 +33,16 @@
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <th>Conducteur secondaire</th>
-                    <td>{{ $affectation->conducteur_secondaire->agent_conducteur->nom . ' ' . $affectation->conducteur_secondaire->agent_conducteur->prenom }}
-                        <a href="{{ route('conducteur.show', $affectation->conducteur_secondaire->id) }}">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
-                        </a>
-                    </td>
-                </tr>
+                @if ($affectation->conducteur_secondaire_id != null)
+                    <tr>
+                        <th>Conducteur secondaire</th>
+                        <td>{{ $affectation->conducteur_secondaire->agent_conducteur->nom . ' ' . $affectation->conducteur_secondaire->agent_conducteur->prenom }}
+                            <a href="{{ route('conducteur.show', $affectation->conducteur_secondaire->id) }}">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-warning mx-1"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endif
                 <tr>
                     <th>Date de début</th>
                     <td>{{ $affectation->date_debut }}</td>

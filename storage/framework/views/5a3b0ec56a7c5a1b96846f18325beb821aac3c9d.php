@@ -12,6 +12,8 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
+        <link rel="stylesheet" href="<?php echo e(asset('css/style1.css')); ?>">
+
 
         <!-- Scripts -->
         <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>

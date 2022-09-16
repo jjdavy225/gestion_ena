@@ -1,11 +1,9 @@
 <x-guest-layout>
+    <h1></h1>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
+        <div class="connexionP">
+            Enregistrement
+        </div>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 

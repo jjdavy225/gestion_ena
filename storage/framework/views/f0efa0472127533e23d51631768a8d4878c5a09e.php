@@ -37,11 +37,11 @@
                 <a class="nav-link" href="<?php echo e(route('livraison.index')); ?>">Livraisons</a>
                 <a class="nav-link" href="<?php echo e(route('stock.index')); ?>">Stocks</a>
                 <a class="nav-link" href="<?php echo e(route('inventaire.index')); ?>">Inventaires</a>
-                <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demandes</a>
             </div>
             <a href="#gestionPatrimoine" class="nav-link" role="button" data-bs-toggle="collapse" aria-expanded="false"
-                aria-controls="gestionPatrimoine">Gestion du patrimoine</a>
+            aria-controls="gestionPatrimoine">Gestion du patrimoine</a>
             <div class="collapse" id="gestionPatrimoine">
+                <a class="nav-link" href="<?php echo e(route('demande.index')); ?>">Demandes</a>
                 <a class="nav-link" href="<?php echo e(route('sortie.index')); ?>">Sorties</a>
                 <a class="nav-link" href="<?php echo e(route('site.index')); ?>">Sites</a>
                 <a class="nav-link" href="<?php echo e(route('bureau.index')); ?>">Bureaux</a>
